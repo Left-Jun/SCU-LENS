@@ -101,18 +101,6 @@ const issues = [
       </div>
     </section>
 
-    <section class="section monthly-intro">
-      <div>
-        <div class="eyebrow">How It Works</div>
-        <h2>一月一页，一期一展。</h2>
-      </div>
-      <div class="monthly-rule-list">
-        <p>最新一期完整展示主题文案与当前状态，正在征集与已经结束都使用同一套结构。</p>
-        <p>点进某一期后，再按作品逐件展示标题、摄影者与图片。</p>
-        <p>如果某个入选作品本身是图集，则继续点进作品页查看完整组图。</p>
-      </div>
-    </section>
-
     <section class="section issue-list-section">
       <div class="section-kicker-row">
         <div>
@@ -188,10 +176,6 @@ const issues = [
   .latest-primary { flex:none; padding-bottom:6px; border-bottom:1px solid var(--ink); font-size:.82rem; font-weight:800; }
   .latest-primary-muted { color:var(--muted); border-bottom-color:var(--line); }
   .latest-actions > span:last-child { max-width:320px; color:var(--muted); font-size:.72rem; line-height:1.7; text-align:right; }
-  .monthly-intro { display:grid; grid-template-columns:.8fr 1.2fr; gap:64px; align-items:start; }
-  .monthly-intro h2 { margin:10px 0 0; font:400 clamp(2.6rem,5vw,5rem)/.98 Georgia,serif; letter-spacing:-.05em; }
-  .monthly-rule-list { display:grid; border-top:1px solid var(--line); }
-  .monthly-rule-list p { margin:0; padding:18px 0; border-bottom:1px solid var(--line); color:var(--muted); line-height:1.75; }
   .issue-card-list { display:grid; gap:54px; }
   .issue-card { display:grid; grid-template-columns:54px minmax(0,1.35fr) minmax(280px,.65fr); gap:18px; align-items:stretch; }
   .issue-card-index { padding-top:10px; color:var(--muted); font-size:.72rem; letter-spacing:.12em; }
@@ -226,7 +210,7 @@ const issues = [
     .issue-card-copy { grid-column:2; }
   }
   @media (max-width:700px) {
-    .monthly-intro,.channel-join-panel,.latest-issue-grid { grid-template-columns:1fr; }
+    .channel-join-panel,.latest-issue-grid { grid-template-columns:1fr; }
     .latest-issue-head,.latest-actions { align-items:flex-start; flex-direction:column; }
     .latest-actions > span:last-child { text-align:left; }
     .latest-title-block { min-height:340px; }
