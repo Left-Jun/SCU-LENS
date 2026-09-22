@@ -773,3 +773,29 @@ EdgeOne 曾出现：
 
 > 当前不要因为未来要做动态站而中断静态框架建设。
 > 先把“什么内容、怎么展示、彼此如何关联”做稳定，再决定后端。
+
+## 17. Vercel 自动部署链路（2026-09-22）
+
+当前部署策略调整为：
+
+    本地开发
+      → GitHub main
+      → Vercel Git Integration
+      → 自动构建 / 自动生产部署
+
+当前 Vercel 项目：
+
+- Team：Left_Jun's projects
+- Project：scu-lens
+- Framework：Astro
+- Production Branch：main
+- 默认生产域名：scu-lens.vercel.app
+
+验证状态：
+
+- 已从 GitHub Left-Jun/SCU-LENS 导入项目；
+- 首次生产部署已成功构建，状态为 Ready；
+- 首次生产部署对应提交 0019829；
+- 后续以 GitHub main push 作为生产发布入口，不再把手动打开 EdgeOne 控制台作为常规发布步骤。
+
+自定义域名 sculens.leftjun.com 的 DNS 切换属于一次性域名配置；在切换并验证完成前，旧 EdgeOne 域名链路仍作为现网入口保留，避免中断访问。

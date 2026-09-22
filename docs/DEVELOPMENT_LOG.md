@@ -160,3 +160,12 @@ QQ 频道：
   - /monthly-nine/2025-yellow/golden-yellow 继续作为《金黄色的》完整组图层级。
 - 黄色期真实图片仍未正式接入。此前图片中转残留的数据存在截断，且临时缓存无法可靠确认作品对应关系，因此不作为正式图片源。
 - 增加临时文件忽略规则，防止图片中转缓存、部署截图和探针文件进入正式仓库。
+
+## 2026-09-22 — 接入 Vercel Git 自动部署
+
+- 将 GitHub 仓库 Left-Jun/SCU-LENS 导入 Vercel，项目名为 scu-lens。
+- Vercel 自动识别 Astro，生产分支设为 main。
+- 首次生产部署成功，状态 Ready，对应提交 0019829。
+- 默认生产地址 scu-lens.vercel.app 已生成。
+- 发布流程改为“本地修改 → GitHub main → Vercel 自动构建 / 部署”，不再要求每次登录 EdgeOne 手动发布。
+- sculens.leftjun.com 的 DNS / 自定义域名切换单独作为一次性配置处理；在验证完成前不移除旧 EdgeOne 入口。
