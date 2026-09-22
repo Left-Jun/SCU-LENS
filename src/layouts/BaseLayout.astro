@@ -1,4 +1,4 @@
-﻿---
+---
 const {
   title = "SCU LENS · 四川大学摄影协会",
   description = "四川大学摄影协会的线上影像空间，记录活动、作品与校园中的光。",
@@ -19,6 +19,12 @@ const nav = [
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0d0d0d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
   <body>
