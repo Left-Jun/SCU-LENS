@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const mailSubject = encodeURIComponent("【川大摄协申请】姓名 - 学院 - 年级");
+const mailBody = encodeURIComponent(["姓名：","学院：","年级：","意向方向：","联系方式：","","请在邮件中附上个人简历；摄影相关方向可附作品集或作品链接。"].join("\n"));
+const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + mailBody;
+---
+<BaseLayout title="加入我们 · SCU LENS" active="/join">
+  <div class="page-shell">
+    <section class="page-hero join-hero">
+      <div class="eyebrow">Join SCU Photography Association</div>
+      <h1 class="display">加入<br/>我们</h1>
+      <p>把对外招新、简历投递与长期联系集中到一个稳定入口。开放批次与具体岗位会随每学年更新。</p>
+    </section>
+
+    <section class="section join-grid">
+      <article class="join-card join-card-main">
+        <span class="step-index">01</span>
+        <div>
+          <div class="eyebrow">Before You Apply</div>
+          <h2>先认识我们</h2>
+          <p>看看作品、每月九图和活动档案，确认这里是不是你愿意一起拍照、一起做事的地方。</p>
+        </div>
+      </article>
+      <article class="join-card">
+        <span class="step-index">02</span>
+        <div>
+          <div class="eyebrow">Application</div>
+          <h2>发送简历</h2>
+          <p>邮件正文简单介绍自己，并附上个人简历。摄影相关方向可以附作品集或作品链接。</p>
+        </div>
+      </article>
+      <article class="join-card">
+        <span class="step-index">03</span>
+        <div>
+          <div class="eyebrow">Contact</div>
+          <h2>后续沟通</h2>
+          <p>收到材料后再进行对应沟通。正式招新期也会同步 QQ 频道与社团通知。</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section apply-panel">
+      <div>
+        <div class="eyebrow">Application Mail</div>
+        <h2>把你的简历发给我们。</h2>
+        <p>邮件标题会自动带上申请格式，你只需要补充姓名、学院、年级与意向方向。</p>
+      </div>
+      <a class="mail-button" href={mailto}>发送申请邮件 <span>↗</span></a>
+    </section>
+
+    <section class="section join-note">
+      <div class="eyebrow">Note</div>
+      <p>这个入口会长期保留。非招新期也可以先了解协会；具体招募状态、岗位与面试安排以后再接入动态信息。</p>
+    </section>
+  </div>
+</BaseLayout>

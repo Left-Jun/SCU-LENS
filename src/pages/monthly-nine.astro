@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const issueWorks = [
+  "晨光","校园","人物","街道","花与树","夜色","静物","纪实","远方"
+];
+
+const archive = [
+  ["08 / 2026", "八月九图", "SUMMER"],
+  ["07 / 2026", "七月九图", "HEAT"],
+  ["06 / 2026", "六月九图", "RAIN"],
+];
+---
+<BaseLayout title="每月九图 · SCU LENS" active="/monthly-nine">
+  <div class="page-shell">
+    <section class="page-hero monthly-hero">
+      <div>
+        <div class="eyebrow">Monthly Nine</div>
+        <h1 class="display">每月<br/>九图</h1>
+      </div>
+      <p>每月固定征集新作，从频道投稿中选出九幅照片。这里保留最终展览，也保留每一个月份自己的观看节奏。</p>
+    </section>
+
+    <section class="section issue-header">
+      <div class="issue-number issue-number-large">09 <span>/ 2026</span></div>
+      <div>
+        <div class="eyebrow">Current Issue</div>
+        <h2>九月九图</h2>
+        <p>当前先搭建视觉版式。正式内容接入后，这里会呈现本月主题、作品说明、作者与九张最终入选作品。</p>
+      </div>
+    </section>
+
+    <section class="monthly-exhibition">
+      {issueWorks.map((title, i) => (
+        <article class={"exhibition-item exhibition-" + (i + 1)}>
+          <div class={"exhibition-visual tone-" + (i + 1)}>
+            <span>{String(i + 1).padStart(2,"0")}</span>
+          </div>
+          <div class="exhibition-caption">
+            <div><b>{title}</b><span>作品名 · 待接入</span></div>
+            <p>摄影者 · 来自 QQ 频道</p>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="section archive-section">
+      <div class="section-kicker-row">
+        <div>
+          <div class="eyebrow">Archive</div>
+          <h2 class="section-display">历期</h2>
+        </div>
+        <p>月份将自然形成一条长期时间轴。</p>
+      </div>
+      <div class="archive-grid">
+        {archive.map(([date,title,tag], i) => (
+          <article class={"archive-card tone-" + (i + 3)}>
+            <span>{date}</span>
+            <div><h3>{title}</h3><p>{tag}</p></div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section channel-callout">
+      <div>
+        <div class="eyebrow">Contribute</div>
+        <h2>投稿仍然发生在频道。</h2>
+      </div>
+      <p>官网负责公开展览与长期留存，不要求成员再上传一遍。后续可以由 QQ Bot 将频道图片自动同步进网站内容池。</p>
+      <a href="/about#channel">查看联动方式 →</a>
+    </section>
+  </div>
+</BaseLayout>

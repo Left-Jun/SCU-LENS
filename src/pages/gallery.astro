@@ -1,18 +1,50 @@
-﻿---
+---
 import BaseLayout from "../layouts/BaseLayout.astro";
-const works = ["校园 / Campus","人像 / Portrait","城市 / City","纪实 / Documentary"];
+
+const works = [
+  { title: "校园 / Campus", type: "相机", cls: "visual-campus" },
+  { title: "人物 / Portrait", type: "相机", cls: "visual-portrait" },
+  { title: "春日 / Spring", type: "手机", cls: "visual-flower" },
+  { title: "城市 / City", type: "相机", cls: "visual-city" },
+  { title: "夜色 / Night", type: "手机", cls: "visual-night" },
+  { title: "胶片 / Film", type: "胶片", cls: "visual-film" },
+];
 ---
 <BaseLayout title="作品 · SCU LENS" active="/gallery">
   <div class="page-shell">
     <section class="page-hero">
       <div class="eyebrow">Selected Works</div>
       <h1 class="display">作品</h1>
-      <p>这里将作为摄协作品的长期展陈空间。首版先保留稳定的信息架构，之后可以直接按专题、作者、年份扩展。</p>
+      <p>从 QQ 频道持续发生的投稿中，挑选适合长期留存的照片。作品页不是消息流，而是一座会慢慢长大的线上摄影档案。</p>
     </section>
+
+    <section class="filter-bar" aria-label="作品筛选">
+      <button class="filter-chip active" type="button">全部</button>
+      <button class="filter-chip" type="button">精选</button>
+      <button class="filter-chip" type="button">相机</button>
+      <button class="filter-chip" type="button">手机</button>
+      <button class="filter-chip" type="button">胶片</button>
+      <span>当前为视觉草案 · 筛选逻辑后续接入</span>
+    </section>
+
     <section class="section">
       <div class="gallery-grid">
-        {works.map((work) => <article class="photo-placeholder"><span>{work}</span></article>)}
+        {works.map((work, i) => (
+          <article class:list={["photo-card", "photo-" + (i + 1)]}>
+            <div class:list={["photo-visual", work.cls]}></div>
+            <div class="photo-caption">
+              <div><h2>{work.title}</h2><p>摄影者 · 待接入频道作者</p></div>
+              <span>{work.type}</span>
+            </div>
+          </article>
+        ))}
       </div>
+    </section>
+
+    <section class="section gallery-source">
+      <div class="eyebrow">Source</div>
+      <p>这里的长期目标不是要求成员重复上传，而是从摄协 QQ 频道的相机组、手机组与胶片组投稿中自动建立内容池，再由网站完成整理与展陈。</p>
+      <a class="text-link" href="/about#channel">查看频道联动草案 <span>↗</span></a>
     </section>
   </div>
 </BaseLayout>

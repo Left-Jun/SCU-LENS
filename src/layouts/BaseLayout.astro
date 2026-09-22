@@ -1,15 +1,17 @@
 ---
 const {
   title = "SCU LENS · 四川大学摄影协会",
-  description = "四川大学摄影协会的线上影像空间，记录活动、作品与校园中的光。",
+  description = "四川大学摄影协会的线上影像空间，记录作品、活动、每月九图与校园中的光。",
   active = "/",
 } = Astro.props;
 
 const nav = [
   { href: "/", label: "首页" },
   { href: "/gallery", label: "作品" },
+  { href: "/monthly-nine", label: "每月九图" },
   { href: "/events", label: "活动" },
-  { href: "/about", label: "关于摄协" },
+  { href: "/join", label: "加入我们" },
+  { href: "/about", label: "关于" },
 ];
 ---
 <!doctype html>
@@ -18,7 +20,7 @@ const nav = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0d0d0d" />
+    <meta name="theme-color" content="#0f0f0d" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -41,7 +43,15 @@ const nav = [
     </header>
     <main><slot /></main>
     <footer class="site-footer">
-      <div><strong>SCU LENS</strong><span>四川大学摄影协会</span></div>
+      <div class="footer-brand">
+        <strong>SCU LENS</strong>
+        <span>四川大学摄影协会</span>
+      </div>
+      <div class="footer-links">
+        <a href="/monthly-nine">每月九图</a>
+        <a href="/join">加入我们</a>
+        <a href="/about#links">联系与联动</a>
+      </div>
       <p>记录光，也记录我们在川大的这一段时间。</p>
     </footer>
   </body>
