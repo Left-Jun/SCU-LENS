@@ -1,0 +1,26 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const events = [
+  ["2026.09","新学年 · 摄协重新出发","招新、迎新与新一届组织工作的开始。","本学期"],
+  ["2026","风光摄影讲座","围绕风光摄影的观察、拍摄与后期展开的交流活动。","讲座"],
+  ["2025–26","年度活动档案","整理上一学年的社团活动、摄影比赛与成员记录。","归档"],
+];
+---
+<BaseLayout title="活动 · SCU LENS" active="/events">
+  <div class="page-shell">
+    <section class="page-hero">
+      <div class="eyebrow">Events & Field Notes</div>
+      <h1 class="display">活动</h1>
+      <p>活动页不追求新闻流式更新，而是把真正值得留下的活动整理成可长期阅读的记录。</p>
+    </section>
+    <section class="section timeline">
+      {events.map(([date,title,desc,tag]) => (
+        <article>
+          <time>{date}</time>
+          <div><h2>{title}</h2><p>{desc}</p></div>
+          <span class="tag">{tag}</span>
+        </article>
+      ))}
+    </section>
+  </div>
+</BaseLayout>

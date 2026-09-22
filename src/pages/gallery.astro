@@ -1,0 +1,18 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const works = ["校园 / Campus","人像 / Portrait","城市 / City","纪实 / Documentary"];
+---
+<BaseLayout title="作品 · SCU LENS" active="/gallery">
+  <div class="page-shell">
+    <section class="page-hero">
+      <div class="eyebrow">Selected Works</div>
+      <h1 class="display">作品</h1>
+      <p>这里将作为摄协作品的长期展陈空间。首版先保留稳定的信息架构，之后可以直接按专题、作者、年份扩展。</p>
+    </section>
+    <section class="section">
+      <div class="gallery-grid">
+        {works.map((work) => <article class="photo-placeholder"><span>{work}</span></article>)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

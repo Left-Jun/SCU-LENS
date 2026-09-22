@@ -1,0 +1,46 @@
+﻿---
+const {
+  title = "SCU LENS · 四川大学摄影协会",
+  description = "四川大学摄影协会的线上影像空间，记录活动、作品与校园中的光。",
+  active = "/",
+} = Astro.props;
+
+const nav = [
+  { href: "/", label: "首页" },
+  { href: "/gallery", label: "作品" },
+  { href: "/events", label: "活动" },
+  { href: "/about", label: "关于摄协" },
+];
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0d0d0d" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="SCU LENS 首页">
+        <span class="brand-mark">SCU</span>
+        <span class="brand-word">LENS</span>
+      </a>
+      <nav aria-label="主导航">
+        {nav.map((item) => (
+          <a href={item.href} class:list={["nav-link", { active: active === item.href }]}>{item.label}</a>
+        ))}
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer">
+      <div><strong>SCU LENS</strong><span>四川大学摄影协会</span></div>
+      <p>记录光，也记录我们在川大的这一段时间。</p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+</style>
