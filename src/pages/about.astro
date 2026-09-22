@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 ---
 <BaseLayout title="关于摄协 · SCU LENS" active="/about">
   <div class="page-shell">
@@ -13,7 +14,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <div class="about-grid">
         <article class="about-card"><span class="about-index">01</span><h2>我们做什么</h2><p>组织摄影讲座、外拍、比赛、作品交流与校园影像记录，并持续整理属于摄协自己的视觉档案。</p></article>
         <article class="about-card"><span class="about-index">02</span><h2>网站做什么</h2><p>QQ 频道负责高频分享与投稿；SCU LENS 负责整理、策展与长期留存。两者互相导流，但不重复承担同一种功能。</p></article>
-        <article class="about-card"><span class="about-index">03</span><h2>每月九图</h2><p>从每个月的频道征集中挑出九幅作品，形成稳定的月度展览与历年影像时间轴。</p></article>
+        <article class="about-card"><span class="about-index">03</span><h2>每月九图</h2><p>从每个月的频道征集中挑出代表作品，形成稳定的月度展览与历年影像时间轴。</p></article>
         <article class="about-card"><span class="about-index">04</span><h2>公开档案</h2><p>活动、作者与作品会逐步建立关联，让每一届摄协都能留下可回看的共同记录。</p></article>
       </div>
     </section>
@@ -24,12 +25,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <h2>频道发生，网站沉淀。</h2>
         <p>相机组、手机组、胶片组的投稿继续留在 QQ 频道。后续联动目标是自动把图片与基础信息同步到网站内容池，再由官网完成作品收录、每月九图与专题展示。</p>
         <div class="bridge-tags"><span>相机组投稿</span><span>手机组投稿</span><span>胶片组投稿</span></div>
+        <a class="channel-link-button" href={channelUrl} target="_blank" rel="noreferrer">打开四川大学摄影协会 QQ 频道 ↗</a>
       </div>
-      <div class="qr-placeholder">
-        <div class="fake-qr" aria-hidden="true"></div>
-        <strong>四川大学摄影协会 QQ 频道</strong>
-        <span>二维码将在正式资料确认后替换</span>
-      </div>
+      <a class="real-qr-card" href={channelUrl} target="_blank" rel="noreferrer">
+        <div class="real-qr-title">
+          <img src="/images/scu-photo-logo.jpg" alt="" />
+          <div><strong>四川大学摄影协会</strong><span>频道号：pd77222624</span></div>
+        </div>
+        <img src="/images/qq-channel-qr.png" alt="四川大学摄影协会 QQ 频道二维码" class="real-qr-image" />
+        <div class="real-qr-footer"><span>扫一扫二维码，加入频道</span><b>腾讯频道</b></div>
+      </a>
     </section>
 
     <section class="section links-section" id="links">
@@ -41,12 +46,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <p>把频道、友好影像账号与合作组织放在同一个稳定入口。</p>
       </div>
       <div class="links-grid">
-        <article class="link-card link-card-dark">
+        <a class="link-card link-card-dark" href={channelUrl} target="_blank" rel="noreferrer">
           <span>01 / COMMUNITY</span>
           <h3>摄协 QQ 频道</h3>
           <p>日常分享、投稿、讨论与活动通知的主要社区空间。</p>
-          <b>频道二维码 · 待补充</b>
-        </article>
+          <b>频道号 · pd77222624 ↗</b>
+        </a>
         <article class="link-card">
           <span>02 / FRIEND</span>
           <h3>光影川大</h3>
@@ -63,3 +68,56 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .channel-link-button {
+    display:inline-block;
+    margin-top:26px;
+    padding:14px 18px;
+    background:var(--ink);
+    color:white;
+    font-weight:700;
+  }
+  .real-qr-card {
+    min-height:470px;
+    padding:26px;
+    background:#fff;
+    border:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    color:var(--ink);
+    box-shadow:0 28px 80px rgba(35,31,24,.08);
+  }
+  .real-qr-title {
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .real-qr-title img {
+    width:54px;
+    height:54px;
+    object-fit:cover;
+    border-radius:10px;
+  }
+  .real-qr-title div {
+    display:grid;
+    gap:4px;
+  }
+  .real-qr-title span {
+    color:var(--muted);
+    font-size:.75rem;
+  }
+  .real-qr-image {
+    width:min(76%,340px);
+    margin:auto;
+    image-rendering:pixelated;
+  }
+  .real-qr-footer {
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    color:var(--muted);
+    font-size:.76rem;
+  }
+  .real-qr-footer b { color:var(--ink); }
+</style>

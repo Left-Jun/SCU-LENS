@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const works = [
+  { no: "01", title: "金黄芒节", author: "Sebastian", kind: "单图", cls: "yellow-photo yellow-photo-a" },
+  { no: "02", title: "捕捉阳光", author: "一尾", kind: "单图", cls: "yellow-photo yellow-photo-b" },
+  { no: "03", title: "金黄色的", author: "三川", kind: "9 张组图", cls: "yellow-photo yellow-photo-c", href: "/monthly-nine/2025-yellow/golden-yellow" },
+];
+---
+<BaseLayout title="黄色 · 每月九图 · SCU LENS" active="/monthly-nine">
+  <div class="page-shell">
+    <section class="page-hero issue-detail-hero">
+      <div>
+        <a class="back-link" href="/monthly-nine">← 返回每月九图</a>
+        <div class="eyebrow">Monthly Nine · 2025.01</div>
+        <h1 class="display">黄色</h1>
+      </div>
+      <p>在色彩的语言里，黄色是光，是温度，是苏醒，也是沉淀。它可以是街角一盏暖灯，是季节更迭时的一抹秋意，也可以是某个瞬间落入镜中的情绪与故事。</p>
+    </section>
+
+    <section class="section issue-detail-meta">
+      <span>本期主题 · YELLOW</span>
+      <span>公布结果 · 2025.01.22</span>
+      <span>3 组入选作品</span>
+    </section>
+
+    <section class="issue-work-list">
+      {works.map((work) => (
+        <article class="issue-work">
+          <div class={work.cls}>
+            <span>{work.no}</span>
+            {work.kind !== "单图" && <b>+ 9</b>}
+          </div>
+          <div class="issue-work-caption">
+            <div>
+              <span>{work.kind}</span>
+              <h2>《{work.title}》</h2>
+              <p>摄影 / {work.author}</p>
+            </div>
+            {work.href ? <a href={work.href}>查看完整组图 →</a> : <span class="muted-note">原图位已预留</span>}
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="section issue-next">
+      <span class="eyebrow">Next Issue</span>
+      <h2>下一主题 · 新春</h2>
+      <a href="/monthly-nine">返回历期总览 →</a>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .issue-detail-hero { display:grid; grid-template-columns:1fr .8fr; gap:50px; align-items:end; }
+  .issue-detail-hero h1 { margin-top:18px; font-size:clamp(5rem,13vw,11rem); }
+  .issue-detail-hero p { margin:0 0 8px; }
+  .back-link { display:inline-block; margin-bottom:34px; color:var(--muted); font-size:.82rem; }
+  .issue-detail-meta { display:flex; justify-content:space-between; gap:20px; color:var(--muted); font-size:.78rem; letter-spacing:.05em; }
+  .issue-work-list { padding-bottom:84px; }
+  .issue-work { padding:72px 0; border-top:1px solid var(--line); }
+  .yellow-photo { position:relative; min-height:min(72vw,760px); border:1px solid var(--line); overflow:hidden; }
+  .yellow-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent,rgba(17,17,15,.08)); }
+  .yellow-photo-a { background:linear-gradient(180deg,#88a4b8 0 50%,#d6a123 51% 100%); }
+  .yellow-photo-b { background:radial-gradient(circle at 72% 20%,#f6e693 0 4%,transparent 4.5%),linear-gradient(150deg,#718b9a,#354f62 55%,#c68e24); }
+  .yellow-photo-c { background:
+    linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px),
+    linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),
+    linear-gradient(145deg,#d6aa3b,#8f6f2d 50%,#443b31);
+    background-size:33.33% 100%,100% 33.33%,100% 100%;
+  }
+  .yellow-photo > span { position:absolute; left:18px; top:16px; z-index:1; color:white; font-size:.72rem; letter-spacing:.12em; }
+  .yellow-photo > b { position:absolute; right:18px; bottom:16px; z-index:1; color:white; font:400 2rem Georgia,serif; }
+  .issue-work-caption { display:flex; justify-content:space-between; gap:30px; padding-top:18px; align-items:end; }
+  .issue-work-caption span { color:var(--muted); font-size:.72rem; letter-spacing:.08em; }
+  .issue-work-caption h2 { margin:8px 0 4px; font:400 clamp(2.1rem,4vw,4.4rem)/1 Georgia,serif; }
+  .issue-work-caption p { margin:0; color:var(--muted); }
+  .issue-work-caption a { border-bottom:1px solid var(--ink); padding-bottom:5px; font-weight:700; font-size:.82rem; }
+  .muted-note { align-self:flex-end; }
+  .issue-next { display:grid; grid-template-columns:.4fr 1fr auto; gap:24px; align-items:end; }
+  .issue-next h2 { margin:0; font:400 clamp(2rem,4vw,4rem)/1 Georgia,serif; }
+  .issue-next a { font-weight:700; font-size:.82rem; }
+  @media (max-width:700px) {
+    .issue-detail-hero { grid-template-columns:1fr; }
+    .issue-work-caption { flex-direction:column; align-items:flex-start; }
+    .issue-next { grid-template-columns:1fr; }
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const frames = [
+  "01","02","03","04","05","06","07","08","09"
+];
+---
+<BaseLayout title="《金黄色的》· 三川 · SCU LENS" active="/monthly-nine">
+  <div class="page-shell">
+    <section class="page-hero group-hero">
+      <div>
+        <a class="back-link" href="/monthly-nine/2025-yellow">← 返回「黄色」</a>
+        <div class="eyebrow">Monthly Nine · Yellow · Photo Series</div>
+        <h1 class="display">金黄色的</h1>
+      </div>
+      <div class="group-meta">
+        <p>摄影 / <strong>三川</strong></p>
+        <p>2025 每月九图 · 黄色</p>
+        <p>9 张组图</p>
+      </div>
+    </section>
+
+    <section class="series-grid">
+      {frames.map((frame, i) => (
+        <figure class:list={["series-frame", { wide: i === 1 || i === 5 || i === 8, tall: i === 0 || i === 3 }]}>
+          <div class={"series-placeholder series-tone-" + ((i % 5) + 1)}><span>{frame}</span></div>
+          <figcaption>《金黄色的》· {frame}</figcaption>
+        </figure>
+      ))}
+    </section>
+
+    <section class="section series-note">
+      <div class="eyebrow">Series View</div>
+      <p>这一页就是多图作品的最终层级：月度页只展示一张主图和“+9”提示，点进来后才完整展开整组照片。你刚发来的 9 张原图会按这个结构落位。</p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .group-hero { display:grid; grid-template-columns:1.2fr .8fr; gap:50px; align-items:end; }
+  .group-hero h1 { margin-top:18px; font-size:clamp(4.6rem,11vw,9rem); }
+  .back-link { display:inline-block; margin-bottom:34px; color:var(--muted); font-size:.82rem; }
+  .group-meta { align-self:end; padding-bottom:8px; }
+  .group-meta p { margin:8px 0; color:var(--muted); }
+  .series-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:42px 16px; padding:20px 0 84px; }
+  .series-frame { margin:0; grid-column:span 5; }
+  .series-frame.wide { grid-column:span 7; }
+  .series-frame.tall { grid-column:span 4; }
+  .series-placeholder { position:relative; min-height:420px; border:1px solid var(--line); }
+  .series-frame.wide .series-placeholder { min-height:360px; }
+  .series-frame.tall .series-placeholder { min-height:560px; }
+  .series-placeholder span { position:absolute; left:14px; top:12px; color:white; font-size:.72rem; letter-spacing:.12em; }
+  .series-tone-1 { background:linear-gradient(145deg,#ddb34d,#946d28 60%,#4f4636); }
+  .series-tone-2 { background:linear-gradient(145deg,#c18d27,#6d552d 55%,#2d3030); }
+  .series-tone-3 { background:linear-gradient(145deg,#f0d18c,#b4772c 60%,#59472e); }
+  .series-tone-4 { background:linear-gradient(145deg,#d8a841,#7f632c 58%,#34352f); }
+  .series-tone-5 { background:linear-gradient(145deg,#b99a50,#705f37 50%,#292b28); }
+  figcaption { padding-top:9px; color:var(--muted); font-size:.72rem; }
+  .series-note { display:grid; grid-template-columns:.3fr 1fr; gap:30px; }
+  .series-note p { margin:0; max-width:700px; color:var(--muted); line-height:1.8; }
+  @media (max-width:700px) {
+    .group-hero { grid-template-columns:1fr; }
+    .series-grid { grid-template-columns:1fr; }
+    .series-frame,.series-frame.wide,.series-frame.tall { grid-column:1; }
+    .series-frame .series-placeholder,.series-frame.wide .series-placeholder,.series-frame.tall .series-placeholder { min-height:420px; }
+    .series-note { grid-template-columns:1fr; }
+  }
+</style>
