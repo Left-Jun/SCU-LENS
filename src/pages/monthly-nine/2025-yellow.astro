@@ -24,6 +24,21 @@ const works = [
       <span>3 组入选作品</span>
     </section>
 
+    <section class="section issue-statement">
+      <div>
+        <div class="eyebrow">Theme Archive · 完整主题档案</div>
+        <h2>黄色，是光，也是温度。</h2>
+      </div>
+      <div class="issue-statement-copy">
+        <p>在色彩的语言里，黄色是光，是温度，是苏醒，也是沉淀。它可以是街角一盏暖灯，是季节更迭时的一抹秋意，是某个瞬间悄然跌入镜中的情绪与故事。本期“每月图片”以“黄色”为题，我们收到了众多视角独特、情感饱满的投稿，每一帧画面都是对色彩的思考，也是对生活的凝视。</p>
+        <p>经协会评审组从主题契合度、视觉表达、创意层次及情感张力等维度综合评议，最终评选出以下获奖作品。</p>
+        <div class="archive-note">
+          <span>Archive Note</span>
+          <p>原公告同时记录：奖品后续发放；感谢所有参与投稿的成员；下一期主题后续公布。</p>
+        </div>
+      </div>
+    </section>
+
     <section class="issue-work-list">
       {works.map((work) => (
         <article class="issue-work">
@@ -57,6 +72,13 @@ const works = [
   .issue-detail-hero p { margin:0 0 8px; }
   .back-link { display:inline-block; margin-bottom:34px; color:var(--muted); font-size:.82rem; }
   .issue-detail-meta { display:flex; justify-content:space-between; gap:20px; color:var(--muted); font-size:.78rem; letter-spacing:.05em; }
+  .issue-statement { display:grid; grid-template-columns:.72fr 1.28fr; gap:clamp(36px,7vw,110px); align-items:start; }
+  .issue-statement h2 { margin:12px 0 0; max-width:9ch; font:400 clamp(2.8rem,6vw,5.8rem)/.96 Georgia,serif; letter-spacing:-.055em; }
+  .issue-statement-copy { display:grid; gap:22px; }
+  .issue-statement-copy > p { margin:0; max-width:760px; color:var(--muted); font-size:1rem; line-height:1.95; }
+  .archive-note { margin-top:14px; padding-top:20px; border-top:1px solid var(--line); display:grid; grid-template-columns:150px 1fr; gap:22px; }
+  .archive-note > span { color:var(--muted); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; }
+  .archive-note p { margin:0; color:var(--muted); line-height:1.75; }
   .issue-work-list { padding-bottom:84px; }
   .issue-work { padding:72px 0; border-top:1px solid var(--line); }
   .yellow-photo { position:relative; min-height:min(72vw,760px); border:1px solid var(--line); overflow:hidden; }
@@ -82,6 +104,8 @@ const works = [
   .issue-next a { font-weight:700; font-size:.82rem; }
   @media (max-width:700px) {
     .issue-detail-hero { grid-template-columns:1fr; }
+    .issue-statement { grid-template-columns:1fr; }
+    .archive-note { grid-template-columns:1fr; gap:8px; }
     .issue-work-caption { flex-direction:column; align-items:flex-start; }
     .issue-next { grid-template-columns:1fr; }
   }
