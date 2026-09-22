@@ -798,4 +798,11 @@ EdgeOne 曾出现：
 - 首次生产部署对应提交 0019829；
 - 后续以 GitHub main push 作为生产发布入口，不再把手动打开 EdgeOne 控制台作为常规发布步骤。
 
-自定义域名 sculens.leftjun.com 的 DNS 切换属于一次性域名配置；在切换并验证完成前，旧 EdgeOne 域名链路仍作为现网入口保留，避免中断访问。
+自定义域名已完成切换与验证：
+
+- `sculens.leftjun.com` 已绑定到 Vercel 项目 `scu-lens`；
+- DNSPod 中 `sculens` 使用 Vercel 当前推荐的 CNAME：`f4a1b3973b67b43c.vercel-dns-017.com.`；
+- Vercel Domains 显示 `Valid Configuration`；
+- `https://sculens.leftjun.com` 已由 Vercel 提供 HTTPS，实测 HTTP 200；
+- 正式域名已能访问最新 GitHub `main` 对应内容；
+- EdgeOne 不再作为 `sculens.leftjun.com` 的构建 / 生产托管链路；保留其他既有域名配置，不影响 `leftjun.com` 主站与 `www`。

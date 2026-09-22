@@ -168,4 +168,7 @@ QQ 频道：
 - 首次生产部署成功，状态 Ready，对应提交 0019829。
 - 默认生产地址 scu-lens.vercel.app 已生成。
 - 发布流程改为“本地修改 → GitHub main → Vercel 自动构建 / 部署”，不再要求每次登录 EdgeOne 手动发布。
-- sculens.leftjun.com 的 DNS / 自定义域名切换单独作为一次性配置处理；在验证完成前不移除旧 EdgeOne 入口。
+- sculens.leftjun.com 已完成从 EdgeOne 到 Vercel 的一次性 DNS 切换。
+- DNSPod 最终记录：`sculens CNAME f4a1b3973b67b43c.vercel-dns-017.com.`。
+- Vercel Domains 已确认 `Valid Configuration`；正式域名 HTTPS / HTTP 200 / 最新页面内容均验证通过。
+- 保留 `leftjun.com` 与 `www.leftjun.com` 原有 EdgeOne 解析，未改变个人主站链路。
