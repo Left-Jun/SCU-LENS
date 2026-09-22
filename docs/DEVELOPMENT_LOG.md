@@ -172,3 +172,12 @@ QQ 频道：
 - DNSPod 最终记录：`sculens CNAME f4a1b3973b67b43c.vercel-dns-017.com.`。
 - Vercel Domains 已确认 `Valid Configuration`；正式域名 HTTPS / HTTP 200 / 最新页面内容均验证通过。
 - 保留 `leftjun.com` 与 `www.leftjun.com` 原有 EdgeOne 解析，未改变个人主站链路。
+
+## 2026-09-23 — 每月九图最新一期与图片质量体系
+
+- 重构 /monthly-nine 首屏内容层级：新增 Latest Issue，完整展示当前最新一期文案、状态、时间与结果信息。
+- 最新一期从历史摘要列表中移出；历史期继续使用摘要卡片。
+- 当前以“江安青绿”作为已结束状态样例；数据结构同时支持未来“征集中”状态直接切换为 QQ 频道投稿入口。
+- 新增全站图片质量开关：默认浏览图，可切换原图，浏览器本地记忆偏好。
+- 新增 src/components/PhotoAsset.astro，为后续真实摄影作品提供浏览图 / 原图、响应式 srcset、懒加载与单张查看原图能力。
+- 本轮不接 QQ 数据，也不伪造尚未取得的真实照片，只完成 UI 与图片加载基础设施。

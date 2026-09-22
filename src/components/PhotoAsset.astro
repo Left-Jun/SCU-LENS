@@ -1,0 +1,45 @@
+---
+interface Props {
+  browserSrc: string;
+  originalSrc: string;
+  alt: string;
+  browserSrcset?: string;
+  width?: number;
+  height?: number;
+  originalSize?: string;
+  class?: string;
+  priority?: boolean;
+}
+const { browserSrc, originalSrc, alt, browserSrcset, width, height, originalSize, class: className, priority = false } = Astro.props;
+---
+<figure class="photo-asset" data-photo-frame>
+  <img
+    class={className}
+    src={browserSrc}
+    srcset={browserSrcset}
+    data-browser-src={browserSrc}
+    data-browser-srcset={browserSrcset}
+    data-original-src={originalSrc}
+    data-loaded-quality="browser"
+    alt={alt}
+    width={width}
+    height={height}
+    loading={priority ? "eager" : "lazy"}
+    fetchpriority={priority ? "high" : "auto"}
+    decoding="async"
+  />
+  <figcaption class="photo-quality-note">
+    <span>当前为浏览质量</span>
+    <button type="button" data-load-original aria-pressed="false">查看原图{originalSize ? ` · ${originalSize}` : ""}</button>
+  </figcaption>
+</figure>
+<style>
+  .photo-asset { margin:0; }
+  .photo-asset img { display:block; width:100%; height:auto; }
+  .photo-quality-note { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-top:10px; color:var(--muted); font-size:.7rem; }
+  .photo-quality-note button { border:0; padding:0 0 4px; border-bottom:1px solid currentColor; background:transparent; color:var(--ink); font:inherit; font-weight:700; cursor:pointer; }
+  .photo-quality-note button:disabled { color:var(--muted); cursor:default; border-bottom-color:transparent; }
+  :global(html[data-image-quality="original"]) .photo-quality-note > span { font-size:0; }
+  :global(html[data-image-quality="original"]) .photo-quality-note > span::after { content:"当前为原图质量"; font-size:.7rem; }
+  @media (max-width:600px) { .photo-quality-note { align-items:flex-start; flex-direction:column; gap:6px; } }
+</style>

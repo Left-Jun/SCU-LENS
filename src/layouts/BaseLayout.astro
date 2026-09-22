@@ -40,6 +40,10 @@ const nav = [
           <a href={item.href} class:list={["nav-link", { active: active === item.href }]}>{item.label}</a>
         ))}
       </nav>
+      <button class="image-quality-switch" id="image-quality-switch" type="button" aria-label="切换图片加载质量" aria-pressed="false">
+        <span>图片</span>
+        <strong data-quality-label>浏览图</strong>
+      </button>
     </header>
     <main><slot /></main>
     <footer class="site-footer">
@@ -54,6 +58,54 @@ const nav = [
       </div>
       <p>记录光，也记录我们在川大的这一段时间。</p>
     </footer>
+    <script is:inline>
+      (() => {
+        const key = "scu-lens-image-quality";
+        const root = document.documentElement;
+        const switcher = document.getElementById("image-quality-switch");
+        const label = switcher?.querySelector("[data-quality-label]");
+        const getMode = () => localStorage.getItem(key) === "original" ? "original" : "browser";
+
+        const applyImageMode = (img, mode) => {
+          if (!(img instanceof HTMLImageElement)) return;
+          const browserSrc = img.dataset.browserSrc;
+          const originalSrc = img.dataset.originalSrc;
+          if (!browserSrc || !originalSrc) return;
+          img.src = mode === "original" ? originalSrc : browserSrc;
+          if (mode === "browser" && img.dataset.browserSrcset) img.setAttribute("srcset", img.dataset.browserSrcset);
+          if (mode === "original") img.removeAttribute("srcset");
+          img.dataset.loadedQuality = mode;
+        };
+
+        const applyMode = (mode) => {
+          root.dataset.imageQuality = mode;
+          switcher?.setAttribute("aria-pressed", String(mode === "original"));
+          if (label) label.textContent = mode === "original" ? "原图" : "浏览图";
+          document.querySelectorAll("img[data-browser-src][data-original-src]").forEach((img) => applyImageMode(img, mode));
+        };
+
+        applyMode(getMode());
+        switcher?.addEventListener("click", () => {
+          const next = getMode() === "original" ? "browser" : "original";
+          localStorage.setItem(key, next);
+          applyMode(next);
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element ? event.target.closest("[data-load-original]") : null;
+          if (!(target instanceof HTMLElement)) return;
+          const figure = target.closest("[data-photo-frame]");
+          const img = figure?.querySelector("img[data-original-src]");
+          if (!(img instanceof HTMLImageElement) || !img.dataset.originalSrc) return;
+          img.removeAttribute("srcset");
+          img.src = img.dataset.originalSrc;
+          img.dataset.loadedQuality = "original";
+          target.textContent = "已加载原图";
+          target.setAttribute("aria-pressed", "true");
+          target.setAttribute("disabled", "");
+        });
+      })();
+    </script>
   </body>
 </html>
 

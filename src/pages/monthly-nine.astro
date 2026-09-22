@@ -3,6 +3,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 
+const latestIssue = {
+  href: null,
+  date: "2026.05—07",
+  title: "江安青绿",
+  en: "JIANG'AN GREEN",
+  state: "closed",
+  status: "已完成 · 结果已公布",
+  deadline: "结果公布 · 2026.07.03",
+  count: "3 组入选作品",
+  statement: [
+    "盛夏漫染江安，青绿铺展满园。荷塘、萍叶、草木与水面共同构成一段属于江安夏日的青绿记录。我们希望这一期不只是寻找一种颜色，而是从校园里寻找那些被盛夏包围的呼吸感：风经过荷叶留下的起伏，水边植物彼此交叠的层次，以及人在青绿之间偶然出现的尺度。",
+    "本期征集现已结束，并于 2026 年 7 月 3 日公布结果。入选作品为 Sebastian《浮鸭戏芳华》、宫保鸡丁《荷风满塘》与冬淋《清新脱俗小雏菊》。完整图片正在按原始作品资料逐步归档，完成后会在本期页面中完整展开。",
+  ],
+};
+
 const issues = [
   {
     href: "/monthly-nine/2025-yellow",
@@ -41,15 +56,6 @@ const issues = [
     count: "主题档案",
     tone: 4,
   },
-  {
-    date: "2026.05—07",
-    title: "江安青绿",
-    en: "JIANG'AN GREEN",
-    status: "已评选",
-    summary: "盛夏漫染江安，青绿铺展满园。荷塘、萍叶与草木共同构成一段属于江安夏日的青绿记录。",
-    count: "3 组入选作品",
-    tone: 7,
-  },
 ];
 ---
 <BaseLayout title="每月九图 · SCU LENS" active="/monthly-nine">
@@ -62,13 +68,46 @@ const issues = [
       <p>每月固定主题征集，从 QQ 频道投稿中选出代表作品。这里按月份保存主题、作品与作者，形成一条长期影像时间轴。</p>
     </section>
 
+    <section class="section latest-issue" aria-labelledby="latest-issue-title">
+      <div class="latest-issue-head">
+        <div>
+          <div class="eyebrow">Latest Issue · 当前一期</div>
+          <div class="latest-status-row">
+            <span class:list={["latest-status", { collecting: latestIssue.state === "collecting" }]}>{latestIssue.status}</span>
+            <span>{latestIssue.deadline}</span>
+          </div>
+        </div>
+        <span class="latest-date">{latestIssue.date}</span>
+      </div>
+      <div class="latest-issue-grid">
+        <div class="latest-title-block">
+          <p>{latestIssue.en}</p>
+          <h2 id="latest-issue-title">{latestIssue.title}</h2>
+          <span>{latestIssue.count}</span>
+        </div>
+        <div class="latest-statement">
+          {latestIssue.statement.map((paragraph) => <p>{paragraph}</p>)}
+          <div class="latest-actions">
+            {latestIssue.state === "collecting" ? (
+              <a class="latest-primary" href={channelUrl} target="_blank" rel="noreferrer">前往 QQ 频道投稿 ↗</a>
+            ) : latestIssue.href ? (
+              <a class="latest-primary" href={latestIssue.href}>查看本期完整结果 →</a>
+            ) : (
+              <span class="latest-primary latest-primary-muted">本期完整图片整理中</span>
+            )}
+            <span>最新一期在总览页完整展示；历期内容在下方以摘要归档。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section monthly-intro">
       <div>
         <div class="eyebrow">How It Works</div>
         <h2>一月一页，一期一展。</h2>
       </div>
       <div class="monthly-rule-list">
-        <p>总览页以每个月的大卡片展示主题与代表作品。</p>
+        <p>最新一期完整展示主题文案与当前状态，正在征集与已经结束都使用同一套结构。</p>
         <p>点进某一期后，再按作品逐件展示标题、摄影者与图片。</p>
         <p>如果某个入选作品本身是图集，则继续点进作品页查看完整组图。</p>
       </div>
@@ -77,10 +116,10 @@ const issues = [
     <section class="section issue-list-section">
       <div class="section-kicker-row">
         <div>
-          <div class="eyebrow">Archive · 2025—2026</div>
-          <h2 class="section-display">历期展览</h2>
+          <div class="eyebrow">Archive · Earlier Issues</div>
+          <h2 class="section-display">往期展览</h2>
         </div>
-        <p>先把结构搭起来。你接下来继续按期把原图发来，我们逐期替换成真实作品。</p>
+        <p>最新一期以上方完整策展形式呈现；这里保留往期摘要，作为长期影像档案入口。</p>
       </div>
 
       <div class="issue-card-list">
@@ -131,6 +170,24 @@ const issues = [
 </BaseLayout>
 
 <style>
+  .latest-issue { padding-top:52px; }
+  .latest-issue-head { display:flex; justify-content:space-between; gap:24px; align-items:flex-start; margin-bottom:54px; }
+  .latest-status-row { display:flex; gap:12px; align-items:center; margin-top:15px; color:var(--muted); font-size:.72rem; }
+  .latest-status { padding:7px 10px; border:1px solid var(--ink); color:var(--ink); font-weight:800; letter-spacing:.04em; }
+  .latest-status.collecting { background:var(--ink); color:white; }
+  .latest-date { font:400 clamp(2rem,4vw,4.4rem)/1 Georgia,serif; letter-spacing:-.05em; }
+  .latest-issue-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(40px,8vw,120px); }
+  .latest-title-block { min-height:420px; padding:28px; background:#294334; color:#f5f0e6; display:flex; flex-direction:column; border:1px solid var(--line); }
+  .latest-title-block > p { margin:0; font-size:.68rem; letter-spacing:.15em; opacity:.62; }
+  .latest-title-block h2 { margin:auto 0 20px; max-width:7ch; font:400 clamp(4.4rem,9vw,8.6rem)/.85 Georgia,serif; letter-spacing:-.07em; }
+  .latest-title-block > span { font-size:.75rem; opacity:.65; }
+  .latest-statement { display:flex; flex-direction:column; gap:24px; align-self:stretch; }
+  .latest-statement > p { margin:0; color:var(--muted); font-size:1.02rem; line-height:2; }
+  .latest-statement > p:first-child { color:var(--ink); font:400 clamp(1.35rem,2.3vw,2rem)/1.65 Georgia,serif; }
+  .latest-actions { margin-top:auto; padding-top:30px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:28px; align-items:end; }
+  .latest-primary { flex:none; padding-bottom:6px; border-bottom:1px solid var(--ink); font-size:.82rem; font-weight:800; }
+  .latest-primary-muted { color:var(--muted); border-bottom-color:var(--line); }
+  .latest-actions > span:last-child { max-width:320px; color:var(--muted); font-size:.72rem; line-height:1.7; text-align:right; }
   .monthly-intro { display:grid; grid-template-columns:.8fr 1.2fr; gap:64px; align-items:start; }
   .monthly-intro h2 { margin:10px 0 0; font:400 clamp(2.6rem,5vw,5rem)/.98 Georgia,serif; letter-spacing:-.05em; }
   .monthly-rule-list { display:grid; border-top:1px solid var(--line); }
@@ -169,7 +226,10 @@ const issues = [
     .issue-card-copy { grid-column:2; }
   }
   @media (max-width:700px) {
-    .monthly-intro,.channel-join-panel { grid-template-columns:1fr; }
+    .monthly-intro,.channel-join-panel,.latest-issue-grid { grid-template-columns:1fr; }
+    .latest-issue-head,.latest-actions { align-items:flex-start; flex-direction:column; }
+    .latest-actions > span:last-child { text-align:left; }
+    .latest-title-block { min-height:340px; }
     .issue-card { grid-template-columns:1fr; gap:12px; }
     .issue-card-index { display:none; }
     .issue-card-visual { min-height:360px; }
