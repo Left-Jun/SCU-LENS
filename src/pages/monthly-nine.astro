@@ -89,10 +89,7 @@ const issues = [
               <a class="latest-primary" href={channelUrl} target="_blank" rel="noreferrer">前往 QQ 频道投稿 ↗</a>
             ) : latestIssue.href ? (
               <a class="latest-primary" href={latestIssue.href}>查看本期完整结果 →</a>
-            ) : (
-              <span class="latest-primary latest-primary-muted">本期完整图片整理中</span>
-            )}
-            <span>最新一期在总览页完整展示；历期内容在下方以摘要归档。</span>
+            ) : null}
           </div>
         </div>
       </div>
@@ -104,7 +101,7 @@ const issues = [
           <div class="eyebrow">Archive · Earlier Issues</div>
           <h2 class="section-display">往期展览</h2>
         </div>
-        <p>最新一期以上方完整策展形式呈现；这里保留往期摘要，作为长期影像档案入口。</p>
+        <p>按时间回看过去的主题、入选作品与作者。</p>
       </div>
 
       <div class="issue-card-list">
@@ -129,7 +126,7 @@ const issues = [
                   <p>{issue.en}</p>
                   <h3>{issue.title}</h3>
                   <p class="issue-card-summary">{issue.summary}</p>
-                  {issue.href ? <a class="issue-detail-link" href={issue.href}>查看本期 →</a> : <b>图片整理中</b>}
+                  {issue.href ? <a class="issue-detail-link" href={issue.href}>查看本期 →</a> : null}
                 </div>
               </div>
             </div>

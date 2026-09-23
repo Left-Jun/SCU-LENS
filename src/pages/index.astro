@@ -11,6 +11,13 @@ const eventCards = [
   { date: "SEP · 2026", title: "新学年 · 摄协重新出发", tag: "本学期" },
   { date: "ARCHIVE", title: "讲座、外拍与共同经历", tag: "活动档案" },
 ];
+
+const monthlyTiles = [
+  { month:"2025.12", title:"黄色", href:"/monthly-nine/2025-yellow", image:"/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg" },
+  { month:"2026.01", title:"新春", href:"/monthly-nine/2026-spring-festival", image:"/images/monthly-nine/2026-spring-festival/left-jun/new-year-960.jpg" },
+  { month:"2026.03", title:"繁花", href:"/monthly-nine/2026-blossom", image:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg" },
+  { month:"2026.05—07", title:"江安青绿", href:"/monthly-nine/2026-jiang-an-green", image:"/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-960.jpg" },
+];
 ---
 <BaseLayout active="/">
   <div class="page-shell">
@@ -41,13 +48,19 @@ const eventCards = [
       </div>
       <div class="monthly-layout">
         <div class="issue-copy">
-          <div class="issue-number">05 <span>/ 2026</span></div>
-          <p>频道里的历期记录正在逐步整理。当前已同步“黄色 / 新春 / 繁花 / 江安青绿”四期主题，入选照片均已完成归档。</p>
-          <div class="issue-meta"><span>9 PHOTOGRAPHS</span><span>1 MONTH</span><span>SCU</span></div>
+          <div class="issue-number">04 <span>/ ISSUES</span></div>
+          <p>从冬日的黄色，到新春、繁花与盛夏江安的青绿。四期主题沿时间排列，留下不同季节里的校园光影。</p>
+          <div class="issue-meta"><span>2025.12—2026.07</span><span>SCU LENS</span></div>
         </div>
-        <a class="nine-grid" href="/monthly-nine" aria-label="查看本期每月九图">
-          {Array.from({ length: 9 }).map((_, i) => <span class={"nine-tile tone-" + (i + 1)}><b>{String(i + 1).padStart(2,"0")}</b></span>)}
-        </a>
+        <div class="monthly-four-grid" aria-label="每月九图历期预览">
+          {monthlyTiles.map((item) => (
+            <a class="monthly-four-tile" href={item.href} aria-label={`查看 ${item.month} ${item.title}`}>
+              <img src={item.image} alt="" loading="lazy" decoding="async" />
+              <span class="monthly-four-shade"></span>
+              <div><small>{item.month}</small><strong>{item.title}</strong></div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -89,7 +102,7 @@ const eventCards = [
       </div>
       <div class="channel-note">
         <span>投稿入口仍在 QQ 频道</span>
-        <a href="/about#channel">查看频道与网站如何联动 →</a>
+        <a href="/about#channel">查看投稿入口 →</a>
       </div>
     </section>
 

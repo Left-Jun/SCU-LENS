@@ -24,7 +24,6 @@ const works = [
       <button class="filter-chip" type="button">相机</button>
       <button class="filter-chip" type="button">手机</button>
       <button class="filter-chip" type="button">胶片</button>
-      <span>当前为视觉草案 · 筛选逻辑后续接入</span>
     </section>
 
     <section class="section">
@@ -33,7 +32,7 @@ const works = [
           <article class:list={["photo-card", "photo-" + (i + 1)]}>
             <div class:list={["photo-visual", work.cls]}></div>
             <div class="photo-caption">
-              <div><h2>{work.title}</h2><p>摄影者 · 待接入频道作者</p></div>
+              <div><h2>{work.title}</h2><p>SCU LENS · 影像分类</p></div>
               <span>{work.type}</span>
             </div>
           </article>
@@ -43,8 +42,8 @@ const works = [
 
     <section class="section gallery-source">
       <div class="eyebrow">Source</div>
-      <p>这里的长期目标不是要求成员重复上传，而是从摄协 QQ 频道的相机组、手机组与胶片组投稿中自动建立内容池，再由网站完成整理与展陈。</p>
-      <a class="text-link" href="/about#channel">查看频道联动草案 <span>↗</span></a>
+      <p>相机组、手机组与胶片组的日常投稿主要发布在摄协 QQ 频道；官网保留适合长期观看的作品与专题。</p>
+      <a class="text-link" href="/about#channel">前往投稿入口 <span>↗</span></a>
     </section>
   </div>
 </BaseLayout>
