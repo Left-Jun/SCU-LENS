@@ -289,17 +289,17 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
 .photo-viewer-nav:disabled { opacity:.16; cursor:default; }
 .photo-viewer-prev { left:6px; }
 .photo-viewer-next { right:calc(28vw + 6px); }
-.photo-viewer-next-issue { position:absolute; inset:0; width:100%; height:100%; padding:clamp(64px,8vw,120px); background:#070707; display:grid; grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr); gap:clamp(42px,7vw,120px); align-items:center; overflow:hidden; }
-.photo-viewer-next-copy { max-width:620px; }
+.photo-viewer-next-issue { position:absolute; inset:0; width:100%; height:100%; padding:clamp(64px,8vw,120px); background:#070707; display:flex; align-items:flex-end; overflow:hidden; }
+.photo-viewer-next-copy { position:relative; z-index:3; max-width:720px; padding:32px 36px; background:rgba(5,5,5,.42); backdrop-filter:blur(3px); }
 .photo-viewer-next-kicker { color:rgba(255,255,255,.45); font-size:.7rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
 .photo-viewer-next-issue h2 { margin:18px 0 16px; font:400 clamp(4rem,9vw,8rem)/.86 Georgia,serif; letter-spacing:-.065em; }
 .photo-viewer-next-issue p { margin:0 0 34px; max-width:560px; color:rgba(255,255,255,.58); line-height:1.8; }
 .photo-viewer-next-issue a { display:inline-block; padding-bottom:6px; border-bottom:1px solid currentColor; font-weight:700; }
-.photo-viewer-next-preview { min-width:0; height:min(72vh,760px); display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr); grid-template-rows:1fr 1fr; gap:8px; }
-.photo-viewer-next-preview figure { margin:0; min-width:0; min-height:0; overflow:hidden; border:1px solid rgba(255,255,255,.16); background:#111; }
-.photo-viewer-next-preview figure:first-child { grid-row:span 2; }
+.photo-viewer-next-preview { position:absolute; inset:0; z-index:1; }
+.photo-viewer-next-preview::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.66) 0%,rgba(0,0,0,.24) 48%,rgba(0,0,0,.10) 100%),linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.45)); }
+.photo-viewer-next-preview figure { position:absolute; inset:0; margin:0; overflow:hidden; background:#111; }
 .photo-viewer-next-preview img { display:block; width:100%; height:100%; object-fit:cover; }
-.photo-viewer-next-issue:not(.has-preview) { grid-template-columns:1fr; place-items:center; text-align:left; }
+.photo-viewer-next-issue:not(.has-preview) { justify-content:center; align-items:center; }
 
 @media (max-width:900px) {
   .site-header { align-items:flex-start; gap:18px; }
@@ -334,13 +334,13 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .photo-viewer-footer a { font-size:.7rem; }
   .photo-viewer-close { right:12px; top:calc(10px + env(safe-area-inset-top)); }
   .photo-viewer-nav { display:none; }
-  .photo-viewer-next-issue { inset:0; width:100%; height:100dvh; padding:calc(66px + env(safe-area-inset-top)) 20px calc(22px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:20px; align-items:stretch; justify-content:flex-start; overflow:hidden; }
-  .photo-viewer-next-copy { flex:0 0 auto; max-width:none; padding-right:38px; }
+  .photo-viewer-next-issue { inset:0; width:100%; height:100dvh; padding:calc(66px + env(safe-area-inset-top)) 20px calc(22px + env(safe-area-inset-bottom)); display:flex; align-items:flex-end; justify-content:flex-start; overflow:hidden; }
+  .photo-viewer-next-copy { max-width:none; width:100%; padding:22px 20px; background:rgba(5,5,5,.46); }
   .photo-viewer-next-kicker { font-size:.62rem; }
   .photo-viewer-next-issue h2 { margin:10px 0 9px; font-size:clamp(3.4rem,17vw,5.7rem); }
   .photo-viewer-next-issue p { margin:0 0 14px; max-width:none; font-size:.82rem; line-height:1.6; }
   .photo-viewer-next-issue a { font-size:.78rem; }
-  .photo-viewer-next-preview { flex:1 1 auto; min-height:0; width:100%; height:auto; grid-template-columns:minmax(0,1.22fr) minmax(0,.78fr); grid-template-rows:1fr 1fr; gap:5px; }
+  .photo-viewer-next-preview { position:absolute; inset:0; width:100%; height:100%; }
   .photo-viewer-next-issue:not(.has-preview) { justify-content:center; }
   .hero { grid-template-columns:1fr; min-height:auto; padding-top:70px; }
   .hero h1 { font-size:clamp(4.8rem,25vw,8rem); }

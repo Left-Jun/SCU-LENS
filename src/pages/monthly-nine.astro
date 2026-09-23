@@ -29,11 +29,7 @@ const issues = [
     summary: "黄色是光，是温度，是苏醒，也是沉淀。它可以是街角一盏暖灯，是季节更迭时的一抹秋意，也可以是某个瞬间落入镜中的情绪与故事。",
     count: "3 组入选作品",
     tone: 5,
-    preview: [
-      { browserSrc:"/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg", originalSrc:"/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg", alt:"《金黄色的》· 三川", width:2382, height:1587 },
-      { browserSrc:"/images/monthly-nine/2025-yellow/sanchuan/01-960.jpg", originalSrc:"/images/monthly-nine/2025-yellow/sanchuan/01-original.jpg", alt:"《金黄色的》· 01 · 三川", width:2485, height:1600 },
-      { browserSrc:"/images/monthly-nine/2025-yellow/sanchuan/05-960.jpg", originalSrc:"/images/monthly-nine/2025-yellow/sanchuan/05-original.jpg", alt:"《金黄色的》· 05 · 三川", width:1600, height:2352 },
-    ],
+    preview: { browserSrc:"/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg", originalSrc:"/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg", alt:"《金黄色的》· 三川", width:2382, height:1587 },
   },
   {
     href: "/monthly-nine/2025-spring-festival",
@@ -44,11 +40,7 @@ const issues = [
     summary: "新春，是时空在日历上轻轻翻页的光痕。旧联、新桃、团圆饭与街巷灯火，都成为这一期的共同记忆。",
     count: "3 组入选作品",
     tone: 6,
-    preview: [
-      { browserSrc:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-original.jpg", alt:"《东京迷梦》· Azp", width:3845, height:5768 },
-      { browserSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-original.jpg", alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C", width:6000, height:4000 },
-      { browserSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/02-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/02-original.jpg", alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C", width:3473, height:5212 },
-    ],
+    preview: { browserSrc:"/images/monthly-nine/2025-spring-festival/left-jun/new-year-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/left-jun/new-year-original.jpg", alt:"《新年》· Left-俊", width:1620, height:1080 },
   },
   {
     href: "/monthly-nine/2026-blossom",
@@ -59,11 +51,7 @@ const issues = [
     summary: "在春风与光影的交织里，以花为题，记录春日里那些鲜明、热烈又柔软的瞬间。",
     count: "3 组入选作品",
     tone: 3,
-    preview: [
-      { browserSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-original.jpg", alt:"《春日繁花》· 一尾", width:4288, height:2848 },
-      { browserSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-original.jpg", alt:"《蝴蝶与花》· 天天快乐", width:6016, height:4016 },
-      { browserSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/02-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/02-original.jpg", alt:"《蝴蝶与花》· 02 · 天天快乐", width:1492, height:1269 },
-    ],
+    preview: { browserSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-original.jpg", alt:"《春日繁花》· 一尾", width:4288, height:2848 },
   },
   {
     date: "2026.04",
@@ -133,46 +121,26 @@ const issues = [
           <article class="issue-card">
             <div class="issue-card-index">{String(index + 1).padStart(2, "0")}</div>
             <div class:list={["issue-card-visual", "tone-" + issue.tone, { "has-preview": issue.preview }]}>
-              <span class="issue-card-date">{issue.date}</span>
               {issue.preview ? (
-                <div class="issue-card-photo-preview">
-                  {issue.preview.map((photo) => (
-                    <a class="preview-photo-link" href={photo.originalSrc} target="_blank" rel="noopener" aria-label={`查看原图：${photo.alt}`}>
-                      <img
-                        src={photo.browserSrc}
-                        srcset={photo.browserSrcset}
-                        sizes="(max-width: 700px) 48vw, 420px"
-                        data-browser-src={photo.browserSrc}
-                        data-browser-srcset={photo.browserSrcset}
-                        data-original-src={photo.originalSrc}
-                        data-loaded-quality="browser"
-                        alt={photo.alt}
-                        width={photo.width}
-                        height={photo.height}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <span class="preview-open-hint">点开原图 ↗</span>
-                    </a>
-                  ))}
-                </div>
+                <img class="issue-card-cover" src={issue.preview.browserSrc} alt={issue.preview.alt} width={issue.preview.width} height={issue.preview.height} loading="lazy" decoding="async" />
               ) : (
                 <div class="issue-card-photo-layout">
                   <span></span><span></span><span></span>
                 </div>
               )}
-              <div class="issue-card-title">
-                <p>{issue.en}</p>
-                <h3>{issue.title}</h3>
+              <div class="issue-card-overlay"></div>
+              <div class="issue-card-content">
+                <div class="issue-card-top">
+                  <span class="issue-card-date">{issue.date}</span>
+                  <span>{issue.status} · {issue.count}</span>
+                </div>
+                <div class="issue-card-title">
+                  <p>{issue.en}</p>
+                  <h3>{issue.title}</h3>
+                  <p class="issue-card-summary">{issue.summary}</p>
+                  {issue.href ? <a class="issue-detail-link" href={issue.href}>查看本期 →</a> : <b>图片整理中</b>}
+                </div>
               </div>
-            </div>
-            <div class="issue-card-copy">
-              <div class="issue-card-meta">
-                <span>{issue.status}</span>
-                <span>{issue.count}</span>
-              </div>
-              <p>{issue.summary}</p>
-              {issue.href ? <a class="issue-detail-link" href={issue.href}>查看本期 →</a> : <b>图片整理中</b>}
             </div>
           </article>
         ))}
@@ -222,27 +190,21 @@ const issues = [
   .latest-primary-muted { color:var(--muted); border-bottom-color:var(--line); }
   .latest-actions > span:last-child { max-width:320px; color:var(--muted); font-size:.72rem; line-height:1.7; text-align:right; }
   .issue-card-list { display:grid; gap:32px; }
-  .issue-card { display:grid; grid-template-columns:42px minmax(0,1.35fr) minmax(260px,.65fr); gap:14px; align-items:stretch; }
+  .issue-card { display:grid; grid-template-columns:42px minmax(0,1fr); gap:14px; align-items:stretch; }
   .issue-card-index { padding-top:10px; color:var(--muted); font-size:.72rem; letter-spacing:.12em; }
-  .issue-card-visual { width:100%; aspect-ratio:4/3; padding:20px; color:white; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; border:1px solid var(--line); }
-  .issue-card-visual.has-preview { aspect-ratio:4/3; }
-  .issue-card-date { font-size:.72rem; letter-spacing:.12em; }
+  .issue-card-visual { position:relative; width:100%; aspect-ratio:16/7; color:white; overflow:hidden; border:1px solid var(--line); background:#666; }
+  .issue-card-cover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .issue-card-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(13,13,11,.70) 0%,rgba(13,13,11,.35) 48%,rgba(13,13,11,.08) 100%),linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.36)); }
+  .issue-card-content { position:relative; z-index:2; height:100%; padding:22px 24px; display:flex; flex-direction:column; justify-content:space-between; }
+  .issue-card-top { display:flex; justify-content:space-between; gap:16px; font-size:.68rem; letter-spacing:.08em; color:rgba(255,255,255,.78); }
+  .issue-card-date { letter-spacing:.12em; }
   .issue-card-photo-layout { display:grid; grid-template-columns:1.3fr .7fr; grid-template-rows:1fr 1fr; gap:6px; height:42%; margin:18px 0; opacity:.86; }
   .issue-card-photo-layout span { border:1px solid rgba(255,255,255,.56); background:rgba(255,255,255,.16); }
   .issue-card-photo-layout span:first-child { grid-row:1 / span 2; }
-  .issue-card-photo-preview { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr); grid-template-rows:1fr 1fr; gap:6px; height:58%; min-height:0; margin:16px 0; }
-  .preview-photo-link { position:relative; display:block; color:inherit; min-width:0; min-height:0; overflow:hidden; }
-  .issue-card-photo-preview .preview-photo-link:first-child { grid-row:span 2; }
-  .issue-card-photo-preview img { display:block; width:100%; height:100%; object-fit:cover; border:1px solid rgba(255,255,255,.52); }
-  .preview-open-hint { position:absolute; right:8px; bottom:7px; padding:4px 6px; background:rgba(18,17,14,.58); color:#fff; font-size:.58rem; letter-spacing:.04em; opacity:0; transition:opacity .18s ease; }
-  .preview-photo-link:hover .preview-open-hint,.preview-photo-link:focus-visible .preview-open-hint { opacity:1; }
   .issue-card-title p { margin:0 0 8px; font-size:.66rem; letter-spacing:.16em; opacity:.72; }
   .issue-card-title h3 { margin:0; font:400 clamp(2.35rem,4.2vw,4.2rem)/.9 Georgia,serif; letter-spacing:-.065em; }
-  .issue-card-copy { padding:22px; border:1px solid var(--line); background:rgba(255,255,255,.45); display:flex; flex-direction:column; }
-  .issue-card-meta { display:flex; justify-content:space-between; gap:14px; color:var(--muted); font-size:.72rem; }
-  .issue-card-copy > p { margin:auto 0 24px; color:var(--muted); font-size:.92rem; line-height:1.75; }
-  .issue-card-copy b { font-size:.82rem; }
-  .issue-detail-link { align-self:flex-start; font-size:.82rem; font-weight:800; border-bottom:1px solid currentColor; padding-bottom:4px; }
+  .issue-card-summary { max-width:620px; margin:10px 0 14px !important; font-size:.82rem !important; line-height:1.55; letter-spacing:0 !important; color:rgba(255,255,255,.72); opacity:1 !important; }
+  .issue-detail-link { display:inline-block; font-size:.78rem; font-weight:800; border-bottom:1px solid currentColor; padding-bottom:4px; }
   .channel-join-panel { display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:stretch; }
   .channel-join-copy { display:flex; flex-direction:column; align-items:flex-start; }
   .channel-join-copy h2 { margin:10px 0 16px; font:400 clamp(2.2rem,4vw,4.2rem)/.98 Georgia,serif; letter-spacing:-.05em; }
@@ -261,7 +223,6 @@ const issues = [
   @media (max-width:900px) {
     .latest-issue-grid { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:28px; }
     .issue-card { grid-template-columns:30px 1fr; }
-    .issue-card-copy { grid-column:2; }
   }
   @media (max-width:700px) {
     .channel-join-panel,.latest-issue-grid { grid-template-columns:1fr; }
@@ -277,13 +238,11 @@ const issues = [
     .latest-statement > p:first-child { font-size:1.08rem; line-height:1.58; }
     .issue-card { grid-template-columns:1fr; gap:12px; }
     .issue-card-index { display:none; }
-    .issue-card-visual:not(.has-preview) { aspect-ratio:4/3; }
-    .issue-card-photo-preview { grid-template-columns:1.25fr .75fr; grid-template-rows:1fr 1fr; height:56%; }
-    .issue-card-photo-preview .preview-photo-link:first-child { grid-row:span 2; }
-    .issue-card-photo-preview .preview-photo-link:last-child { grid-column:auto; }
-    .preview-open-hint { opacity:1; font-size:.54rem; }
-    .issue-card-copy { grid-column:1; min-height:0; }
-    .issue-card-copy > p { margin:26px 0 20px; }
+    .issue-card-visual { aspect-ratio:4/3; }
+    .issue-card-content { padding:18px 18px 20px; }
+    .issue-card-top { font-size:.6rem; }
+    .issue-card-title h3 { font-size:clamp(2.6rem,13vw,4rem); }
+    .issue-card-summary { max-width:92%; font-size:.74rem !important; line-height:1.5; }
     .channel-id { margin-top:28px; }
     .channel-qr-card { aspect-ratio:4/3; min-height:0; }
   }

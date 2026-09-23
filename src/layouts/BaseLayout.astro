@@ -135,7 +135,7 @@ const nav = [
               } catch {}
               nextPreview.toggleAttribute("hidden", previews.length === 0);
               nextIssue?.classList.toggle("has-preview", previews.length > 0);
-              for (const preview of previews.slice(0, 3)) {
+              for (const preview of previews.slice(0, 1)) {
                 const figure = document.createElement("figure");
                 const img = document.createElement("img");
                 img.src = preview.src || "";
