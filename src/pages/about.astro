@@ -10,13 +10,11 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
       <p>四川大学摄影协会是一个以影像为共同语言的学生社团。这里既可以认真讨论摄影，也可以只是一起出去走走、拍照、认识新的朋友。</p>
     </section>
 
-    <section class="section">
-      <div class="about-grid">
-        <article class="about-card"><span class="about-index">01</span><h2>我们做什么</h2><p>组织摄影讲座、外拍、比赛、作品交流与校园影像记录，并持续整理属于摄协自己的视觉档案。</p></article>
-        <article class="about-card"><span class="about-index">02</span><h2>影像如何留下</h2><p>日常分享与投稿发生在 QQ 频道，精选作品、专题与长期影像记录则在 SCU LENS 中继续被观看。</p></article>
-        <article class="about-card"><span class="about-index">03</span><h2>每月九图</h2><p>从每个月的频道征集中挑出代表作品，形成稳定的月度展览与历年影像时间轴。</p></article>
-        <article class="about-card"><span class="about-index">04</span><h2>公开档案</h2><p>活动、作者与作品在这里彼此关联，让每一届摄协都留下可回看的共同记录。</p></article>
-      </div>
+    <section class="section about-list">
+      <article class="about-row"><span class="about-index">01</span><h2>我们做什么</h2><p>摄影讲座、外拍、比赛、作品交流与校园影像记录，是摄协最基本的活动。</p></article>
+      <article class="about-row"><span class="about-index">02</span><h2>影像如何留下</h2><p>即时分享发生在 QQ 频道，精选作品与长期内容则在 SCU LENS 中继续被观看。</p></article>
+      <article class="about-row"><span class="about-index">03</span><h2>每月九图</h2><p>每月从频道征集中选出代表作品，逐渐形成属于摄协的月度影像时间轴。</p></article>
+      <article class="about-row"><span class="about-index">04</span><h2>公开档案</h2><p>作品、作者与活动彼此关联，让不同届次留下可以长期回看的共同记录。</p></article>
     </section>
 
     <section class="section channel-bridge" id="channel">
@@ -64,6 +62,19 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 </BaseLayout>
 
 <style>
+  .about-list { display:grid; gap:0; }
+  .about-row {
+    display:grid;
+    grid-template-columns:64px minmax(180px,.52fr) minmax(0,1fr);
+    gap:26px;
+    align-items:center;
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .about-row:first-child { border-top:0; }
+  .about-index { color:var(--muted); font-size:var(--font-small); letter-spacing:.1em; }
+  .about-row h2 { margin:0; font:400 clamp(1.9rem,3vw,3rem)/.98 Georgia,serif; letter-spacing:-.045em; }
+  .about-row p { margin:0; max-width:700px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   .channel-link-button {
     display:inline-block;
     margin-top:26px;
@@ -115,4 +126,9 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   }
   .real-qr-footer b { color:var(--ink); }
   .links-grid { grid-template-columns:repeat(2,1fr); }
+  @media (max-width:700px) {
+    .about-row { grid-template-columns:36px 1fr; gap:8px 14px; padding:16px 0; align-items:start; }
+    .about-row h2 { font-size:1.8rem; }
+    .about-row p { grid-column:2; }
+  }
 </style>
