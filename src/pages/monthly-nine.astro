@@ -30,30 +30,9 @@ const issues = [
     count: "3 组入选作品",
     tone: 5,
     preview: [
-      {
-        browserSrc: "/images/monthly-nine/2025-yellow/sebastian/sebastian-960.jpg",
-        browserSrcset: "/images/monthly-nine/2025-yellow/sebastian/sebastian-960.jpg 960w, /images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg 1800w",
-        originalSrc: "/images/monthly-nine/2025-yellow/sebastian/sebastian-original.jpg",
-        alt: "《金黄芒节》· Sebastian",
-        width: 3840,
-        height: 5760,
-      },
-      {
-        browserSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg",
-        browserSrcset: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg 960w, /images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg 1191w",
-        originalSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-original.jpg",
-        alt: "《捕捉阳光》· 一尾",
-        width: 1191,
-        height: 1920,
-      },
-      {
-        browserSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg",
-        browserSrcset: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/09-1800.jpg 1800w",
-        originalSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg",
-        alt: "《金黄色的》· 三川",
-        width: 2382,
-        height: 1587,
-      },
+      { browserSrc:"/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg", originalSrc:"/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg", alt:"《金黄色的》· 三川", width:2382, height:1587 },
+      { browserSrc:"/images/monthly-nine/2025-yellow/sanchuan/01-960.jpg", originalSrc:"/images/monthly-nine/2025-yellow/sanchuan/01-original.jpg", alt:"《金黄色的》· 01 · 三川", width:2485, height:1600 },
+      { browserSrc:"/images/monthly-nine/2025-yellow/sanchuan/05-960.jpg", originalSrc:"/images/monthly-nine/2025-yellow/sanchuan/05-original.jpg", alt:"《金黄色的》· 05 · 三川", width:1600, height:2352 },
     ],
   },
   {
@@ -66,9 +45,9 @@ const issues = [
     count: "3 组入选作品",
     tone: 6,
     preview: [
-      { browserSrc:"/images/monthly-nine/2025-spring-festival/left-jun/new-year-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/left-jun/new-year-original.jpg", alt:"《新年》· Left-俊", width:1620, height:1080 },
       { browserSrc:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-original.jpg", alt:"《东京迷梦》· Azp", width:3845, height:5768 },
-      { browserSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-original.jpg", alt:"《年味来自醒狮爆竹和烟花》· 卡乐C", width:6000, height:4000 },
+      { browserSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-original.jpg", alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C", width:6000, height:4000 },
+      { browserSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/02-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/02-original.jpg", alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C", width:3473, height:5212 },
     ],
   },
   {
@@ -82,8 +61,8 @@ const issues = [
     tone: 3,
     preview: [
       { browserSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-original.jpg", alt:"《春日繁花》· 一尾", width:4288, height:2848 },
-      { browserSrc:"/images/monthly-nine/2026-blossom/sebastian/shadowless-hall-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/sebastian/shadowless-hall-original.jpg", alt:"《无影堂下花隐无》· Sebastian", width:2160, height:3840 },
       { browserSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-original.jpg", alt:"《蝴蝶与花》· 天天快乐", width:6016, height:4016 },
+      { browserSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/02-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/02-original.jpg", alt:"《蝴蝶与花》· 02 · 天天快乐", width:1492, height:1269 },
     ],
   },
   {
@@ -246,15 +225,15 @@ const issues = [
   .issue-card { display:grid; grid-template-columns:42px minmax(0,1.35fr) minmax(260px,.65fr); gap:14px; align-items:stretch; }
   .issue-card-index { padding-top:10px; color:var(--muted); font-size:.72rem; letter-spacing:.12em; }
   .issue-card-visual { width:100%; aspect-ratio:4/3; padding:20px; color:white; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; border:1px solid var(--line); }
-  .issue-card-visual.has-preview { aspect-ratio:auto; }
+  .issue-card-visual.has-preview { aspect-ratio:4/3; }
   .issue-card-date { font-size:.72rem; letter-spacing:.12em; }
   .issue-card-photo-layout { display:grid; grid-template-columns:1.3fr .7fr; grid-template-rows:1fr 1fr; gap:6px; height:42%; margin:18px 0; opacity:.86; }
   .issue-card-photo-layout span { border:1px solid rgba(255,255,255,.56); background:rgba(255,255,255,.16); }
   .issue-card-photo-layout span:first-child { grid-row:1 / span 2; }
-  .issue-card-photo-preview { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.72fr); gap:6px; margin:18px 0; align-items:start; }
-  .preview-photo-link { position:relative; display:block; color:inherit; }
+  .issue-card-photo-preview { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr); grid-template-rows:1fr 1fr; gap:6px; height:58%; min-height:0; margin:16px 0; }
+  .preview-photo-link { position:relative; display:block; color:inherit; min-width:0; min-height:0; overflow:hidden; }
   .issue-card-photo-preview .preview-photo-link:first-child { grid-row:span 2; }
-  .issue-card-photo-preview img { display:block; width:100%; height:auto; border:1px solid rgba(255,255,255,.52); }
+  .issue-card-photo-preview img { display:block; width:100%; height:100%; object-fit:cover; border:1px solid rgba(255,255,255,.52); }
   .preview-open-hint { position:absolute; right:8px; bottom:7px; padding:4px 6px; background:rgba(18,17,14,.58); color:#fff; font-size:.58rem; letter-spacing:.04em; opacity:0; transition:opacity .18s ease; }
   .preview-photo-link:hover .preview-open-hint,.preview-photo-link:focus-visible .preview-open-hint { opacity:1; }
   .issue-card-title p { margin:0 0 8px; font-size:.66rem; letter-spacing:.16em; opacity:.72; }
@@ -299,9 +278,9 @@ const issues = [
     .issue-card { grid-template-columns:1fr; gap:12px; }
     .issue-card-index { display:none; }
     .issue-card-visual:not(.has-preview) { aspect-ratio:4/3; }
-    .issue-card-photo-preview { grid-template-columns:1fr 1fr; }
-    .issue-card-photo-preview .preview-photo-link:first-child { grid-row:auto; }
-    .issue-card-photo-preview .preview-photo-link:last-child { grid-column:1 / -1; }
+    .issue-card-photo-preview { grid-template-columns:1.25fr .75fr; grid-template-rows:1fr 1fr; height:56%; }
+    .issue-card-photo-preview .preview-photo-link:first-child { grid-row:span 2; }
+    .issue-card-photo-preview .preview-photo-link:last-child { grid-column:auto; }
     .preview-open-hint { opacity:1; font-size:.54rem; }
     .issue-card-copy { grid-column:1; min-height:0; }
     .issue-card-copy > p { margin:26px 0 20px; }

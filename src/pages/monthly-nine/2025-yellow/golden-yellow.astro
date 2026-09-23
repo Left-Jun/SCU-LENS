@@ -25,6 +25,11 @@ const galleryItems = [
     alt:`《金黄色的》· ${frame.no} · 三川`,
   })),
 ];
+const nextPreviewItems = [
+  { src:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-960.jpg", alt:"《东京迷梦》· Azp" },
+  { src:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C" },
+  { src:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/02-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C" },
+];
 ---
 <BaseLayout title="《金黄色的》· 三川 · SCU LENS" active="/monthly-nine">
   <div class="page-shell">
@@ -71,6 +76,7 @@ const galleryItems = [
           data-next-title={index === galleryItems.length - 1 ? "新春" : undefined}
           data-next-summary={index === galleryItems.length - 1 ? "2025.01—03 · 下一期主题档案。继续浏览新春时期的入选作品与主题记录。" : undefined}
           data-next-href={index === galleryItems.length - 1 ? "/monthly-nine/2025-spring-festival" : undefined}
+          data-next-previews={index === galleryItems.length - 1 ? JSON.stringify(nextPreviewItems) : undefined}
         ></span>
       ))}
     </div>

@@ -18,6 +18,11 @@ const works = [
   { no:"02", title:"东京迷梦", author:"Azp", photoCount:1, viewerIndex:1, browserSrc:`${base}/azp/tokyo-dream-1800.jpg`, browserSrcset:`${base}/azp/tokyo-dream-960.jpg 960w, ${base}/azp/tokyo-dream-1800.jpg 1800w`, originalSrc:`${base}/azp/tokyo-dream-original.jpg`, width:3845, height:5768 },
   { no:"03", title:"年味来自醒狮爆竹和烟花", author:"卡乐C", photoCount:5, viewerIndex:2, browserSrc:`${base}/kale-c/lion-fireworks/01-1800.jpg`, browserSrcset:`${base}/kale-c/lion-fireworks/01-960.jpg 960w, ${base}/kale-c/lion-fireworks/01-1800.jpg 1800w`, originalSrc:`${base}/kale-c/lion-fireworks/01-original.jpg`, width:6000, height:4000, href:"/monthly-nine/2025-spring-festival/lion-fireworks" },
 ];
+const nextPreviewItems = [
+  { src:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", alt:"《春日繁花》· 一尾" },
+  { src:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-960.jpg", alt:"《蝴蝶与花》· 01 · 天天快乐" },
+  { src:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/02-960.jpg", alt:"《蝴蝶与花》· 02 · 天天快乐" },
+];
 ---
 <MonthlyIssuePage
   title="新春"
@@ -31,4 +36,5 @@ const works = [
   nextTitle="繁花"
   nextSummary="2026.03 · 下一期以繁花为题，记录春风与花影之间鲜明、热烈又柔软的瞬间。"
   nextHref="/monthly-nine/2026-blossom"
+  nextPreviewItems={nextPreviewItems}
 />

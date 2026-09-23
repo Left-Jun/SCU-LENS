@@ -269,7 +269,8 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 html.viewer-open,html.viewer-open body { overflow:hidden; }
 .photo-viewer { position:fixed; inset:0; z-index:999; background:#050505; color:#fff; }
 .photo-viewer[hidden] { display:none !important; }
-.photo-viewer-stage { width:100%; height:100%; display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,28vw); }
+.photo-viewer-stage { position:relative; width:100%; height:100%; display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,28vw); }
+.photo-viewer-media[hidden],.photo-viewer-info[hidden],.photo-viewer-next-issue[hidden],.photo-viewer-next-preview[hidden] { display:none !important; }
 .photo-viewer-media { min-width:0; min-height:0; overflow:hidden; }
 .photo-viewer-track { display:flex; width:100%; height:100%; will-change:transform; }
 .photo-viewer-slide { flex:0 0 100%; width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:40px 24px 40px 56px; }
@@ -288,11 +289,17 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
 .photo-viewer-nav:disabled { opacity:.16; cursor:default; }
 .photo-viewer-prev { left:6px; }
 .photo-viewer-next { right:calc(28vw + 6px); }
-.photo-viewer-next-issue { grid-column:1/-1; align-self:center; justify-self:center; width:min(720px,calc(100% - 48px)); padding:48px; border:1px solid rgba(255,255,255,.18); background:#0d0d0d; }
+.photo-viewer-next-issue { position:absolute; inset:0; width:100%; height:100%; padding:clamp(64px,8vw,120px); background:#070707; display:grid; grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr); gap:clamp(42px,7vw,120px); align-items:center; overflow:hidden; }
+.photo-viewer-next-copy { max-width:620px; }
 .photo-viewer-next-kicker { color:rgba(255,255,255,.45); font-size:.7rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
-.photo-viewer-next-issue h2 { margin:16px 0 14px; font:400 clamp(3rem,8vw,7rem)/.9 Georgia,serif; letter-spacing:-.06em; }
+.photo-viewer-next-issue h2 { margin:18px 0 16px; font:400 clamp(4rem,9vw,8rem)/.86 Georgia,serif; letter-spacing:-.065em; }
 .photo-viewer-next-issue p { margin:0 0 34px; max-width:560px; color:rgba(255,255,255,.58); line-height:1.8; }
 .photo-viewer-next-issue a { display:inline-block; padding-bottom:6px; border-bottom:1px solid currentColor; font-weight:700; }
+.photo-viewer-next-preview { min-width:0; height:min(72vh,760px); display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr); grid-template-rows:1fr 1fr; gap:8px; }
+.photo-viewer-next-preview figure { margin:0; min-width:0; min-height:0; overflow:hidden; border:1px solid rgba(255,255,255,.16); background:#111; }
+.photo-viewer-next-preview figure:first-child { grid-row:span 2; }
+.photo-viewer-next-preview img { display:block; width:100%; height:100%; object-fit:cover; }
+.photo-viewer-next-issue:not(.has-preview) { grid-template-columns:1fr; place-items:center; text-align:left; }
 
 @media (max-width:900px) {
   .site-header { align-items:flex-start; gap:18px; }
@@ -327,7 +334,14 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .photo-viewer-footer a { font-size:.7rem; }
   .photo-viewer-close { right:12px; top:calc(10px + env(safe-area-inset-top)); }
   .photo-viewer-nav { display:none; }
-  .photo-viewer-next-issue { margin:auto 20px; width:calc(100% - 40px); padding:28px 24px; }
+  .photo-viewer-next-issue { inset:0; width:100%; height:100dvh; padding:calc(66px + env(safe-area-inset-top)) 20px calc(22px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:20px; align-items:stretch; justify-content:flex-start; overflow:hidden; }
+  .photo-viewer-next-copy { flex:0 0 auto; max-width:none; padding-right:38px; }
+  .photo-viewer-next-kicker { font-size:.62rem; }
+  .photo-viewer-next-issue h2 { margin:10px 0 9px; font-size:clamp(3.4rem,17vw,5.7rem); }
+  .photo-viewer-next-issue p { margin:0 0 14px; max-width:none; font-size:.82rem; line-height:1.6; }
+  .photo-viewer-next-issue a { font-size:.78rem; }
+  .photo-viewer-next-preview { flex:1 1 auto; min-height:0; width:100%; height:auto; grid-template-columns:minmax(0,1.22fr) minmax(0,.78fr); grid-template-rows:1fr 1fr; gap:5px; }
+  .photo-viewer-next-issue:not(.has-preview) { justify-content:center; }
   .hero { grid-template-columns:1fr; min-height:auto; padding-top:70px; }
   .hero h1 { font-size:clamp(4.8rem,25vw,8rem); }
   .feature-card { min-height:360px; }

@@ -13,6 +13,7 @@ const {
   nextTitle,
   nextSummary,
   nextHref,
+  nextPreviewItems = [],
   backHref = "/monthly-nine",
 } = Astro.props;
 ---
@@ -93,6 +94,7 @@ const {
           data-next-title={index === viewerItems.length - 1 ? nextTitle : undefined}
           data-next-summary={index === viewerItems.length - 1 ? nextSummary : undefined}
           data-next-href={index === viewerItems.length - 1 ? nextHref : undefined}
+          data-next-previews={index === viewerItems.length - 1 && nextPreviewItems.length ? JSON.stringify(nextPreviewItems) : undefined}
         ></span>
       ))}
     </div>

@@ -12,6 +12,11 @@ const viewerItems = [
   { title:"东京迷梦", author:"Azp", kicker:"单图 · New Spring", src:`${base}/azp/tokyo-dream-1800.jpg`, original:`${base}/azp/tokyo-dream-original.jpg`, alt:"《东京迷梦》· Azp" },
   ...frames.map((frame,i)=>({ title:"年味来自醒狮爆竹和烟花", author:"卡乐C", kicker:`组图 · ${String(i+1).padStart(2,"0")} / 05`, src:frame.src, original:frame.original, alt:frame.alt }))
 ];
+const nextPreviewItems = [
+  { src:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", alt:"《春日繁花》· 一尾" },
+  { src:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-960.jpg", alt:"《蝴蝶与花》· 01 · 天天快乐" },
+  { src:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/02-960.jpg", alt:"《蝴蝶与花》· 02 · 天天快乐" },
+];
 ---
 <MonthlyGroupPage
   issueTitle="新春" issueDate="2025.01—03"
@@ -21,4 +26,5 @@ const viewerItems = [
   nextTitle="繁花"
   nextSummary="2026.03 · 下一期以繁花为题。"
   nextHref="/monthly-nine/2026-blossom"
+  nextPreviewItems={nextPreviewItems}
 />

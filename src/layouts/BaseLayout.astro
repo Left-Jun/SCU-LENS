@@ -77,10 +77,13 @@ const nav = [
           </div>
         </div>
         <div class="photo-viewer-next-issue" id="photo-viewer-next-issue" hidden>
-          <div class="photo-viewer-next-kicker">Next Issue · 下一期</div>
-          <h2 id="photo-viewer-next-title"></h2>
-          <p id="photo-viewer-next-summary"></p>
-          <a id="photo-viewer-next-link" href="/monthly-nine">查看下一期 →</a>
+          <div class="photo-viewer-next-copy">
+            <div class="photo-viewer-next-kicker">Next Issue · 下一期</div>
+            <h2 id="photo-viewer-next-title"></h2>
+            <p id="photo-viewer-next-summary"></p>
+            <a id="photo-viewer-next-link" href="/monthly-nine">进入下一期 →</a>
+          </div>
+          <div class="photo-viewer-next-preview" id="photo-viewer-next-preview" hidden></div>
         </div>
       </div>
       <button class="photo-viewer-nav photo-viewer-next" type="button" aria-label="下一张">›</button>
@@ -100,6 +103,7 @@ const nav = [
         const nextTitle = document.getElementById("photo-viewer-next-title");
         const nextSummary = document.getElementById("photo-viewer-next-summary");
         const nextLink = document.getElementById("photo-viewer-next-link");
+        const nextPreview = document.getElementById("photo-viewer-next-preview");
         const close = viewer?.querySelector(".photo-viewer-close");
         const prev = viewer?.querySelector(".photo-viewer-prev");
         const next = viewer?.querySelector(".photo-viewer-next");
@@ -123,6 +127,24 @@ const nav = [
             if (nextTitle) nextTitle.textContent = source?.dataset.nextTitle || "下一期";
             if (nextSummary) nextSummary.textContent = source?.dataset.nextSummary || "";
             if (nextLink) nextLink.setAttribute("href", source?.dataset.nextHref || "/monthly-nine");
+            if (nextPreview instanceof HTMLElement) {
+              nextPreview.innerHTML = "";
+              let previews = [];
+              try {
+                previews = JSON.parse(source?.dataset.nextPreviews || "[]");
+              } catch {}
+              nextPreview.toggleAttribute("hidden", previews.length === 0);
+              nextIssue?.classList.toggle("has-preview", previews.length > 0);
+              for (const preview of previews.slice(0, 3)) {
+                const figure = document.createElement("figure");
+                const img = document.createElement("img");
+                img.src = preview.src || "";
+                img.alt = preview.alt || "";
+                img.draggable = false;
+                figure.appendChild(img);
+                nextPreview.appendChild(figure);
+              }
+            }
             if (prev instanceof HTMLButtonElement) prev.disabled = false;
             if (next instanceof HTMLButtonElement) next.disabled = true;
             return;
@@ -219,7 +241,16 @@ const nav = [
           const dx = touch.clientX - touchStartX;
           const dy = touch.clientY - touchStartY;
           dragging = false;
-          if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+          if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy)) {
+            if (index === items.length && dx < 0) {
+              const source = items[items.length - 1];
+              const href = source?.dataset.nextHref;
+              if (href) window.location.href = href;
+              else render();
+            } else {
+              go(dx < 0 ? 1 : -1);
+            }
+          }
           else render();
         }, { passive: true });
       })();
