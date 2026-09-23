@@ -2,9 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const works = [
-  { no: "01", title: "金黄芒节", author: "Sebastian", kind: "单图", cls: "yellow-photo yellow-photo-a" },
-  { no: "02", title: "捕捉阳光", author: "一尾", kind: "单图", cls: "yellow-photo yellow-photo-b" },
-  { no: "03", title: "金黄色的", author: "三川", kind: "9 张组图", cls: "yellow-photo yellow-photo-c", href: "/monthly-nine/2025-yellow/golden-yellow" },
+  { no: "01", title: "金黄芒节", author: "Sebastian", kind: "单图", browserSrc: "/images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg", browserSrcset: "/images/monthly-nine/2025-yellow/sebastian/sebastian-960.jpg 960w, /images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg 1800w", originalSrc: "/images/monthly-nine/2025-yellow/sebastian/sebastian-original.jpg", width: 3840, height: 5760 },
+  { no: "02", title: "捕捉阳光", author: "一尾", kind: "单图", browserSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg", browserSrcset: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg 960w, /images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg 1191w", originalSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-original.jpg", width: 1191, height: 1920 },
+  { no: "03", title: "金黄色的", author: "三川", kind: "9 张组图", browserSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-1800.jpg", browserSrcset: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/09-1800.jpg 1800w", originalSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg", width: 2382, height: 1587, href: "/monthly-nine/2025-yellow/golden-yellow" },
 ];
 ---
 <BaseLayout title="黄色 · 每月九图 · SCU LENS" active="/monthly-nine">
@@ -40,7 +40,8 @@ const works = [
     <section class="issue-work-list">
       {works.map((work) => (
         <article class="issue-work">
-          <div class={work.cls}>
+          <div class="yellow-photo">
+            <img src={work.browserSrc} srcset={work.browserSrcset} sizes="(max-width: 900px) 100vw, 920px" data-browser-src={work.browserSrc} data-browser-srcset={work.browserSrcset} data-original-src={work.originalSrc} data-loaded-quality="browser" alt={`《${work.title}》· ${work.author}`} width={work.width} height={work.height} loading={work.no === "01" ? "eager" : "lazy"} fetchpriority={work.no === "01" ? "high" : "auto"} decoding="async" />
             <span>{work.no}</span>
             {work.kind !== "单图" && <b>+ 9</b>}
           </div>
@@ -50,7 +51,7 @@ const works = [
               <h2>《{work.title}》</h2>
               <p>摄影 / {work.author}</p>
             </div>
-            {work.href ? <a href={work.href}>查看完整组图 →</a> : <span class="muted-note">原图位已预留</span>}
+            {work.href ? <a href={work.href}>查看完整组图 →</a> : null}
           </div>
         </article>
       ))}
@@ -77,16 +78,9 @@ const works = [
   .archive-note p { margin:0; color:var(--muted); line-height:1.75; }
   .issue-work-list { padding-bottom:68px; }
   .issue-work { padding:56px 0; border-top:1px solid var(--line); }
-  .yellow-photo { position:relative; min-height:min(72vw,760px); border:1px solid var(--line); overflow:hidden; }
+  .yellow-photo { position:relative; aspect-ratio:16/10; border:1px solid var(--line); overflow:hidden; background:#ddd8ca; }
+  .yellow-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .yellow-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent,rgba(17,17,15,.08)); }
-  .yellow-photo-a { background:linear-gradient(180deg,#88a4b8 0 50%,#d6a123 51% 100%); }
-  .yellow-photo-b { background:radial-gradient(circle at 72% 20%,#f6e693 0 4%,transparent 4.5%),linear-gradient(150deg,#718b9a,#354f62 55%,#c68e24); }
-  .yellow-photo-c { background:
-    linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px),
-    linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),
-    linear-gradient(145deg,#d6aa3b,#8f6f2d 50%,#443b31);
-    background-size:33.33% 100%,100% 33.33%,100% 100%;
-  }
   .yellow-photo > span { position:absolute; left:18px; top:16px; z-index:1; color:white; font-size:.72rem; letter-spacing:.12em; }
   .yellow-photo > b { position:absolute; right:18px; bottom:16px; z-index:1; color:white; font:400 2rem Georgia,serif; }
   .issue-work-caption { display:flex; justify-content:space-between; gap:30px; padding-top:18px; align-items:end; }
