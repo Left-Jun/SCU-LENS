@@ -6,6 +6,22 @@ const works = [
   { no: "02", title: "捕捉阳光", author: "一尾", kind: "单图", browserSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg", browserSrcset: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg 960w, /images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg 1191w", originalSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-original.jpg", width: 1191, height: 1920, orientation: "portrait" },
   { no: "03", title: "金黄色的", author: "三川", kind: "9 张组图", browserSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-1800.jpg", browserSrcset: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/09-1800.jpg 1800w", originalSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg", width: 2382, height: 1587, orientation: "landscape", href: "/monthly-nine/2025-yellow/golden-yellow" },
 ];
+
+const galleryItems = [
+  { title:"金黄芒节", author:"Sebastian", kicker:"单图 · Yellow", src:"/images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg", original:"/images/monthly-nine/2025-yellow/sebastian/sebastian-original.jpg", alt:"《金黄芒节》· Sebastian" },
+  { title:"捕捉阳光", author:"一尾", kicker:"单图 · Yellow", src:"/images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg", original:"/images/monthly-nine/2025-yellow/yiwei/yiwei-original.jpg", alt:"《捕捉阳光》· 一尾" },
+  ...Array.from({ length: 9 }, (_, i) => {
+    const no = String(i + 1).padStart(2, "0");
+    return {
+      title:"金黄色的",
+      author:"三川",
+      kicker:`组图 · ${no} / 09`,
+      src:`/images/monthly-nine/2025-yellow/sanchuan/${no}-1800.jpg`,
+      original:`/images/monthly-nine/2025-yellow/sanchuan/${no}-original.jpg`,
+      alt:`《金黄色的》· ${no} · 三川`,
+    };
+  }),
+];
 ---
 <BaseLayout title="黄色 · 每月九图 · SCU LENS" active="/monthly-nine">
   <div class="page-shell">
@@ -41,7 +57,7 @@ const works = [
       {works.map((work) => (
         <article class="issue-work">
           <div class:list={["yellow-photo", work.orientation]}>
-            <a class="photo-open-link" href={work.originalSrc} target="_blank" rel="noopener" aria-label={`查看原图：《${work.title}》· ${work.author}`}>
+            <a class="photo-open-link" href={work.originalSrc} data-viewer-open={`yellow-2025:${work.no === "01" ? 0 : work.no === "02" ? 1 : 10}`} aria-label={`打开看图：《${work.title}》· ${work.author}`}>
               <img src={work.browserSrc} srcset={work.browserSrcset} sizes="(max-width: 900px) 100vw, 920px" data-browser-src={work.browserSrc} data-browser-srcset={work.browserSrcset} data-original-src={work.originalSrc} data-loaded-quality="browser" alt={`《${work.title}》· ${work.author}`} width={work.width} height={work.height} loading={work.no === "01" ? "eager" : "lazy"} fetchpriority={work.no === "01" ? "high" : "auto"} decoding="async" />
             </a>
             <span>{work.no}</span>
@@ -64,6 +80,24 @@ const works = [
       <h2>下一主题 · 新春</h2>
       <a href="/monthly-nine">返回历期总览 →</a>
     </section>
+    <div class="viewer-registry" hidden>
+      {galleryItems.map((item, index) => (
+        <span
+          data-viewer-item
+          data-viewer-group="yellow-2025"
+          data-viewer-src={item.src}
+          data-original-src={item.original}
+          data-viewer-alt={item.alt}
+          data-viewer-title={item.title}
+          data-viewer-author={item.author}
+          data-viewer-kicker={item.kicker}
+          data-viewer-issue="黄色 · 2025.01"
+          data-next-title={index === galleryItems.length - 1 ? "新春" : undefined}
+          data-next-summary={index === galleryItems.length - 1 ? "2025.01—03 · 下一期主题档案。继续浏览新春时期的入选作品与主题记录。" : undefined}
+          data-next-href={index === galleryItems.length - 1 ? "/monthly-nine" : undefined}
+        ></span>
+      ))}
+    </div>
   </div>
 </BaseLayout>
 

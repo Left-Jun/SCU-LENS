@@ -12,6 +12,19 @@ const frames = [
   { no:"08", width:2150, height:1477 },
   { no:"09", width:2382, height:1587 },
 ].map((frame) => ({ ...frame, browserWidth: Math.min(frame.width, 1800) }));
+
+const galleryItems = [
+  { title:"金黄芒节", author:"Sebastian", kicker:"单图 · Yellow", src:"/images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg", original:"/images/monthly-nine/2025-yellow/sebastian/sebastian-original.jpg", alt:"《金黄芒节》· Sebastian" },
+  { title:"捕捉阳光", author:"一尾", kicker:"单图 · Yellow", src:"/images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg", original:"/images/monthly-nine/2025-yellow/yiwei/yiwei-original.jpg", alt:"《捕捉阳光》· 一尾" },
+  ...frames.map((frame) => ({
+    title:"金黄色的",
+    author:"三川",
+    kicker:`组图 · ${frame.no} / 09`,
+    src:`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg`,
+    original:`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-original.jpg`,
+    alt:`《金黄色的》· ${frame.no} · 三川`,
+  })),
+];
 ---
 <BaseLayout title="《金黄色的》· 三川 · SCU LENS" active="/monthly-nine">
   <div class="page-shell">
@@ -31,7 +44,7 @@ const frames = [
     <section class="series-grid">
       {frames.map((frame, i) => (
         <figure class:list={["series-frame", frame.height > frame.width ? "portrait" : "landscape"]}>
-          <a class="series-photo-link" href={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-original.jpg`} target="_blank" rel="noopener" aria-label={`查看原图：《金黄色的》· ${frame.no}`}>
+          <a class="series-photo-link" href={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-original.jpg`} data-viewer-open={`yellow-2025:${i + 2}`} aria-label={`打开看图：《金黄色的》· ${frame.no}`}>
             <img src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg`} srcset={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg ${frame.browserWidth}w`} sizes="(max-width: 700px) 100vw, 58vw" data-browser-src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg`} data-browser-srcset={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg ${frame.browserWidth}w`} data-original-src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-original.jpg`} data-loaded-quality="browser" alt={`《金黄色的》· ${frame.no} · 三川`} width={frame.width} height={frame.height} loading={i === 0 ? "eager" : "lazy"} fetchpriority={i === 0 ? "high" : "auto"} decoding="async" />
           </a>
           <figcaption>《金黄色的》· {frame.no}</figcaption>
@@ -41,8 +54,26 @@ const frames = [
 
     <section class="section series-note">
       <div class="eyebrow">Series View</div>
-      <p>月度页保留一张主图作为入口，这里完整展开《金黄色的》的 9 张作品。顶部“图片”开关可在浏览图与原图之间切换。</p>
+      <p>月度页保留一张主图作为入口，这里完整展开《金黄色的》的 9 张作品。点击任意照片会进入本期连续看图模式，可左右切换全部 11 张照片；原始文件在看图界面中单独提供。</p>
     </section>
+    <div class="viewer-registry" hidden>
+      {galleryItems.map((item, index) => (
+        <span
+          data-viewer-item
+          data-viewer-group="yellow-2025"
+          data-viewer-src={item.src}
+          data-original-src={item.original}
+          data-viewer-alt={item.alt}
+          data-viewer-title={item.title}
+          data-viewer-author={item.author}
+          data-viewer-kicker={item.kicker}
+          data-viewer-issue="黄色 · 2025.01"
+          data-next-title={index === galleryItems.length - 1 ? "新春" : undefined}
+          data-next-summary={index === galleryItems.length - 1 ? "2025.01—03 · 下一期主题档案。继续浏览新春时期的入选作品与主题记录。" : undefined}
+          data-next-href={index === galleryItems.length - 1 ? "/monthly-nine" : undefined}
+        ></span>
+      ))}
+    </div>
   </div>
 </BaseLayout>
 

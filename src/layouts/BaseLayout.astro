@@ -40,10 +40,6 @@ const nav = [
           <a href={item.href} class:list={["nav-link", { active: active === item.href }]}>{item.label}</a>
         ))}
       </nav>
-      <button class="image-quality-switch" id="image-quality-switch" type="button" aria-label="切换图片加载质量" aria-pressed="false">
-        <span>图片</span>
-        <strong data-quality-label>浏览图 · 轻量</strong>
-      </button>
     </header>
     <main><slot /></main>
     <footer class="site-footer">
@@ -58,52 +54,147 @@ const nav = [
       </div>
       <p>记录光，也记录我们在川大的这一段时间。</p>
     </footer>
+    <div class="photo-viewer" id="photo-viewer" hidden aria-hidden="true">
+      <button class="photo-viewer-close" type="button" aria-label="关闭看图">×</button>
+      <button class="photo-viewer-nav photo-viewer-prev" type="button" aria-label="上一张">‹</button>
+      <div class="photo-viewer-stage">
+        <div class="photo-viewer-media">
+          <img id="photo-viewer-image" alt="" />
+        </div>
+        <div class="photo-viewer-info">
+          <div class="photo-viewer-copy">
+            <div class="photo-viewer-kicker" id="photo-viewer-kicker"></div>
+            <h2 id="photo-viewer-title"></h2>
+            <p id="photo-viewer-author"></p>
+            <p class="photo-viewer-description" id="photo-viewer-description"></p>
+          </div>
+          <div class="photo-viewer-footer">
+            <div>
+              <span id="photo-viewer-issue"></span>
+              <strong id="photo-viewer-count"></strong>
+            </div>
+            <a id="photo-viewer-original" href="#" target="_blank" rel="noopener">查看原图 ↗</a>
+          </div>
+        </div>
+        <div class="photo-viewer-next-issue" id="photo-viewer-next-issue" hidden>
+          <div class="photo-viewer-next-kicker">Next Issue · 下一期</div>
+          <h2 id="photo-viewer-next-title"></h2>
+          <p id="photo-viewer-next-summary"></p>
+          <a id="photo-viewer-next-link" href="/monthly-nine">查看下一期 →</a>
+        </div>
+      </div>
+      <button class="photo-viewer-nav photo-viewer-next" type="button" aria-label="下一张">›</button>
+    </div>
     <script is:inline>
       (() => {
-        const key = "scu-lens-image-quality";
-        const root = document.documentElement;
-        const switcher = document.getElementById("image-quality-switch");
-        const label = switcher?.querySelector("[data-quality-label]");
-        const getMode = () => localStorage.getItem(key) === "original" ? "original" : "browser";
+        const viewer = document.getElementById("photo-viewer");
+        const image = document.getElementById("photo-viewer-image");
+        const kicker = document.getElementById("photo-viewer-kicker");
+        const title = document.getElementById("photo-viewer-title");
+        const author = document.getElementById("photo-viewer-author");
+        const description = document.getElementById("photo-viewer-description");
+        const issue = document.getElementById("photo-viewer-issue");
+        const count = document.getElementById("photo-viewer-count");
+        const original = document.getElementById("photo-viewer-original");
+        const nextIssue = document.getElementById("photo-viewer-next-issue");
+        const nextTitle = document.getElementById("photo-viewer-next-title");
+        const nextSummary = document.getElementById("photo-viewer-next-summary");
+        const nextLink = document.getElementById("photo-viewer-next-link");
+        const close = viewer?.querySelector(".photo-viewer-close");
+        const prev = viewer?.querySelector(".photo-viewer-prev");
+        const next = viewer?.querySelector(".photo-viewer-next");
+        let items = [];
+        let index = 0;
+        let touchStartX = 0;
+        let touchStartY = 0;
 
-        const applyImageMode = (img, mode) => {
-          if (!(img instanceof HTMLImageElement)) return;
-          const browserSrc = img.dataset.browserSrc;
-          const originalSrc = img.dataset.originalSrc;
-          if (!browserSrc || !originalSrc) return;
-          img.src = mode === "original" ? originalSrc : browserSrc;
-          if (mode === "browser" && img.dataset.browserSrcset) img.setAttribute("srcset", img.dataset.browserSrcset);
-          if (mode === "original") img.removeAttribute("srcset");
-          img.dataset.loadedQuality = mode;
+        const readItems = (group) => Array.from(document.querySelectorAll(`[data-viewer-item][data-viewer-group="${group}"]`));
+
+        const render = () => {
+          if (!viewer) return;
+          const atNextIssue = index === items.length;
+          viewer.classList.toggle("show-next-issue", atNextIssue);
+          nextIssue?.toggleAttribute("hidden", !atNextIssue);
+          viewer.querySelector(".photo-viewer-media")?.toggleAttribute("hidden", atNextIssue);
+          viewer.querySelector(".photo-viewer-info")?.toggleAttribute("hidden", atNextIssue);
+          if (atNextIssue) {
+            const source = items[items.length - 1];
+            if (nextTitle) nextTitle.textContent = source?.dataset.nextTitle || "下一期";
+            if (nextSummary) nextSummary.textContent = source?.dataset.nextSummary || "";
+            if (nextLink) nextLink.setAttribute("href", source?.dataset.nextHref || "/monthly-nine");
+            if (prev instanceof HTMLButtonElement) prev.disabled = false;
+            if (next instanceof HTMLButtonElement) next.disabled = true;
+            return;
+          }
+          const item = items[index];
+          if (!(item instanceof HTMLElement)) return;
+          if (image instanceof HTMLImageElement) {
+            image.src = item.dataset.viewerSrc || item.dataset.originalSrc || "";
+            image.alt = item.dataset.viewerAlt || "";
+          }
+          if (kicker) kicker.textContent = item.dataset.viewerKicker || "";
+          if (title) title.textContent = item.dataset.viewerTitle || "";
+          if (author) author.textContent = item.dataset.viewerAuthor ? `摄影 / ${item.dataset.viewerAuthor}` : "";
+          if (description) description.textContent = item.dataset.viewerDescription || "";
+          if (issue) issue.textContent = item.dataset.viewerIssue || "";
+          if (count) count.textContent = `${index + 1} / ${items.length}`;
+          if (original) original.setAttribute("href", item.dataset.originalSrc || item.dataset.viewerSrc || "#");
+          if (prev instanceof HTMLButtonElement) prev.disabled = index <= 0;
+          if (next instanceof HTMLButtonElement) next.disabled = false;
         };
 
-        const applyMode = (mode) => {
-          root.dataset.imageQuality = mode;
-          switcher?.setAttribute("aria-pressed", String(mode === "original"));
-          if (label) label.textContent = mode === "original" ? "原图 · 高清" : "浏览图 · 轻量";
-          document.querySelectorAll("img[data-browser-src][data-original-src]").forEach((img) => applyImageMode(img, mode));
+        const openViewer = (group, startIndex) => {
+          items = readItems(group);
+          if (!viewer || !items.length) return;
+          index = Math.max(0, Math.min(startIndex, items.length - 1));
+          viewer.hidden = false;
+          viewer.setAttribute("aria-hidden", "false");
+          document.documentElement.classList.add("viewer-open");
+          render();
         };
 
-        applyMode(getMode());
-        switcher?.addEventListener("click", () => {
-          const next = getMode() === "original" ? "browser" : "original";
-          localStorage.setItem(key, next);
-          applyMode(next);
-        });
+        const closeViewer = () => {
+          if (!viewer) return;
+          viewer.hidden = true;
+          viewer.setAttribute("aria-hidden", "true");
+          document.documentElement.classList.remove("viewer-open");
+          if (image instanceof HTMLImageElement) image.removeAttribute("src");
+        };
+
+        const go = (delta) => {
+          index = Math.max(0, Math.min(index + delta, items.length));
+          render();
+        };
 
         document.addEventListener("click", (event) => {
-          const target = event.target instanceof Element ? event.target.closest("[data-load-original]") : null;
-          if (!(target instanceof HTMLElement)) return;
-          const figure = target.closest("[data-photo-frame]");
-          const img = figure?.querySelector("img[data-original-src]");
-          if (!(img instanceof HTMLImageElement) || !img.dataset.originalSrc) return;
-          img.removeAttribute("srcset");
-          img.src = img.dataset.originalSrc;
-          img.dataset.loadedQuality = "original";
-          target.textContent = "已加载原图";
-          target.setAttribute("aria-pressed", "true");
-          target.setAttribute("disabled", "");
+          const opener = event.target instanceof Element ? event.target.closest("[data-viewer-open]") : null;
+          if (!(opener instanceof HTMLElement)) return;
+          event.preventDefault();
+          const value = opener.dataset.viewerOpen || "";
+          const split = value.lastIndexOf(":");
+          if (split < 0) return;
+          openViewer(value.slice(0, split), Number(value.slice(split + 1)) || 0);
         });
+        close?.addEventListener("click", closeViewer);
+        prev?.addEventListener("click", () => go(-1));
+        next?.addEventListener("click", () => go(1));
+        document.addEventListener("keydown", (event) => {
+          if (!viewer || viewer.hidden) return;
+          if (event.key === "Escape") closeViewer();
+          if (event.key === "ArrowLeft") go(-1);
+          if (event.key === "ArrowRight") go(1);
+        });
+        viewer?.addEventListener("touchstart", (event) => {
+          const touch = event.changedTouches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+        }, { passive: true });
+        viewer?.addEventListener("touchend", (event) => {
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - touchStartX;
+          const dy = touch.clientY - touchStartY;
+          if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+        }, { passive: true });
       })();
     </script>
   </body>
