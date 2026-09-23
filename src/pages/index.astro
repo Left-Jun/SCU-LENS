@@ -76,16 +76,22 @@ const monthlyTiles = [
       <div class="works-preview">
         {featuredWorks.map((work) => (
           <article class="work-preview-item">
-            <a class="work-tile" href={work.href}>
-              <img src={work.image} alt="" loading="lazy" decoding="async" />
-              <span class="work-tile-shade"></span>
-              <div class="work-tile-category">
-                <strong>{work.title}</strong>
-                <span>/ {work.en}</span>
+            <a class="work-card" href={work.href}>
+              <div class="work-tile">
+                <img src={work.image} alt="" loading="lazy" decoding="async" />
+                <span class="work-tile-shade"></span>
+                <div class="work-tile-meta">
+                  <span>{work.source}</span>
+                  <b>{work.author} 摄</b>
+                </div>
               </div>
-              <div class="work-tile-meta">
-                <span>{work.source}</span>
-                <b>{work.author} 摄</b>
+              <div class="work-category-panel">
+                <span class="work-category-index">CATEGORY</span>
+                <div class="work-category-name">
+                  <strong>{work.title}</strong>
+                  <span>{work.en}</span>
+                </div>
+                <span class="work-category-enter">进入分类 →</span>
               </div>
             </a>
           </article>
