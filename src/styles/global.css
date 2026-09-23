@@ -8,8 +8,9 @@
   --accent: #c83a2d;
   --dark: #151513;
   --space-page-top: 60px;
-  --space-page-bottom: 48px;
-  --space-section-y: 64px;
+  --space-page-bottom: 26px;
+  --space-section-top: 64px;
+  --space-section-bottom: 34px;
   --space-heading-gap: 22px;
   font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   background: var(--paper);
@@ -48,7 +49,7 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .page-shell { width:min(1180px,calc(100% - 40px)); margin:0 auto; }
 .eyebrow { font-size:.72rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
 .display { margin:0; font-family:Georgia,"Times New Roman",serif; font-weight:400; letter-spacing:-.055em; line-height:.9; }
-.section { padding:var(--space-section-y) 0; border-top:1px solid var(--line); }
+.section { padding:var(--space-section-top) 0 var(--space-section-bottom); border-top:1px solid var(--line); }
 .section-title,.section-kicker-row { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:var(--space-heading-gap); }
 .section-title > div { display:grid; gap:10px; }
 .section-title h2 { margin:0; font-size:clamp(2.2rem,4.6vw,4.4rem); font-weight:500; letter-spacing:-.055em; }
@@ -312,8 +313,9 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   @media (max-width:700px) {
   :root {
     --space-page-top: 26px;
-    --space-page-bottom: 34px;
-    --space-section-y: 42px;
+    --space-page-bottom: 18px;
+    --space-section-top: 42px;
+    --space-section-bottom: 22px;
     --space-heading-gap: 18px;
   }
   .site-header { position:static; flex-direction:column; }
@@ -350,7 +352,7 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
     gap:14px;
     min-height:auto;
     align-items:end;
-    padding:32px 0 36px;
+    padding:32px 0 18px;
   }
   .hero-brand-block { min-width:0; }
   .hero .eyebrow { max-width:18ch; font-size:.5rem; line-height:1.42; }
