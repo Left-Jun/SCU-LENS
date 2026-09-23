@@ -28,6 +28,26 @@ const issues = [
     summary: "黄色是光，是温度，是苏醒，也是沉淀。它可以是街角一盏暖灯，是季节更迭时的一抹秋意，也可以是某个瞬间落入镜中的情绪与故事。",
     count: "3 组入选作品",
     tone: 5,
+    preview: [
+      {
+        src: "/images/monthly-nine/2025-yellow/sebastian/sebastian-960.jpg",
+        alt: "《金黄芒节》· Sebastian",
+        width: 3840,
+        height: 5760,
+      },
+      {
+        src: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg",
+        alt: "《捕捉阳光》· 一尾",
+        width: 1191,
+        height: 1920,
+      },
+      {
+        src: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg",
+        alt: "《金黄色的》· 三川",
+        width: 2382,
+        height: 1587,
+      },
+    ],
   },
   {
     date: "2025.01—03",
@@ -114,11 +134,19 @@ const issues = [
         {issues.map((issue, index) => (
           <a class="issue-card" href={issue.href ?? "#"}>
             <div class="issue-card-index">{String(index + 1).padStart(2, "0")}</div>
-            <div class={"issue-card-visual tone-" + issue.tone}>
+            <div class:list={["issue-card-visual", "tone-" + issue.tone, { "has-preview": issue.preview }]}>
               <span class="issue-card-date">{issue.date}</span>
-              <div class="issue-card-photo-layout">
-                <span></span><span></span><span></span>
-              </div>
+              {issue.preview ? (
+                <div class="issue-card-photo-preview">
+                  {issue.preview.map((photo) => (
+                    <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
+                  ))}
+                </div>
+              ) : (
+                <div class="issue-card-photo-layout">
+                  <span></span><span></span><span></span>
+                </div>
+              )}
               <div class="issue-card-title">
                 <p>{issue.en}</p>
                 <h3>{issue.title}</h3>
@@ -183,10 +211,14 @@ const issues = [
   .issue-card { display:grid; grid-template-columns:42px minmax(0,1.35fr) minmax(260px,.65fr); gap:14px; align-items:stretch; }
   .issue-card-index { padding-top:10px; color:var(--muted); font-size:.72rem; letter-spacing:.12em; }
   .issue-card-visual { width:100%; aspect-ratio:4/3; padding:20px; color:white; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; border:1px solid var(--line); }
+  .issue-card-visual.has-preview { aspect-ratio:auto; }
   .issue-card-date { font-size:.72rem; letter-spacing:.12em; }
   .issue-card-photo-layout { display:grid; grid-template-columns:1.3fr .7fr; grid-template-rows:1fr 1fr; gap:6px; height:42%; margin:18px 0; opacity:.86; }
   .issue-card-photo-layout span { border:1px solid rgba(255,255,255,.56); background:rgba(255,255,255,.16); }
   .issue-card-photo-layout span:first-child { grid-row:1 / span 2; }
+  .issue-card-photo-preview { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.72fr); gap:6px; margin:18px 0; align-items:start; }
+  .issue-card-photo-preview img { display:block; width:100%; height:auto; border:1px solid rgba(255,255,255,.52); }
+  .issue-card-photo-preview img:first-child { grid-row:span 2; }
   .issue-card-title p { margin:0 0 8px; font-size:.66rem; letter-spacing:.16em; opacity:.72; }
   .issue-card-title h3 { margin:0; font:400 clamp(2.35rem,4.2vw,4.2rem)/.9 Georgia,serif; letter-spacing:-.065em; }
   .issue-card-copy { padding:22px; border:1px solid var(--line); background:rgba(255,255,255,.45); display:flex; flex-direction:column; }
@@ -227,7 +259,10 @@ const issues = [
     .latest-statement > p:first-child { font-size:1.08rem; line-height:1.58; }
     .issue-card { grid-template-columns:1fr; gap:12px; }
     .issue-card-index { display:none; }
-    .issue-card-visual { aspect-ratio:4/3; }
+    .issue-card-visual:not(.has-preview) { aspect-ratio:4/3; }
+    .issue-card-photo-preview { grid-template-columns:1fr 1fr; }
+    .issue-card-photo-preview img:first-child { grid-row:auto; }
+    .issue-card-photo-preview img:last-child { grid-column:1 / -1; }
     .issue-card-copy { grid-column:1; min-height:0; }
     .issue-card-copy > p { margin:26px 0 20px; }
     .channel-id { margin-top:28px; }
