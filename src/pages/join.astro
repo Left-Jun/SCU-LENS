@@ -71,6 +71,17 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
       <a class="mail-button" href={mailto}>发送申请邮件 <span>↗</span></a>
     </section>
 
+    <section class="section join-contact-row">
+      <div>
+        <div class="eyebrow">President's Mailbox</div>
+        <h2>会长信箱</h2>
+      </div>
+      <a class="join-contact-mail" href="mailto:1508017864@qq.com">1508017864@qq.com ↗</a>
+      <a class="join-resume-download" href="/downloads/scu-photography-association-resume-template.docx" download>
+        下载简历模板 <span>DOCX ↓</span>
+      </a>
+    </section>
+
     <section class="section join-note">
       <div class="eyebrow">Note</div>
       <p>非招新期也可以先了解协会；具体招募状态、岗位与面试安排以摄影协会当期通知为准。</p>
@@ -115,6 +126,11 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
   .apply-row-copy { display:grid; grid-template-columns:170px minmax(180px,.48fr) minmax(0,1fr); gap:24px; align-items:center; }
   .apply-row-copy h2 { margin:0; font:400 clamp(2rem,3.2vw,3.2rem)/1 var(--font-serif); letter-spacing:-.04em; }
   .apply-row-copy p { margin:0; max-width:680px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  .join-contact-row { display:grid; grid-template-columns:minmax(190px,.45fr) minmax(0,1fr) auto; gap:24px; align-items:center; }
+  .join-contact-row h2 { margin:6px 0 0; font:400 clamp(1.8rem,2.8vw,2.8rem)/1 var(--font-serif); letter-spacing:-.035em; }
+  .join-contact-mail { font-size:1rem; font-weight:600; }
+  .join-resume-download { display:flex; align-items:center; gap:14px; padding:12px 0 7px; border-bottom:1px solid currentColor; font-size:.82rem; font-weight:700; white-space:nowrap; }
+  .join-resume-download span { color:var(--muted); font-size:.68rem; letter-spacing:.1em; }
   @media (max-width:1000px) {
     .join-departments .section-display,
     .join-experience .section-display { font-size:clamp(2.4rem,4vw,3.8rem); }
@@ -133,5 +149,8 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
     .apply-row-copy { grid-template-columns:1fr; gap:8px; }
     .apply-row-copy h2 { font-size:2rem; }
     .mail-button { justify-self:start; }
+    .join-contact-row { grid-template-columns:1fr; gap:10px; }
+    .join-contact-mail { font-size:.92rem; }
+    .join-resume-download { justify-self:start; margin-top:2px; }
   }
 </style>

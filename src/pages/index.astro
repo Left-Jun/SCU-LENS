@@ -90,7 +90,7 @@ const monthlyTiles = [
         <a class="text-link" href="/gallery">进入作品库 <span>↗</span></a>
       </div>
       <div class="works-preview">
-        {featuredWorks.map((work) => (
+        {featuredWorks.slice(0,4).map((work) => (
           <article class="work-preview-item">
             <a class="work-card" href={work.href}>
               <div class="work-tile">
