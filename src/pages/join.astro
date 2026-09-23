@@ -3,7 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const mailSubject = encodeURIComponent("【川大摄协申请】姓名 - 学院 - 年级");
 const mailBody = encodeURIComponent(["姓名：","学院：","年级：","意向部门（技术部 / 活动部 / 宣传部）：","联系方式：","","请在邮件中附上个人简历；技术部或摄影相关方向可附作品集或作品链接。"].join("\n"));
-const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + mailBody;
+const presidentMail = "1508017864@qq.com";
+const mailto = "mailto:" + presidentMail + "?subject=" + mailSubject + "&body=" + mailBody;
 ---
 <BaseLayout title="加入我们 · SCU LENS" active="/join">
   <div class="page-shell">
@@ -76,7 +77,7 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
         <div class="eyebrow">President's Mailbox</div>
         <h2>会长信箱</h2>
       </div>
-      <a class="join-contact-mail" href="mailto:1508017864@qq.com">1508017864@qq.com ↗</a>
+      <a class="join-contact-mail" href={"mailto:" + presidentMail}>{presidentMail} ↗</a>
       <a class="join-resume-download" href="/downloads/scu-photography-association-resume-template.docx" download>
         下载简历模板 <span>DOCX ↓</span>
       </a>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
+const presidentMail = "1508017864@qq.com";
 ---
 <BaseLayout title="关于摄协 · SCU LENS" active="/about">
   <div class="page-shell">
@@ -52,12 +53,12 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
           <p>日常分享、投稿、讨论与活动通知的主要社区空间。</p>
           <b>频道号 · pd77222624 ↗</b>
         </a>
-        <article class="link-card">
+        <a class="link-card" href={"mailto:" + presidentMail}>
           <span>02 / CONTACT</span>
-          <h3>合作与联系</h3>
-          <p>校内活动、摄影合作、社团交流与其他影像相关联系。</p>
-          <a href="/join">加入我们 ↗</a>
-        </article>
+          <h3>会长信箱</h3>
+          <p>校内活动、摄影合作、社团交流与其他影像相关联系，可统一发送至会长信箱。</p>
+          <b>{presidentMail} ↗</b>
+        </a>
       </div>
     </section>
   </div>
