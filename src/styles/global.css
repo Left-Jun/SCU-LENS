@@ -9,7 +9,7 @@
   --dark: #151513;
   --space-page-top: 60px;
   --space-page-bottom: 26px;
-  --space-section-top: 64px;
+  --space-section-top: 34px;
   --space-section-bottom: 34px;
   --space-heading-gap: 22px;
   font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
@@ -314,7 +314,7 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   :root {
     --space-page-top: 26px;
     --space-page-bottom: 18px;
-    --space-section-top: 42px;
+    --space-section-top: 22px;
     --space-section-bottom: 22px;
     --space-heading-gap: 18px;
   }
