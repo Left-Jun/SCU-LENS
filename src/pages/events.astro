@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const events = [
   ["2026.09","新学年 · 摄协重新出发","招新、迎新与新一届组织工作的开始。","本学期"],
   ["2026","风光摄影讲座","围绕风光摄影的观察、拍摄与后期展开的交流活动。","讲座"],
-  ["2025–26","年度活动档案","整理上一学年的社团活动、摄影比赛与成员记录。","归档"],
+  ["2025–26","年度活动档案","讲座、外拍、摄影比赛与成员共同经历留下的年度记录。","归档"],
 ];
 ---
 <BaseLayout title="活动 · SCU LENS" active="/events">
@@ -11,7 +11,7 @@ const events = [
     <section class="page-hero">
       <div class="eyebrow">Events & Field Notes</div>
       <h1 class="display">活动</h1>
-      <p>频道负责即时通知，官网负责把活动结束后的照片、现场与故事整理成长期可回看的协会档案。</p>
+      <p>讲座、外拍、比赛与共同经历，都在这里留下现场、照片与故事。</p>
     </section>
     <section class="section timeline">
       {events.map(([date,title,desc,tag]) => (

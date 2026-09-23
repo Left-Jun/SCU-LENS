@@ -28,18 +28,9 @@ const category = categories[slug];
       <p>{category.intro}</p>
     </section>
 
-    <section class="section gallery-empty-state">
-      <span class="eyebrow">SCU LENS</span>
-      <p>该主题分区的作品会按照片本身展开；来源与摄影者信息只出现在具体作品下方。</p>
-    </section>
   </div>
 </BaseLayout>
 
 <style>
   .back-link { display:inline-block; margin-bottom:26px; color:var(--muted); font-size:.82rem; }
-  .gallery-empty-state { min-height:36vh; display:flex; align-items:flex-end; justify-content:space-between; gap:40px; }
-  .gallery-empty-state p { max-width:620px; margin:0; color:var(--muted); line-height:1.8; }
-  @media (max-width:700px) {
-    .gallery-empty-state { min-height:24vh; flex-direction:column; align-items:flex-start; justify-content:flex-end; }
-  }
 </style>
