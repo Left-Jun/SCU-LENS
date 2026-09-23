@@ -60,38 +60,11 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
       </div>
     </section>
 
-    <section class="section join-grid">
-      <article class="join-card join-card-main">
-        <span class="step-index">01</span>
-        <div>
-          <div class="eyebrow">Before You Apply</div>
-          <h2>先选一个你想做的方向</h2>
-          <p>技术、活动、宣传三条线并不是完全割裂的。先从最感兴趣的一项进入，之后在活动中也会不断跨部门协作。</p>
-        </div>
-      </article>
-      <article class="join-card">
-        <span class="step-index">02</span>
-        <div>
-          <div class="eyebrow">Application</div>
-          <h2>发送简历</h2>
-          <p>邮件正文简单介绍自己，并注明意向部门。申请技术部或摄影相关方向，可以附作品集或作品链接。</p>
-        </div>
-      </article>
-      <article class="join-card">
-        <span class="step-index">03</span>
-        <div>
-          <div class="eyebrow">Contact</div>
-          <h2>后续沟通</h2>
-          <p>收到材料后再进行对应沟通。正式招新期也会同步 QQ 频道与社团通知。</p>
-        </div>
-      </article>
-    </section>
-
-    <section class="section apply-panel">
-      <div>
-        <div class="eyebrow">Application Mail</div>
-        <h2>把你的简历发给我们。</h2>
-        <p>邮件标题会自动带上申请格式，你只需要补充姓名、学院、年级、意向部门与联系方式。</p>
+    <section class="section apply-row">
+      <div class="apply-row-copy">
+        <div class="eyebrow">Application</div>
+        <h2>申请加入摄协</h2>
+        <p>选择意向部门后，把简历发给我们；技术部或摄影相关方向可附作品集。收到材料后我们会再联系你，正式招新安排也会同步发布。</p>
       </div>
       <a class="mail-button" href={mailto}>发送申请邮件 <span>↗</span></a>
     </section>
@@ -120,6 +93,10 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
   .experience-grid article:nth-child(even) { padding-left:28px; }
   .experience-grid h3 { margin:18px 0 8px; font:400 1.55rem/1 Georgia,serif; }
   .experience-grid p { margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  .apply-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:28px; align-items:center; }
+  .apply-row-copy { display:grid; grid-template-columns:170px minmax(180px,.48fr) minmax(0,1fr); gap:24px; align-items:center; }
+  .apply-row-copy h2 { margin:0; font:400 clamp(2rem,3.7vw,3.7rem)/.96 Georgia,serif; letter-spacing:-.05em; }
+  .apply-row-copy p { margin:0; max-width:680px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   @media (max-width:700px) {
     .department-grid,.experience-grid { grid-template-columns:1fr; }
     .department-card { min-height:0; padding:20px; }
@@ -128,5 +105,9 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
     .experience-grid article,
     .experience-grid article:nth-child(odd),
     .experience-grid article:nth-child(even) { padding:18px 0; border-right:0; }
+    .apply-row { grid-template-columns:1fr; gap:18px; }
+    .apply-row-copy { grid-template-columns:1fr; gap:8px; }
+    .apply-row-copy h2 { font-size:2rem; }
+    .mail-button { justify-self:start; }
   }
 </style>
