@@ -67,17 +67,16 @@ const presidentMail = "1508017864@qq.com";
 <style>
   .about-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0; border-top:1px solid var(--line); border-left:1px solid var(--line); }
   .about-card {
-    min-height:190px;
-    padding:22px 24px;
+    min-height:150px;
+    padding:20px 24px 18px;
     border-right:1px solid var(--line);
     border-bottom:1px solid var(--line);
     background:transparent;
-    display:flex;
-    flex-direction:column;
+    display:block;
   }
-  .about-index { color:var(--muted); font-size:var(--font-small); letter-spacing:.1em; }
-  .about-card h2 { margin:auto 0 10px; font:400 clamp(1.8rem,2.8vw,2.8rem)/.98 var(--font-serif); letter-spacing:-.04em; }
-  .about-card p { margin:0; max-width:48ch; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  .about-index { display:block; margin-bottom:24px; color:var(--muted); font-size:var(--font-small); letter-spacing:.1em; }
+  .about-card h2 { margin:0 0 10px; font:600 clamp(1.8rem,2.5vw,2.5rem)/1.02 var(--font-sans); letter-spacing:-.035em; }
+  .about-card p { margin:0; max-width:42ch; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   .channel-link-button {
     display:inline-block;
     margin-top:26px;
@@ -132,6 +131,7 @@ const presidentMail = "1508017864@qq.com";
   @media (max-width:700px) {
     .about-grid { grid-template-columns:1fr; border-left:0; }
     .about-card { min-height:0; padding:18px 0; border-right:0; }
-    .about-card h2 { margin:28px 0 8px; font-size:1.8rem; }
+    .about-index { margin-bottom:16px; }
+    .about-card h2 { margin:0 0 8px; font-size:1.8rem; }
   }
 </style>
