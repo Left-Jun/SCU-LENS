@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const channelCards = [
-  { type: "相机组投稿", title: "城市与校园", note: "来自频道 · Camera", visual: "visual-city" },
-  { type: "手机组投稿", title: "日常片段", note: "来自频道 · Mobile", visual: "visual-flower" },
-  { type: "胶片组投稿", title: "胶片与时间", note: "来自频道 · Film", visual: "visual-film" },
+const featuredWorks = [
+  { title: "校园 / CAMPUS", source: "相机组投稿", visual: "visual-campus", cls: "work-wide" },
+  { title: "人物 / PORTRAIT", source: "相机组投稿", visual: "visual-portrait", cls: "work-tall" },
+  { title: "春日 / SPRING", source: "手机组投稿", visual: "visual-flower", cls: "" },
+  { title: "城市 / CITY", source: "胶片组投稿", visual: "visual-city", cls: "" },
 ];
 
 const eventCards = [
@@ -64,7 +65,7 @@ const monthlyTiles = [
       </div>
     </section>
 
-    <section class="section">
+    <section class="section works-channel-section">
       <div class="section-kicker-row">
         <div>
           <div class="eyebrow">Selected Works</div>
@@ -73,35 +74,15 @@ const monthlyTiles = [
         <a class="text-link" href="/gallery">进入作品库 <span>↗</span></a>
       </div>
       <div class="works-preview">
-        <a class="work-tile work-wide visual-campus" href="/gallery"><span class="work-label">校园 / CAMPUS</span></a>
-        <a class="work-tile work-tall visual-portrait" href="/gallery"><span class="work-label">人像 / PORTRAIT</span></a>
-        <a class="work-tile visual-documentary" href="/gallery"><span class="work-label">纪实 / DOCUMENTARY</span></a>
-        <a class="work-tile visual-night" href="/gallery"><span class="work-label">城市 / CITY</span></a>
-      </div>
-    </section>
-
-    <section class="section channel-section">
-      <div class="section-title">
-        <div>
-          <div class="eyebrow">From the Channel</div>
-          <h2>频道投稿</h2>
-        </div>
-        <p>相机、手机与胶片投稿主要发生在摄协 QQ 频道。官网负责将其中值得长期保存的照片重新整理成作品与专题。</p>
-      </div>
-      <div class="channel-grid">
-        {channelCards.map((card) => (
-          <article class="channel-card">
-            <div class={"channel-visual " + card.visual}></div>
-            <div class="channel-card-body">
-              <span>{card.type}</span>
-              <h3>{card.title}</h3>
-              <p>{card.note}</p>
-            </div>
-          </article>
+        {featuredWorks.map((work) => (
+          <a class:list={["work-tile", work.cls, work.visual]} href="/gallery">
+            <span class="work-source">{work.source}</span>
+            <span class="work-label">{work.title}</span>
+          </a>
         ))}
       </div>
-      <div class="channel-note">
-        <span>投稿统一从投稿专区进入</span>
+      <div class="works-source-note">
+        <span>作品来自摄协 QQ 频道的相机组、手机组与胶片组投稿；来源只作标注，主题决定浏览方式。</span>
         <a href="/submit">进入投稿专区 →</a>
       </div>
     </section>
