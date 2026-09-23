@@ -142,11 +142,11 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .works-source-note a { flex:0 0 auto; color:var(--ink); font-weight:700; }
 
 .event-preview-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-.event-preview-card { min-height:290px; padding:28px; display:flex; flex-direction:column; justify-content:space-between; border:1px solid var(--line); }
+.event-preview-card { min-height:220px; padding:24px; display:flex; flex-direction:column; border:1px solid var(--line); background:rgba(255,255,255,.36); }
 .event-preview-card span,.event-preview-card b { font-size:.72rem; letter-spacing:.11em; }
-.event-preview-card h3 { margin:auto 0 20px; max-width:12ch; font:400 clamp(2.1rem,4vw,4rem)/.98 Georgia,serif; letter-spacing:-.04em; }
-.event-tone-1 { background:linear-gradient(145deg,#1d1d1b,#34322d); color:#f4f1e8; }
-.event-tone-2 { background:rgba(255,255,255,.58); }
+.event-preview-card h3 { margin:34px 0 10px; max-width:12ch; font:400 clamp(2rem,3.4vw,3.2rem)/1 var(--font-serif); letter-spacing:-.035em; }
+.event-preview-card p { margin:0 0 22px; max-width:48ch; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+.event-preview-card b { margin-top:auto; }
 
 .home-links { display:grid; gap:0; }
 .home-link-row {
@@ -211,10 +211,10 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .channel-callout a { grid-column:2; justify-self:start; border-bottom:1px solid var(--ink); font-weight:700; padding-bottom:5px; }
 
 .timeline { border-top:1px solid var(--line); }
-.timeline article { display:grid; grid-template-columns:130px 1fr auto; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); align-items:start; }
+.timeline article { display:grid; grid-template-columns:150px 1fr auto; gap:26px; padding:22px 0; border-bottom:1px solid var(--line); align-items:start; }
 .timeline time,.timeline .tag { color:var(--muted); font-size:.8rem; }
-.timeline h2 { margin:0 0 8px; font:400 1.7rem Georgia,serif; }
-.timeline p { margin:0; color:var(--muted); line-height:1.6; }
+.timeline h2 { margin:0 0 7px; font:600 1.55rem/1.08 var(--font-sans); letter-spacing:-.025em; }
+.timeline p { margin:0; max-width:760px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
 
 .channel-bridge { display:grid; grid-template-columns:1.3fr .7fr; gap:50px; }
 .channel-bridge-copy h2 { margin:12px 0 20px; font:400 clamp(3rem,6vw,6rem)/.95 Georgia,serif; letter-spacing:-.055em; }

@@ -1,8 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-const events = [
-  ["2026.09","新学年 · 摄协重新出发","招新、迎新与新一届组织工作的开始。","本学期"],
-  ["2026","风光摄影讲座","围绕风光摄影的观察、拍摄与后期展开的交流活动。","讲座"],
+
+const ongoing = [
+  ["持续进行","每月九图","每月固定主题征集，从 QQ 频道收集作品，并在 SCU LENS 上整理为长期影像档案。","长期项目"],
+  ["持续进行","日常投稿与作品收录","相机、手机与胶片作品都可以在频道持续投稿，精选作品会进入网站作品库与专题。","投稿"],
+];
+
+const upcoming = [
+  ["2026 · 10 月中旬","百团大战","线下社团展示、现场交流与新学年集中招新入口。具体日期、摊位与现场安排以当期通知为准。","近期"],
+  ["百团大战后","新一轮大规模招新","面向技术部、活动部和宣传部的新一轮集中招募。报名、沟通与后续安排会同步发布。","招新"],
+];
+
+const archive = [
+  ["2026.09","新学年 · 摄协重新出发","迎新、组织调整与新一届工作的开始。","记录"],
   ["2025–26","年度活动档案","讲座、外拍、摄影比赛与成员共同经历留下的年度记录。","归档"],
 ];
 ---
@@ -13,14 +23,61 @@ const events = [
       <h1 class="display">活动</h1>
       <p>讲座、外拍、比赛与共同经历，都在这里留下现场、照片与故事。</p>
     </section>
-    <section class="section timeline">
-      {events.map(([date,title,desc,tag]) => (
-        <article>
-          <time>{date}</time>
-          <div><h2>{title}</h2><p>{desc}</p></div>
-          <span class="tag">{tag}</span>
-        </article>
-      ))}
+    <section class="section event-group" id="ongoing">
+      <div class="section-kicker-row">
+        <div>
+          <div class="eyebrow">Ongoing</div>
+          <h2 class="section-display">长期活动</h2>
+        </div>
+        <p>不依赖单次日期，持续发生、持续积累的项目。</p>
+      </div>
+      <div class="timeline">
+        {ongoing.map(([date,title,desc,tag]) => (
+          <article>
+            <time>{date}</time>
+            <div><h2>{title}</h2><p>{desc}</p></div>
+            <span class="tag">{tag}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section event-group" id="upcoming">
+      <div class="section-kicker-row">
+        <div>
+          <div class="eyebrow">Upcoming</div>
+          <h2 class="section-display">近期活动</h2>
+        </div>
+        <p>接下来会发生的线下活动与集中招募节点。</p>
+      </div>
+      <div class="timeline">
+        {upcoming.map(([date,title,desc,tag]) => (
+          <article>
+            <time>{date}</time>
+            <div><h2>{title}</h2><p>{desc}</p></div>
+            <span class="tag">{tag}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section event-group">
+      <div class="section-kicker-row">
+        <div>
+          <div class="eyebrow">Archive</div>
+          <h2 class="section-display">过去记录</h2>
+        </div>
+        <p>已经发生的活动会逐步沉淀为照片、文字与年度档案。</p>
+      </div>
+      <div class="timeline">
+        {archive.map(([date,title,desc,tag]) => (
+          <article>
+            <time>{date}</time>
+            <div><h2>{title}</h2><p>{desc}</p></div>
+            <span class="tag">{tag}</span>
+          </article>
+        ))}
+      </div>
     </section>
   </div>
 </BaseLayout>

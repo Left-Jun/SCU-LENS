@@ -11,8 +11,20 @@ const featuredWorks = [
 ];
 
 const eventCards = [
-  { date: "SEP · 2026", title: "新学年 · 摄协重新出发", tag: "本学期" },
-  { date: "ARCHIVE", title: "讲座、外拍与共同经历", tag: "活动档案" },
+  {
+    kicker:"ONGOING",
+    title:"长期活动",
+    meta:"持续进行",
+    desc:"每月九图持续征集，以及日常投稿、作品整理与长期影像计划。",
+    href:"/events#ongoing"
+  },
+  {
+    kicker:"UPCOMING",
+    title:"近期活动",
+    meta:"2026 · 10 月中旬",
+    desc:"百团大战与新一轮大规模招新将陆续展开，具体时间与现场安排以当期通知为准。",
+    href:"/events#upcoming"
+  },
 ];
 
 const monthlyTiles = [
@@ -109,11 +121,12 @@ const monthlyTiles = [
         <a class="text-link" href="/events">查看活动档案 <span>↗</span></a>
       </div>
       <div class="event-preview-grid">
-        {eventCards.map((item, i) => (
-          <a class={"event-preview-card event-tone-" + (i + 1)} href="/events">
-            <span>{item.date}</span>
+        {eventCards.map((item) => (
+          <a class="event-preview-card" href={item.href}>
+            <span>{item.kicker}</span>
             <h3>{item.title}</h3>
-            <b>{item.tag}</b>
+            <p>{item.desc}</p>
+            <b>{item.meta} ↗</b>
           </a>
         ))}
       </div>
