@@ -32,9 +32,8 @@ img { max-width: 100%; display: block; }
   background: rgba(244,241,232,.84);
   backdrop-filter: blur(18px);
 }
-.brand { display:flex; align-items:baseline; gap:7px; letter-spacing:-.04em; white-space:nowrap; }
-.brand-mark { font-size:.72rem; font-weight:800; letter-spacing:.08em; }
-.brand-word { font: italic 400 1.55rem Georgia,"Times New Roman",serif; }
+.brand { display:flex; align-items:center; width:72px; height:44px; overflow:hidden; white-space:nowrap; }
+.brand-logo { width:100%; height:100%; object-fit:contain; mix-blend-mode:multiply; transform:scale(1.34); }
 nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .nav-link { position:relative; font-size:.9rem; color:var(--muted); padding:8px 0; white-space:nowrap; }
 .nav-link::after { content:""; position:absolute; left:0; right:100%; bottom:2px; height:1px; background:var(--ink); transition:.22s ease; }
@@ -72,7 +71,7 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
   border-radius:3px;
   background:
     linear-gradient(145deg,rgba(17,17,15,.92),rgba(17,17,15,.52)),
-    url("/images/scu-photo-logo.jpg") center/cover;
+    url("/images/brand/scu-lens-logo-simple.png") center/72% no-repeat;
   color:white;
   display:flex;
   flex-direction:column;
