@@ -347,20 +347,20 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .photo-viewer-next-preview { position:absolute; inset:0; width:100%; height:100%; }
   .photo-viewer-next-issue:not(.has-preview) { justify-content:center; }
   .hero {
-    grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);
-    gap:14px;
+    grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+    gap:18px;
     min-height:auto;
     align-items:end;
     padding:58px 0 44px;
   }
   .hero-brand-block { min-width:0; }
-  .hero .eyebrow { max-width:22ch; font-size:.56rem; line-height:1.48; }
-  .hero h1 { font-size:clamp(3.35rem,17vw,5.2rem); }
-  .hero-index { margin-top:18px; gap:7px; font-size:.52rem; line-height:1.45; }
+  .hero .eyebrow { max-width:22ch; font-size:.54rem; line-height:1.48; }
+  .hero h1 { font-size:clamp(2.95rem,14.5vw,4.55rem); }
+  .hero-index { margin-top:18px; gap:7px; font-size:.5rem; line-height:1.45; }
   .hero-index::before { width:22px; }
   .hero-copy { padding:0; min-width:0; }
   .feature-card {
-    min-height:240px;
+    min-height:220px;
     padding:16px;
     border:1px solid var(--line);
     border-radius:3px;
