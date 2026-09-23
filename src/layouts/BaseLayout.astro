@@ -59,7 +59,7 @@ const nav = [
       <button class="photo-viewer-nav photo-viewer-prev" type="button" aria-label="上一张">‹</button>
       <div class="photo-viewer-stage">
         <div class="photo-viewer-media">
-          <img id="photo-viewer-image" alt="" />
+          <div class="photo-viewer-track" id="photo-viewer-track"></div>
         </div>
         <div class="photo-viewer-info">
           <div class="photo-viewer-copy">
@@ -88,7 +88,7 @@ const nav = [
     <script is:inline>
       (() => {
         const viewer = document.getElementById("photo-viewer");
-        const image = document.getElementById("photo-viewer-image");
+        const track = document.getElementById("photo-viewer-track");
         const kicker = document.getElementById("photo-viewer-kicker");
         const title = document.getElementById("photo-viewer-title");
         const author = document.getElementById("photo-viewer-author");
@@ -107,6 +107,7 @@ const nav = [
         let index = 0;
         let touchStartX = 0;
         let touchStartY = 0;
+        let dragging = false;
 
         const readItems = (group) => Array.from(document.querySelectorAll(`[data-viewer-item][data-viewer-group="${group}"]`));
 
@@ -128,9 +129,9 @@ const nav = [
           }
           const item = items[index];
           if (!(item instanceof HTMLElement)) return;
-          if (image instanceof HTMLImageElement) {
-            image.src = item.dataset.viewerSrc || item.dataset.originalSrc || "";
-            image.alt = item.dataset.viewerAlt || "";
+          if (track instanceof HTMLElement) {
+            track.style.transition = dragging ? "none" : "transform .32s cubic-bezier(.22,.72,.24,1)";
+            track.style.transform = `translate3d(-${index * 100}%,0,0)`;
           }
           if (kicker) kicker.textContent = item.dataset.viewerKicker || "";
           if (title) title.textContent = item.dataset.viewerTitle || "";
@@ -146,6 +147,19 @@ const nav = [
         const openViewer = (group, startIndex) => {
           items = readItems(group);
           if (!viewer || !items.length) return;
+          if (track instanceof HTMLElement) {
+            track.innerHTML = "";
+            for (const item of items) {
+              const slide = document.createElement("div");
+              slide.className = "photo-viewer-slide";
+              const img = document.createElement("img");
+              img.src = item.dataset.viewerSrc || item.dataset.originalSrc || "";
+              img.alt = item.dataset.viewerAlt || "";
+              img.draggable = false;
+              slide.appendChild(img);
+              track.appendChild(slide);
+            }
+          }
           index = Math.max(0, Math.min(startIndex, items.length - 1));
           viewer.hidden = false;
           viewer.setAttribute("aria-hidden", "false");
@@ -158,7 +172,7 @@ const nav = [
           viewer.hidden = true;
           viewer.setAttribute("aria-hidden", "true");
           document.documentElement.classList.remove("viewer-open");
-          if (image instanceof HTMLImageElement) image.removeAttribute("src");
+          if (track instanceof HTMLElement) track.innerHTML = "";
         };
 
         const go = (delta) => {
@@ -188,12 +202,25 @@ const nav = [
           const touch = event.changedTouches[0];
           touchStartX = touch.clientX;
           touchStartY = touch.clientY;
+          dragging = true;
+          if (track instanceof HTMLElement) track.style.transition = "none";
+        }, { passive: true });
+        viewer?.addEventListener("touchmove", (event) => {
+          if (!dragging || !(track instanceof HTMLElement) || index >= items.length) return;
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - touchStartX;
+          const dy = touch.clientY - touchStartY;
+          if (Math.abs(dx) <= Math.abs(dy)) return;
+          const width = viewer.clientWidth || window.innerWidth;
+          track.style.transform = `translate3d(${-index * width + dx}px,0,0)`;
         }, { passive: true });
         viewer?.addEventListener("touchend", (event) => {
           const touch = event.changedTouches[0];
           const dx = touch.clientX - touchStartX;
           const dy = touch.clientY - touchStartY;
-          if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+          dragging = false;
+          if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+          else render();
         }, { passive: true });
       })();
     </script>
