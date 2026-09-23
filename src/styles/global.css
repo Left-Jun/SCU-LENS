@@ -145,13 +145,19 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .event-tone-1 { background:linear-gradient(145deg,#1d1d1b,#34322d); color:#f4f1e8; }
 .event-tone-2 { background:rgba(255,255,255,.58); }
 
-.split-cta { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-.cta-panel { min-height:360px; padding:30px; border:1px solid var(--line); background:var(--panel); display:flex; flex-direction:column; align-items:flex-start; }
-.cta-panel h2 { margin:auto 0 12px; font:400 clamp(2.8rem,5vw,5rem)/.92 Georgia,serif; letter-spacing:-.05em; }
-.cta-panel p { max-width:34ch; margin:0 0 30px; color:var(--muted); line-height:1.7; }
-.cta-panel b { font-size:.84rem; }
-.cta-dark { background:var(--dark); color:#f6f2e8; }
-.cta-dark .eyebrow,.cta-dark p { color:rgba(246,242,232,.62); }
+.home-links { display:grid; gap:0; }
+.home-link-row {
+  display:grid;
+  grid-template-columns:150px minmax(170px,.55fr) minmax(0,1fr) auto;
+  gap:24px;
+  align-items:center;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.home-link-row:first-child { border-top:0; }
+.home-link-row h2 { margin:0; font:400 clamp(2rem,3.4vw,3.5rem)/.96 Georgia,serif; letter-spacing:-.05em; }
+.home-link-row p { margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+.home-link-row b { font-size:.82rem; white-space:nowrap; }
 
 .manifesto { display:grid; grid-template-columns:.65fr 1.35fr; gap:50px; }
 .manifesto blockquote { margin:0; font:400 clamp(2.5rem,5.5vw,5.5rem)/1.02 Georgia,serif; letter-spacing:-.05em; }
@@ -398,7 +404,10 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .work-category-name strong { font-size:clamp(1.55rem,7vw,2.1rem); }
   .work-category-name span { font-size:.6rem; }
   .work-category-enter { display:block; width:94px; margin-top:14px; font-size:.6rem; }
-  .channel-grid,.event-preview-grid,.split-cta,.archive-grid,.links-grid,.about-grid,.join-grid { grid-template-columns:1fr; }
+  .channel-grid,.event-preview-grid,.archive-grid,.links-grid,.about-grid,.join-grid { grid-template-columns:1fr; }
+  .home-link-row { grid-template-columns:1fr; gap:7px; padding:16px 0; }
+  .home-link-row h2 { font-size:2rem; }
+  .home-link-row p { max-width:30ch; }
   .channel-note { flex-direction:column; }
   .manifesto { grid-template-columns:1fr; }
   .gallery-grid { grid-template-columns:1fr; gap:30px; }
