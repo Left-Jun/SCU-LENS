@@ -87,6 +87,16 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
   padding:var(--space-page-top) 0 var(--space-page-bottom);
 }
 .hero h1 { font-size:clamp(5rem,14vw,11rem); }
+.hero-slogan {
+  max-width:8ch;
+  margin-top:18px;
+  font-family:var(--font-serif);
+  font-size:clamp(3.8rem,7vw,7.2rem) !important;
+  font-weight:400;
+  line-height:1.02 !important;
+  letter-spacing:-.035em;
+}
+.hero-slogan span { display:inline-block; }
 .hero-copy { padding-bottom:14px; }
 .hero-mobile-description { display:none; }
 .hero-index { display:flex; gap:10px; align-items:center; margin-top:36px; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; }
@@ -435,28 +445,41 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .photo-viewer-next-preview { position:absolute; inset:0; width:100%; height:100%; }
   .photo-viewer-next-issue:not(.has-preview) { justify-content:center; }
   .hero {
-    grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);
-    gap:14px;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
     min-height:auto;
-    align-items:end;
-    padding:32px 0 18px;
+    align-items:stretch;
+    padding:28px 0 20px;
   }
-  .hero-brand-block { min-width:0; }
-  .hero .eyebrow { max-width:18ch; font-size:.5rem; line-height:1.42; }
-  .hero h1 { font-size:clamp(2.55rem,12.2vw,3.95rem); line-height:.9; }
-  .hero-index { margin-top:14px; gap:6px; font-size:.46rem; line-height:1.4; }
-  .hero-index::before { width:18px; }
-  .hero-copy { padding:0; min-width:0; }
+  .hero-brand-block { min-width:0; width:100%; }
+  .hero .eyebrow { max-width:none; font-size:.56rem; line-height:1.42; letter-spacing:.13em; }
+  .hero-slogan {
+    max-width:9ch;
+    margin-top:13px;
+    font-size:clamp(2.65rem,12.5vw,4rem) !important;
+    line-height:1.04 !important;
+    letter-spacing:-.025em;
+  }
+  .hero-index { margin-top:16px; gap:7px; font-size:.5rem; line-height:1.4; letter-spacing:.11em; }
+  .hero-index::before { width:26px; }
+  .hero-copy {
+    width:min(78vw,410px);
+    align-self:flex-end;
+    padding:0;
+    min-width:0;
+    margin-top:-6px;
+  }
   .hero-logo-image { width:100%; }
   .hero-mobile-description {
     display:block;
-    grid-column:1 / -1;
-    margin:4px 0 0;
-    padding-top:18px;
+    width:100%;
+    margin:0;
+    padding-top:16px;
     border-top:1px solid var(--line);
     color:var(--muted);
-    font-size:.88rem;
-    line-height:1.75;
+    font-size:.86rem;
+    line-height:1.72;
   }
   .section-title,.section-kicker-row { align-items:flex-start; flex-direction:column; }
   .section-kicker-row { display:flex; }
