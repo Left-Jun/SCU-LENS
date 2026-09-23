@@ -10,12 +10,11 @@ const latestIssue = {
   en: "JIANG'AN GREEN",
   state: "closed",
   status: "已完成 · 结果已公布",
-  deadline: "结果公布 · 2026.07.03",
   count: "3 组入选作品",
   cover: "/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg",
   statement: [
-    "春风退场，江安被层层叠叠的绿意拥入怀中。湖畔垂柳铺展浓荫，红砖楼宇隐在繁茂草木之间，湖光映着满校园深浅不一的青碧，风穿过教学楼与林荫小道，把江安独有的温柔绿意吹遍每个角落。",
-    "不必奔赴远方，眼底即是盛景。用镜头收藏漫天青绿，留住校园最治愈的夏日风光。征稿于 5 月 20 日开启，6 月 20 日截止，并于 7 月 3 日公布结果。",
+    "春风退场，江安被层层叠叠的绿意拥入怀中。湖畔垂柳、红砖楼宇与水面青碧，共同构成这一期属于江安盛夏的颜色。",
+    "本期评选推出 Sebastian《浮鸭戏芳华》、宫保鸡丁《荷风满塘》与冬淋《清新脱俗小雏菊》三组作品。",
   ],
 };
 
@@ -71,10 +70,8 @@ const issues = [
           <div class="eyebrow">Latest Issue · 当前一期</div>
           <div class="latest-status-row">
             <span class:list={["latest-status", { collecting: latestIssue.state === "collecting" }]}>{latestIssue.status}</span>
-            <span>{latestIssue.deadline}</span>
           </div>
         </div>
-        <span class="latest-date">{latestIssue.date}</span>
       </div>
       <div class="latest-issue-grid">
         <div class="latest-title-block" style={`background-image:linear-gradient(180deg,rgba(18,25,18,.08),rgba(18,25,18,.7)),url('${latestIssue.cover}');`}>
@@ -82,14 +79,17 @@ const issues = [
           <h2 id="latest-issue-title">{latestIssue.title}</h2>
           <span>{latestIssue.count}</span>
         </div>
-        <div class="latest-statement">
-          {latestIssue.statement.map((paragraph) => <p>{paragraph}</p>)}
-          <div class="latest-actions">
-            {latestIssue.state === "collecting" ? (
-              <a class="latest-primary" href={channelUrl} target="_blank" rel="noreferrer">前往 QQ 频道投稿 ↗</a>
-            ) : latestIssue.href ? (
-              <a class="latest-primary" href={latestIssue.href}>查看本期完整结果 →</a>
-            ) : null}
+        <div class="latest-right">
+          <span class="latest-date">{latestIssue.date}</span>
+          <div class="latest-statement">
+            {latestIssue.statement.map((paragraph) => <p>{paragraph}</p>)}
+            <div class="latest-actions">
+              {latestIssue.state === "collecting" ? (
+                <a class="latest-primary" href={channelUrl} target="_blank" rel="noreferrer">前往 QQ 频道投稿 ↗</a>
+              ) : latestIssue.href ? (
+                <a class="latest-primary" href={latestIssue.href}>查看本期完整结果 →</a>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
@@ -160,17 +160,18 @@ const issues = [
   .monthly-hero h1 { font-size:clamp(3.8rem,8vw,6.6rem); }
   .monthly-hero p { max-width:560px; font-size:.98rem; line-height:1.72; }
   .latest-issue,.issue-list-section,.channel-join-panel { padding-top:56px; padding-bottom:56px; }
-  .latest-issue-head { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:28px; }
+  .latest-issue-head { display:flex; justify-content:flex-start; gap:20px; align-items:flex-start; margin-bottom:28px; }
   .latest-status-row { display:flex; gap:12px; align-items:center; margin-top:15px; color:var(--muted); font-size:.72rem; }
   .latest-status { padding:7px 10px; border:1px solid var(--ink); color:var(--ink); font-weight:800; letter-spacing:.04em; }
   .latest-status.collecting { background:var(--ink); color:white; }
-  .latest-date { font:400 clamp(1.65rem,3vw,3rem)/1 Georgia,serif; letter-spacing:-.045em; }
+  .latest-date { display:block; text-align:right; font:400 clamp(1.65rem,3vw,3rem)/1 Georgia,serif; letter-spacing:-.045em; }
   .latest-issue-grid { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(28px,4.5vw,64px); align-items:start; }
   .latest-title-block { width:100%; aspect-ratio:4/3; padding:24px; background-color:#294334; background-size:cover; background-position:center; color:#f5f0e6; display:flex; flex-direction:column; border:1px solid var(--line); text-shadow:0 1px 14px rgba(0,0,0,.28); }
   .latest-title-block > p { margin:0; font-size:.68rem; letter-spacing:.15em; opacity:.62; }
   .latest-title-block h2 { margin:auto 0 16px; max-width:7ch; font:400 clamp(3.1rem,5.6vw,5.8rem)/.88 Georgia,serif; letter-spacing:-.065em; }
   .latest-title-block > span { font-size:.75rem; opacity:.65; }
-  .latest-statement { display:flex; flex-direction:column; gap:18px; align-self:stretch; }
+  .latest-right { min-width:0; }
+  .latest-statement { display:flex; flex-direction:column; gap:18px; padding-top:clamp(52px,6vw,92px); }
   .latest-statement > p { margin:0; color:var(--muted); font-size:.95rem; line-height:1.8; }
   .latest-statement > p:first-child { color:var(--ink); font:400 clamp(1.12rem,1.7vw,1.48rem)/1.6 Georgia,serif; }
   .latest-actions { margin-top:8px; padding-top:20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; align-items:end; }
@@ -215,6 +216,7 @@ const issues = [
   @media (max-width:700px) {
     .channel-join-panel,.latest-issue-grid { grid-template-columns:1fr; }
     .latest-issue-head,.latest-actions { align-items:flex-start; flex-direction:column; }
+    .latest-date { text-align:left; margin-bottom:18px; }
     .latest-actions > span:last-child { text-align:left; }
     .monthly-hero { padding-top:58px; padding-bottom:32px; }
     .monthly-hero h1 { font-size:clamp(3rem,14vw,4.5rem); }
@@ -224,6 +226,7 @@ const issues = [
     .latest-title-block h2 { font-size:clamp(2.8rem,13vw,4.4rem); }
     .latest-statement > p { font-size:.9rem; line-height:1.72; }
     .latest-statement > p:first-child { font-size:1.08rem; line-height:1.58; }
+    .latest-statement { padding-top:0; }
     .issue-card { grid-template-columns:1fr; gap:12px; }
     .issue-card-index { display:none; }
     .issue-card-visual { aspect-ratio:4/3; }
