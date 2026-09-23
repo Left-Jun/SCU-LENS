@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const mailSubject = encodeURIComponent("【川大摄协申请】姓名 - 学院 - 年级");
-const mailBody = encodeURIComponent(["姓名：","学院：","年级：","意向方向：","联系方式：","","请在邮件中附上个人简历；摄影相关方向可附作品集或作品链接。"].join("\n"));
+const mailBody = encodeURIComponent(["姓名：","学院：","年级：","意向部门（技术部 / 活动部 / 宣传部）：","联系方式：","","请在邮件中附上个人简历；技术部或摄影相关方向可附作品集或作品链接。"].join("\n"));
 const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + mailBody;
 ---
 <BaseLayout title="加入我们 · SCU LENS" active="/join">
@@ -10,7 +10,54 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
     <section class="page-hero join-hero">
       <div class="eyebrow">Join SCU Photography Association</div>
       <h1 class="display">加入<br/>我们</h1>
-      <p>开放批次与具体岗位会随每学年更新。无论是摄影、策划、技术还是内容工作，都欢迎先来认识摄协。</p>
+      <p>四川大学摄影协会自 1982 年起持续连接校园里的摄影爱好者。除了拍照，这里也需要会策划、会组织、会设计、会写作、愿意一起做事的人。</p>
+    </section>
+
+    <section class="section join-departments">
+      <div class="section-kicker-row">
+        <div>
+          <div class="eyebrow">Where You Can Work</div>
+          <h2 class="section-display">三个部门</h2>
+        </div>
+        <p>目前主要由技术部、活动部和宣传部协作完成协会日常工作与大型活动。副会长分别负责对应方向的统筹，跨部门项目共同推进。</p>
+      </div>
+      <div class="department-grid">
+        <article class="department-card department-tech">
+          <span>01 / TECH</span>
+          <h3>技术部</h3>
+          <p>参与摄影活动组织与技术支持，带动摄影技术交流，协助大型拍摄项目、外拍与作品筛选，也会组织摄影分享和拍摄实践。</p>
+          <b>适合：有一定摄影基础，愿意交流技术、拍活动、做影像项目的人。</b>
+        </article>
+        <article class="department-card department-activity">
+          <span>02 / ACTIVITY</span>
+          <h3>活动部</h3>
+          <p>负责活动策划、申报审批、现场组织与秩序维护，也会处理物资准备、流程执行和活动中的具体事务。</p>
+          <b>适合：执行力强、愿意协调人和事、喜欢把想法真正落地的人。</b>
+        </article>
+        <article class="department-card department-publicity">
+          <span>03 / PUBLICITY</span>
+          <h3>宣传部</h3>
+          <p>负责活动宣传方案、海报与视觉物料、文案与新闻稿，以及协会线上账号的内容整理与运营。</p>
+          <b>适合：喜欢设计、写作、内容策划或新媒体运营的人。</b>
+        </article>
+      </div>
+      <p class="department-note">摄影水平不是所有岗位的唯一门槛。技术部更看重一定摄影基础；活动部与宣传部更看重服务意识、执行力、内容能力和团队协作。</p>
+    </section>
+
+    <section class="section join-experience">
+      <div class="section-kicker-row">
+        <div>
+          <div class="eyebrow">What You Get</div>
+          <h2 class="section-display">在摄协里会经历什么</h2>
+        </div>
+        <p>过去的摄协工作并不只发生在会议室里。拍摄、活动、展览与社团联动，本身就是成员积累经验的一部分。</p>
+      </div>
+      <div class="experience-grid">
+        <article><span>01</span><h3>器材与实践</h3><p>协会的相机等设备会用于学习与活动实践；具体借用方式按当期管理规则执行。</p></article>
+        <article><span>02</span><h3>真实项目</h3><p>人像课堂、摄影讲座、外拍、校园比赛、校外拍摄与影像整理，都可能成为你参与的实际项目。</p></article>
+        <article><span>03</span><h3>跨社团合作</h3><p>过去曾与其他学生社团合作记录赛事、策划摄影展，也会围绕校园活动共同完成宣传与拍摄。</p></article>
+        <article><span>04</span><h3>认识同好</h3><p>比起把摄影当成单独的兴趣，这里更像一个可以一起拍、一起做项目，也一起认识朋友的长期社群。</p></article>
+      </div>
     </section>
 
     <section class="section join-grid">
@@ -18,8 +65,8 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
         <span class="step-index">01</span>
         <div>
           <div class="eyebrow">Before You Apply</div>
-          <h2>先认识我们</h2>
-          <p>看看作品、每月九图和活动档案，确认这里是不是你愿意一起拍照、一起做事的地方。</p>
+          <h2>先选一个你想做的方向</h2>
+          <p>技术、活动、宣传三条线并不是完全割裂的。先从最感兴趣的一项进入，之后在活动中也会不断跨部门协作。</p>
         </div>
       </article>
       <article class="join-card">
@@ -27,7 +74,7 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
         <div>
           <div class="eyebrow">Application</div>
           <h2>发送简历</h2>
-          <p>邮件正文简单介绍自己，并附上个人简历。摄影相关方向可以附作品集或作品链接。</p>
+          <p>邮件正文简单介绍自己，并注明意向部门。申请技术部或摄影相关方向，可以附作品集或作品链接。</p>
         </div>
       </article>
       <article class="join-card">
@@ -44,7 +91,7 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
       <div>
         <div class="eyebrow">Application Mail</div>
         <h2>把你的简历发给我们。</h2>
-        <p>邮件标题会自动带上申请格式，你只需要补充姓名、学院、年级与意向方向。</p>
+        <p>邮件标题会自动带上申请格式，你只需要补充姓名、学院、年级、意向部门与联系方式。</p>
       </div>
       <a class="mail-button" href={mailto}>发送申请邮件 <span>↗</span></a>
     </section>
@@ -55,3 +102,31 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .department-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+  .department-card { min-height:300px; padding:24px; border:1px solid var(--line); background:var(--panel); display:flex; flex-direction:column; }
+  .department-card > span,.experience-grid article > span { color:var(--muted); font-size:.68rem; font-weight:700; letter-spacing:.12em; }
+  .department-card h3 { margin:48px 0 12px; font:400 clamp(2rem,3vw,3rem)/.95 Georgia,serif; letter-spacing:-.05em; }
+  .department-card p { margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  .department-card b { margin-top:auto; padding-top:24px; font-size:.78rem; line-height:1.6; font-weight:600; }
+  .department-tech { border-top:3px solid #2d6f84; }
+  .department-activity { border-top:3px solid #b8792f; }
+  .department-publicity { border-top:3px solid #95566f; }
+  .department-note { margin:16px 0 0; color:var(--muted); font-size:.82rem; line-height:1.65; }
+  .experience-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid var(--line); }
+  .experience-grid article { padding:22px 24px 24px 0; border-bottom:1px solid var(--line); }
+  .experience-grid article:nth-child(odd) { padding-right:28px; border-right:1px solid var(--line); }
+  .experience-grid article:nth-child(even) { padding-left:28px; }
+  .experience-grid h3 { margin:18px 0 8px; font:400 1.55rem/1 Georgia,serif; }
+  .experience-grid p { margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  @media (max-width:700px) {
+    .department-grid,.experience-grid { grid-template-columns:1fr; }
+    .department-card { min-height:0; padding:20px; }
+    .department-card h3 { margin:30px 0 10px; }
+    .department-card b { margin-top:20px; padding-top:0; }
+    .experience-grid article,
+    .experience-grid article:nth-child(odd),
+    .experience-grid article:nth-child(even) { padding:18px 0; border-right:0; }
+  }
+</style>
