@@ -7,7 +7,7 @@
   --panel: rgba(255,255,255,.58);
   --accent: #c83a2d;
   --dark: #151513;
-  --space-page-top: 60px;
+  --space-page-top: 32px;
   --space-page-bottom: 26px;
   --space-section-top: 34px;
   --space-section-bottom: 34px;
@@ -56,7 +56,8 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .eyebrow { font-size:var(--font-small); font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
 .display { margin:0; font-family:var(--font-sans); font-weight:500; letter-spacing:-.055em; line-height:.92; }
 .section { padding:var(--space-section-top) 0 var(--space-section-bottom); border-top:1px solid var(--line); }
-.section-title,.section-kicker-row { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:var(--space-heading-gap); }
+.section-title { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:var(--space-heading-gap); }
+.section-kicker-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,.72fr); align-items:end; gap:clamp(32px,6vw,90px); margin-bottom:var(--space-heading-gap); }
 .section-title > div { display:grid; gap:10px; }
 .section-title h2 { margin:0; font-size:clamp(2.2rem,4.6vw,4.4rem); font-weight:500; letter-spacing:-.055em; }
 .section-title p,.section-kicker-row > p { max-width:470px; margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
@@ -196,11 +197,19 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .manifesto blockquote { margin:0; font:400 clamp(2.5rem,5.5vw,5.5rem)/1.02 Georgia,serif; letter-spacing:-.05em; }
 .manifesto blockquote em { color:var(--accent); font-weight:400; }
 
-.page-hero { padding:var(--space-page-top) 0 var(--space-page-bottom); }
-.page-hero h1 { font-size:clamp(4rem,10vw,8rem); }
-.page-hero p { width:min(650px,100%); margin:18px 0 0 auto; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
-.monthly-hero { display:grid; grid-template-columns:1fr .7fr; align-items:end; gap:40px; }
-.monthly-hero p { margin:0 0 10px; }
+.page-hero {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(340px,.72fr);
+  gap:clamp(38px,7vw,110px);
+  align-items:end;
+  padding:var(--space-page-top) 0 var(--space-page-bottom);
+}
+.page-hero-title { min-width:0; }
+.page-hero-title .eyebrow { margin-bottom:7px; }
+.page-hero h1 { font-size:clamp(3.8rem,7vw,6.4rem); }
+.page-hero > p { width:auto; max-width:620px; margin:0 0 6px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+.monthly-hero { grid-template-columns:minmax(0,1fr) minmax(340px,.72fr); }
+.monthly-hero p { margin:0 0 6px; }
 .join-hero p { max-width:560px; }
 
 .gallery-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:34px 18px; }
@@ -353,7 +362,7 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
 @media (max-width:900px) {
   .site-header { align-items:flex-start; gap:18px; }
   nav { gap:14px; flex-wrap:wrap; justify-content:flex-end; }
-  .monthly-layout,.monthly-hero,.issue-header,.channel-bridge,.channel-callout { grid-template-columns:1fr; }
+  .monthly-layout,.issue-header,.channel-bridge,.channel-callout { grid-template-columns:1fr; }
   .works-preview { grid-auto-rows:170px; }
   .work-wide,.work-tall,.work-tile:nth-child(3),.work-tile:nth-child(4) { grid-column:span 6; grid-row:span 2; }
   .channel-grid,.links-grid,.archive-grid { grid-template-columns:1fr 1fr; }
@@ -426,7 +435,11 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
     line-height:1.75;
   }
   .section-title,.section-kicker-row { align-items:flex-start; flex-direction:column; }
-  .page-hero p { margin-top:14px; }
+  .section-kicker-row { display:flex; }
+  .page-hero { display:block; padding:var(--space-page-top) 0 var(--space-page-bottom); }
+  .page-hero-title .eyebrow { margin-bottom:6px; }
+  .page-hero h1 { font-size:clamp(3rem,14vw,4.5rem); }
+  .page-hero > p { margin-top:14px; max-width:none; }
   .monthly-preview .section-kicker-row { margin-bottom:12px; }
   .monthly-layout { display:flex; flex-direction:column; gap:16px; }
   .monthly-four-grid { display:grid; order:1; width:100%; aspect-ratio:4/3; }

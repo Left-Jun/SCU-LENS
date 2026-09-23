@@ -8,8 +8,10 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
 <BaseLayout title="加入我们 · SCU LENS" active="/join">
   <div class="page-shell">
     <section class="page-hero join-hero">
-      <div class="eyebrow">Join SCU Photography Association</div>
-      <h1 class="display">加入<br/>我们</h1>
+      <div class="page-hero-title">
+        <div class="eyebrow">Join SCU Photography Association</div>
+        <h1 class="display">加入我们</h1>
+      </div>
       <p>四川大学摄影协会自 1982 年起持续连接校园里的摄影爱好者。除了拍照，这里也需要会策划、会组织、会设计、会写作、愿意一起做事的人。</p>
     </section>
 
@@ -77,31 +79,7 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
 </BaseLayout>
 
 <style>
-  .join-hero {
-    display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(360px,.72fr);
-    grid-template-rows:auto auto;
-    column-gap:clamp(46px,7vw,110px);
-    row-gap:10px;
-    align-items:end;
-  }
-  .join-hero .eyebrow { grid-column:1; grid-row:1; }
-  .join-hero h1 {
-    grid-column:1;
-    grid-row:2;
-    font-family:var(--font-sans);
-    font-size:clamp(4.2rem,7vw,6.8rem);
-    font-weight:500;
-    line-height:.92;
-  }
-  .join-hero h1 br { display:none; }
-  .join-hero > p {
-    grid-column:2;
-    grid-row:2;
-    align-self:end;
-    margin:0 0 7px;
-    max-width:560px;
-  }
+  .join-hero > p { max-width:560px; }
   .join-departments .section-display,
   .join-experience .section-display {
     font-family:var(--font-serif);
@@ -138,19 +116,10 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
   .apply-row-copy h2 { margin:0; font:400 clamp(2rem,3.2vw,3.2rem)/1 var(--font-serif); letter-spacing:-.04em; }
   .apply-row-copy p { margin:0; max-width:680px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   @media (max-width:1000px) {
-    .join-hero {
-      grid-template-columns:minmax(0,1fr) minmax(300px,.8fr);
-      column-gap:36px;
-    }
-    .join-hero h1 { font-size:clamp(3.8rem,6.2vw,5.4rem); }
     .join-departments .section-display,
     .join-experience .section-display { font-size:clamp(2.4rem,4vw,3.8rem); }
   }
   @media (max-width:700px) {
-    .join-hero { display:block; }
-    .join-hero h1 { margin-top:6px; font-size:clamp(3rem,14vw,4.4rem); line-height:.9; }
-    .join-hero h1 br { display:block; }
-    .join-hero > p { margin-top:14px; max-width:none; }
     .join-departments .section-display,
     .join-experience .section-display { font-size:clamp(2.2rem,10vw,3.2rem); }
     .department-grid,.experience-grid { grid-template-columns:1fr; }
