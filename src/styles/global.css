@@ -142,11 +142,41 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .works-source-note a { flex:0 0 auto; color:var(--ink); font-weight:700; }
 
 .event-preview-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-.event-preview-card { min-height:220px; padding:24px; display:flex; flex-direction:column; border:1px solid var(--line); background:rgba(255,255,255,.36); }
-.event-preview-card span,.event-preview-card b { font-size:.72rem; letter-spacing:.11em; }
-.event-preview-card h3 { margin:34px 0 10px; max-width:12ch; font:400 clamp(2rem,3.4vw,3.2rem)/1 var(--font-serif); letter-spacing:-.035em; }
-.event-preview-card p { margin:0 0 22px; max-width:48ch; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
-.event-preview-card b { margin-top:auto; }
+.event-preview-card { position:relative; min-height:250px; border:1px solid var(--line); overflow:hidden; }
+.event-preview-main { height:100%; min-height:250px; padding:24px; display:flex; flex-direction:column; }
+.event-preview-main > span,.event-preview-main b { font-size:.7rem; letter-spacing:.12em; }
+.event-preview-main h3 { margin:38px 0 10px; max-width:14ch; font:400 clamp(2.25rem,3.8vw,3.7rem)/.96 var(--font-serif); letter-spacing:-.04em; }
+.event-preview-main p { margin:0 0 24px; max-width:48ch; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+.event-preview-main b { margin-top:auto; font-weight:700; }
+.event-preview-main b i { font-style:normal; margin-left:5px; }
+.event-preview-upcoming {
+  background:
+    radial-gradient(circle at 88% 14%, rgba(200,58,45,.16), transparent 32%),
+    linear-gradient(145deg,rgba(255,255,255,.72),rgba(244,241,232,.28));
+}
+.event-preview-upcoming::before {
+  content:"10";
+  position:absolute;
+  right:18px;
+  bottom:-26px;
+  font:400 clamp(7rem,14vw,12rem)/1 var(--font-latin-serif);
+  color:rgba(17,17,15,.045);
+  pointer-events:none;
+}
+.event-preview-monthly {
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.26)),
+    repeating-linear-gradient(90deg,transparent 0 44px,rgba(17,17,15,.025) 44px 45px);
+}
+.event-preview-submit {
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  padding-bottom:3px;
+  border-bottom:1px solid currentColor;
+  font-size:.72rem;
+  font-weight:700;
+}
 
 .home-links { display:grid; gap:0; }
 .home-link-row {
@@ -215,6 +245,19 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .timeline time,.timeline .tag { color:var(--muted); font-size:.8rem; }
 .timeline h2 { margin:0 0 7px; font:600 1.55rem/1.08 var(--font-sans); letter-spacing:-.025em; }
 .timeline p { margin:0; max-width:760px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+.monthly-status-row {
+  display:grid;
+  grid-template-columns:150px minmax(0,1fr) auto;
+  gap:26px;
+  align-items:start;
+  padding:24px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.monthly-status-mark { color:var(--muted); font-size:.72rem; font-weight:800; letter-spacing:.12em; }
+.monthly-status-row h2 { margin:0 0 8px; font:600 clamp(1.8rem,2.8vw,2.7rem)/1.05 var(--font-sans); letter-spacing:-.03em; }
+.monthly-status-row p { margin:0; max-width:760px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+.monthly-status-row a { font-size:.78rem; font-weight:700; white-space:nowrap; padding-bottom:4px; border-bottom:1px solid currentColor; }
 
 .channel-bridge { display:grid; grid-template-columns:1.3fr .7fr; gap:50px; }
 .channel-bridge-copy h2 { margin:12px 0 20px; font:400 clamp(3rem,6vw,6rem)/.95 Georgia,serif; letter-spacing:-.055em; }
@@ -402,6 +445,10 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .work-category-name span { font-size:.6rem; }
   .work-category-enter { display:block; width:94px; margin-top:14px; font-size:.6rem; }
   .channel-grid,.event-preview-grid,.archive-grid,.links-grid,.join-grid { grid-template-columns:1fr; }
+  .event-preview-main { min-height:220px; padding:20px; }
+  .event-preview-main h3 { margin-top:28px; font-size:clamp(2rem,10vw,3rem); }
+  .monthly-status-row { grid-template-columns:1fr; gap:8px; padding:18px 0; }
+  .monthly-status-row a { justify-self:start; margin-top:6px; }
   .home-link-row { grid-template-columns:1fr; gap:7px; padding:16px 0; }
   .home-link-row h2 { font-size:2rem; }
   .home-link-row p { max-width:30ch; }

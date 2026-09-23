@@ -10,20 +10,27 @@ const featuredWorks = [
   { title:"动物", en:"ANIMALS", source:"每月九图 · 江安青绿篇", author:"宫保鸡丁", image:"/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg", href:"/gallery/animals" },
 ];
 
+// 首页活动区是“当前状态入口”，不是长期/近期分类卡。
+// 左卡默认展示最近发生/即将发生的具体活动；若某期每月九图刚公布结果，
+// 可短期切换为结果卡并直接链接到该期图集。
+// 右卡固定展示“当前每月九图状态”；只有进入征集期时才出现独立投稿快捷入口。
 const eventCards = [
   {
-    kicker:"ONGOING",
-    title:"长期活动",
-    meta:"持续进行",
-    desc:"每月九图持续征集，以及日常投稿、作品整理与长期影像计划。",
-    href:"/events#ongoing"
+    kind:"upcoming",
+    kicker:"UPCOMING · 近期",
+    title:"百团大战与新一轮招新",
+    meta:"2026 · 10 月中旬",
+    desc:"线下社团展示与新一轮集中招募将陆续展开，具体日期、摊位与现场安排以当期通知为准。",
+    href:"/events#upcoming"
   },
   {
-    kicker:"UPCOMING",
-    title:"近期活动",
-    meta:"2026 · 10 月中旬",
-    desc:"百团大战与新一轮大规模招新将陆续展开，具体时间与现场安排以当期通知为准。",
-    href:"/events#upcoming"
+    kind:"monthly",
+    kicker:"MONTHLY NINE · 当前状态",
+    title:"新一轮主题正在准备中",
+    meta:"等待下一期主题",
+    desc:"上一期「江安青绿」已完成归档。下一轮主题公布后，这里会同步切换为征集状态。",
+    href:"/events#monthly-nine-status",
+    submitHref:null
   },
 ];
 
@@ -122,12 +129,17 @@ const monthlyTiles = [
       </div>
       <div class="event-preview-grid">
         {eventCards.map((item) => (
-          <a class="event-preview-card" href={item.href}>
-            <span>{item.kicker}</span>
-            <h3>{item.title}</h3>
-            <p>{item.desc}</p>
-            <b>{item.meta} ↗</b>
-          </a>
+          <article class:list={["event-preview-card","event-preview-" + item.kind]}>
+            <a class="event-preview-main" href={item.href}>
+              <span>{item.kicker}</span>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <b>{item.meta} <i>↗</i></b>
+            </a>
+            {item.submitHref && (
+              <a class="event-preview-submit" href={item.submitHref}>前往投稿 ↗</a>
+            )}
+          </article>
         ))}
       </div>
     </section>
