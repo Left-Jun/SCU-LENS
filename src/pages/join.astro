@@ -77,10 +77,50 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
 </BaseLayout>
 
 <style>
+  .join-hero {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(360px,.72fr);
+    grid-template-rows:auto auto;
+    column-gap:clamp(46px,7vw,110px);
+    row-gap:10px;
+    align-items:end;
+  }
+  .join-hero .eyebrow { grid-column:1; grid-row:1; }
+  .join-hero h1 {
+    grid-column:1;
+    grid-row:2;
+    font-family:var(--font-sans);
+    font-size:clamp(4.2rem,7vw,6.8rem);
+    font-weight:500;
+    line-height:.92;
+  }
+  .join-hero h1 br { display:none; }
+  .join-hero > p {
+    grid-column:2;
+    grid-row:2;
+    align-self:end;
+    margin:0 0 7px;
+    max-width:560px;
+  }
+  .join-departments .section-display,
+  .join-experience .section-display {
+    font-family:var(--font-serif);
+    font-size:clamp(2.6rem,4.4vw,4.5rem);
+    line-height:1;
+  }
+  .join-departments .section-kicker-row,
+  .join-experience .section-kicker-row {
+    align-items:end;
+    margin-bottom:18px;
+  }
+  .join-departments .section-kicker-row > p,
+  .join-experience .section-kicker-row > p {
+    max-width:520px;
+  }
   .department-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
-  .department-card { min-height:300px; padding:24px; border:1px solid var(--line); background:var(--panel); display:flex; flex-direction:column; }
+  .department-card { min-height:274px; padding:22px; border:1px solid var(--line); background:var(--panel); display:flex; flex-direction:column; }
   .department-card > span,.experience-grid article > span { color:var(--muted); font-size:.68rem; font-weight:700; letter-spacing:.12em; }
-  .department-card h3 { margin:48px 0 12px; font:400 clamp(2rem,3vw,3rem)/.95 Georgia,serif; letter-spacing:-.05em; }
+  .department-card h3 { margin:34px 0 10px; font:600 clamp(1.8rem,2.5vw,2.6rem)/1 var(--font-sans); letter-spacing:-.04em; }
   .department-card p { margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   .department-card b { margin-top:auto; padding-top:24px; font-size:.78rem; line-height:1.6; font-weight:600; }
   .department-tech { border-top:3px solid #2d6f84; }
@@ -91,13 +131,28 @@ const mailto = "mailto:Zuo051607@163.com?subject=" + mailSubject + "&body=" + ma
   .experience-grid article { padding:22px 24px 24px 0; border-bottom:1px solid var(--line); }
   .experience-grid article:nth-child(odd) { padding-right:28px; border-right:1px solid var(--line); }
   .experience-grid article:nth-child(even) { padding-left:28px; }
-  .experience-grid h3 { margin:18px 0 8px; font:400 1.55rem/1 Georgia,serif; }
+  .experience-grid h3 { margin:14px 0 7px; font:600 1.42rem/1.08 var(--font-sans); letter-spacing:-.025em; }
   .experience-grid p { margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   .apply-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:28px; align-items:center; }
   .apply-row-copy { display:grid; grid-template-columns:170px minmax(180px,.48fr) minmax(0,1fr); gap:24px; align-items:center; }
-  .apply-row-copy h2 { margin:0; font:400 clamp(2rem,3.7vw,3.7rem)/.96 Georgia,serif; letter-spacing:-.05em; }
+  .apply-row-copy h2 { margin:0; font:400 clamp(2rem,3.2vw,3.2rem)/1 var(--font-serif); letter-spacing:-.04em; }
   .apply-row-copy p { margin:0; max-width:680px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  @media (max-width:1000px) {
+    .join-hero {
+      grid-template-columns:minmax(0,1fr) minmax(300px,.8fr);
+      column-gap:36px;
+    }
+    .join-hero h1 { font-size:clamp(3.8rem,6.2vw,5.4rem); }
+    .join-departments .section-display,
+    .join-experience .section-display { font-size:clamp(2.4rem,4vw,3.8rem); }
+  }
   @media (max-width:700px) {
+    .join-hero { display:block; }
+    .join-hero h1 { margin-top:6px; font-size:clamp(3rem,14vw,4.4rem); line-height:.9; }
+    .join-hero h1 br { display:block; }
+    .join-hero > p { margin-top:14px; max-width:none; }
+    .join-departments .section-display,
+    .join-experience .section-display { font-size:clamp(2.2rem,10vw,3.2rem); }
     .department-grid,.experience-grid { grid-template-columns:1fr; }
     .department-card { min-height:0; padding:20px; }
     .department-card h3 { margin:30px 0 10px; }
