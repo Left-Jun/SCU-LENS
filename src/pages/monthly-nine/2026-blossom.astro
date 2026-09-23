@@ -12,12 +12,21 @@ const works = [
   { no:"02", title:"无影堂下花隐无", author:"Sebastian", photoCount:1, viewerIndex:2, browserSrc:`${base}/sebastian/shadowless-hall-1800.jpg`, browserSrcset:`${base}/sebastian/shadowless-hall-960.jpg 960w, ${base}/sebastian/shadowless-hall-1800.jpg 1800w`, originalSrc:`${base}/sebastian/shadowless-hall-original.jpg`, width:2160, height:3840 },
   { no:"03", title:"春日繁花", author:"一尾", photoCount:1, viewerIndex:3, browserSrc:`${base}/yiwei/spring-blossom-1800.jpg`, browserSrcset:`${base}/yiwei/spring-blossom-960.jpg 960w, ${base}/yiwei/spring-blossom-1800.jpg 1800w`, originalSrc:`${base}/yiwei/spring-blossom-original.jpg`, width:4288, height:2848 },
 ];
+const nextPreviewItems = [
+  { src:"/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-960.jpg", alt:"《荷风满塘》· 宫保鸡丁" },
+];
+const summary = [
+  "花开，是春天写给人间的温柔信笺。快门，是我们与繁花相遇的印记。",
+  "拍下枝头初绽的期待，拍下风拂花瓣的轻盈，拍下光影里最动人的春色。这不止是照片，是我们用镜头收藏的春天。",
+  "本月「每月九图·繁花篇」，邀你以花为景，以光为笔，定格春日里每一份怦然心动。截止日期：4 月 15 日。"
+];
 ---
 <MonthlyIssuePage
-  title="繁花" en="BLOSSOM" date="2026.03" resultDate="2026.04.15"
-  summary="在春风与光影的交织里，以花为题，记录春日里那些鲜明、热烈又柔软的瞬间。"
+  title="繁花" en="BLOSSOM" date="2026.03" resultDate="2026.04.15" resultLabel="征集截止"
+  summary={summary}
   works={works} viewerItems={viewerItems} viewerGroup="blossom-2026"
-  nextTitle="春"
-  nextSummary="2026.04 · 下一主题为“春”，记录江安河畔、梧桐、玉兰与长桥上的春日校园。"
-  nextHref="/monthly-nine"
+  nextTitle="江安青绿"
+  nextSummary="2026.05—07 · 下一期「江安青绿」，记录湖畔垂柳、校园草木与盛夏层层叠叠的绿意。"
+  nextHref="/monthly-nine/2026-jiang-an-green"
+  nextPreviewItems={nextPreviewItems}
 />

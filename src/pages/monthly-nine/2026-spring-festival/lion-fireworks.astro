@@ -1,6 +1,6 @@
 ---
 import MonthlyGroupPage from "../../../components/MonthlyGroupPage.astro";
-const base = "/images/monthly-nine/2025-spring-festival";
+const base = "/images/monthly-nine/2026-spring-festival";
 const frameDims = [[6000,4000],[3473,5212],[4000,6000],[2160,3840],[3330,2380]];
 const frames = frameDims.map(([width,height], i) => {
   const no = String(i + 1).padStart(2,"0");
@@ -19,10 +19,10 @@ const nextPreviewItems = [
 ];
 ---
 <MonthlyGroupPage
-  issueTitle="新春" issueDate="2025.01—03"
+  issueTitle="新春" issueDate="2026.01"
   title="年味来自醒狮爆竹和烟花" author="卡乐C"
-  frames={frames} viewerItems={viewerItems} viewerGroup="spring-festival-2025" viewerOffset={2}
-  backHref="/monthly-nine/2025-spring-festival"
+  frames={frames} viewerItems={viewerItems} viewerGroup="spring-festival-2026" viewerOffset={2}
+  backHref="/monthly-nine/2026-spring-festival"
   nextTitle="繁花"
   nextSummary="2026.03 · 下一期以繁花为题。"
   nextHref="/monthly-nine/2026-blossom"

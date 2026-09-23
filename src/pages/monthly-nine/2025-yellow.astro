@@ -23,9 +23,9 @@ const galleryItems = [
   }),
 ];
 const nextPreviewItems = [
-  { src:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-960.jpg", alt:"《东京迷梦》· Azp" },
-  { src:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C" },
-  { src:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/02-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C" },
+  { src:"/images/monthly-nine/2026-spring-festival/azp/tokyo-dream-960.jpg", alt:"《东京迷梦》· Azp" },
+  { src:"/images/monthly-nine/2026-spring-festival/kale-c/lion-fireworks/01-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C" },
+  { src:"/images/monthly-nine/2026-spring-festival/kale-c/lion-fireworks/02-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C" },
 ];
 ---
 <BaseLayout title="黄色 · 每月九图 · SCU LENS" active="/monthly-nine">
@@ -33,14 +33,14 @@ const nextPreviewItems = [
     <section class="page-hero issue-detail-hero">
       <div>
         <a class="back-link" href="/monthly-nine">← 返回每月九图</a>
-        <div class="eyebrow">Monthly Nine · 2025.01</div>
+        <div class="eyebrow">Monthly Nine · 2025.12</div>
         <h1 class="display">黄色</h1>
       </div>
     </section>
 
     <section class="section issue-detail-meta">
       <span>本期主题 · YELLOW</span>
-      <span>公布结果 · 2025.01.22</span>
+      <span>频道发布 · 2025.12.01</span>
       <span>3 组入选作品</span>
     </section>
 
@@ -49,12 +49,8 @@ const nextPreviewItems = [
         <div class="eyebrow">Theme Archive · 完整主题档案</div>
       </div>
       <div class="issue-statement-copy">
-        <p>在色彩的语言里，黄色是光，是温度，是苏醒，也是沉淀。它可以是街角一盏暖灯，是季节更迭时的一抹秋意，是某个瞬间悄然跌入镜中的情绪与故事。本期“每月图片”以“黄色”为题，我们收到了众多视角独特、情感饱满的投稿，每一帧画面都是对色彩的思考，也是对生活的凝视。</p>
-        <p>经协会评审组从主题契合度、视觉表达、创意层次及情感张力等维度综合评议，最终评选出以下获奖作品。</p>
-        <div class="archive-note">
-          <span>Archive Note</span>
-          <p>原公告同时记录：奖品后续发放；感谢所有参与投稿的成员；下一期主题后续公布。</p>
-        </div>
+        <p>黄色，是校园银杏树下，落叶铺就的金黄地毯，沙沙作响，奏响秋的赞歌；是落日余晖洒落水面，光影重叠，跃动着的点点鎏金；是云隙之间藏不住的温柔夕照，静静守候每一段动情时光；是乡间田野上起伏的麦浪，承载丰收，在心底漾开宁静的幸福。</p>
+        <p>这个金秋，邀请你一起，记录生活中的每一抹黄色。不论用什么工具，只要用心描绘，就能让这份秋意，恒久留存于记忆之中。拿起镜头，定格此刻美好吧。</p>
       </div>
     </section>
 
@@ -83,7 +79,7 @@ const nextPreviewItems = [
     <section class="section issue-next">
       <span class="eyebrow">Next Issue</span>
       <h2>下一主题 · 新春</h2>
-      <a href="/monthly-nine">返回历期总览 →</a>
+      <a href="/monthly-nine/2026-spring-festival">查看下一期 →</a>
     </section>
     <div class="viewer-registry" hidden>
       {galleryItems.map((item, index) => (
@@ -96,10 +92,10 @@ const nextPreviewItems = [
           data-viewer-title={item.title}
           data-viewer-author={item.author}
           data-viewer-kicker={item.kicker}
-          data-viewer-issue="黄色 · 2025.01"
+          data-viewer-issue="黄色 · 2025.12"
           data-next-title={index === galleryItems.length - 1 ? "新春" : undefined}
-          data-next-summary={index === galleryItems.length - 1 ? "2025.01—03 · 下一期主题档案。继续浏览新春时期的入选作品与主题记录。" : undefined}
-          data-next-href={index === galleryItems.length - 1 ? "/monthly-nine/2025-spring-festival" : undefined}
+          data-next-summary={index === galleryItems.length - 1 ? "2026.01 · 下一期主题「新春」。继续浏览旧联、新桃、团圆灯火与新年旅途中的影像记录。" : undefined}
+          data-next-href={index === galleryItems.length - 1 ? "/monthly-nine/2026-spring-festival" : undefined}
           data-next-previews={index === galleryItems.length - 1 ? JSON.stringify(nextPreviewItems) : undefined}
         ></span>
       ))}

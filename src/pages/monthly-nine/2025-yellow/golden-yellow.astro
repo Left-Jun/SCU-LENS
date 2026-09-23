@@ -26,9 +26,9 @@ const galleryItems = [
   })),
 ];
 const nextPreviewItems = [
-  { src:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-960.jpg", alt:"《东京迷梦》· Azp" },
-  { src:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C" },
-  { src:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/02-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C" },
+  { src:"/images/monthly-nine/2026-spring-festival/azp/tokyo-dream-960.jpg", alt:"《东京迷梦》· Azp" },
+  { src:"/images/monthly-nine/2026-spring-festival/kale-c/lion-fireworks/01-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C" },
+  { src:"/images/monthly-nine/2026-spring-festival/kale-c/lion-fireworks/02-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C" },
 ];
 ---
 <BaseLayout title="《金黄色的》· 三川 · SCU LENS" active="/monthly-nine">
@@ -41,7 +41,7 @@ const nextPreviewItems = [
       </div>
       <div class="group-meta">
         <p>摄影 / <strong>三川</strong></p>
-        <p>2025 每月九图 · 黄色</p>
+        <p>2025.12 每月九图 · 黄色</p>
         <p>9 张组图</p>
       </div>
     </section>
@@ -72,10 +72,10 @@ const nextPreviewItems = [
           data-viewer-title={item.title}
           data-viewer-author={item.author}
           data-viewer-kicker={item.kicker}
-          data-viewer-issue="黄色 · 2025.01"
+          data-viewer-issue="黄色 · 2025.12"
           data-next-title={index === galleryItems.length - 1 ? "新春" : undefined}
-          data-next-summary={index === galleryItems.length - 1 ? "2025.01—03 · 下一期主题档案。继续浏览新春时期的入选作品与主题记录。" : undefined}
-          data-next-href={index === galleryItems.length - 1 ? "/monthly-nine/2025-spring-festival" : undefined}
+          data-next-summary={index === galleryItems.length - 1 ? "2026.01 · 下一期主题「新春」。继续浏览旧联、新桃、团圆灯火与新年旅途中的影像记录。" : undefined}
+          data-next-href={index === galleryItems.length - 1 ? "/monthly-nine/2026-spring-festival" : undefined}
           data-next-previews={index === galleryItems.length - 1 ? JSON.stringify(nextPreviewItems) : undefined}
         ></span>
       ))}

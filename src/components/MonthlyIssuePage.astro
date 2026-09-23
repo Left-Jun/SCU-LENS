@@ -6,6 +6,7 @@ const {
   en,
   date,
   resultDate,
+  resultLabel = "公布结果",
   summary,
   works,
   viewerItems,
@@ -30,7 +31,7 @@ const {
 
     <section class="section issue-detail-meta">
       <span>本期主题 · {en}</span>
-      <span>公布结果 · {resultDate}</span>
+      <span>{resultLabel} · {resultDate}</span>
       <span>{works.length} 组入选作品 · {viewerItems.length} 张照片</span>
     </section>
 
