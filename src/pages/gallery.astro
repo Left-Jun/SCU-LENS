@@ -1,13 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const works = [
-  { title: "校园 / Campus", source: "相机组投稿", cls: "visual-campus" },
-  { title: "人物 / Portrait", source: "相机组投稿", cls: "visual-portrait" },
-  { title: "春日 / Spring", source: "手机组投稿", cls: "visual-flower" },
-  { title: "城市 / City", source: "相机组投稿", cls: "visual-city" },
-  { title: "夜色 / Night", source: "手机组投稿", cls: "visual-night" },
-  { title: "日常 / Everyday", source: "胶片组投稿", cls: "visual-film" },
+const categories = [
+  { slug:"campus", title:"校园", en:"Campus", cls:"visual-campus" },
+  { slug:"portrait", title:"人物", en:"Portrait", cls:"visual-portrait" },
+  { slug:"spring", title:"春日", en:"Spring", cls:"visual-flower" },
+  { slug:"city", title:"城市", en:"City", cls:"visual-city" },
+  { slug:"night", title:"夜色", en:"Night", cls:"visual-night" },
+  { slug:"everyday", title:"日常", en:"Everyday", cls:"visual-film" },
 ];
 ---
 <BaseLayout title="作品 · SCU LENS" active="/gallery">
@@ -15,35 +15,28 @@ const works = [
     <section class="page-hero">
       <div class="eyebrow">Selected Works</div>
       <h1 class="display">作品</h1>
-      <p>从 QQ 频道持续发生的投稿中，挑选适合长期留存的照片。作品页不是消息流，而是一座会慢慢长大的线上摄影档案。</p>
-    </section>
-
-    <section class="filter-bar" aria-label="作品筛选">
-      <button class="filter-chip active" type="button">全部</button>
-      <button class="filter-chip" type="button">校园</button>
-      <button class="filter-chip" type="button">人物</button>
-      <button class="filter-chip" type="button">城市</button>
-      <button class="filter-chip" type="button">纪实</button>
-      <button class="filter-chip" type="button">自然</button>
+      <p>作品按主题与内容进入不同分区。相机、手机与胶片只是作品的来源信息，不再决定它属于哪一种作品。</p>
     </section>
 
     <section class="section">
-      <div class="gallery-grid">
-        {works.map((work, i) => (
-          <article class:list={["photo-card", "photo-" + (i + 1)]}>
-            <div class:list={["photo-visual", work.cls]}></div>
+      <div class="gallery-grid gallery-category-grid">
+        {categories.map((category, i) => (
+          <a class:list={["photo-card","gallery-category-card","photo-" + (i + 1)]} href={`/gallery/${category.slug}`}>
+            <div class:list={["photo-visual",category.cls]}></div>
             <div class="photo-caption">
-              <div><h2>{work.title}</h2><p>主题作品</p></div>
-              <span>{work.source}</span>
+              <div>
+                <h2>{category.title} / <em>{category.en}</em></h2>
+                <p>进入主题分区 →</p>
+              </div>
             </div>
-          </article>
+          </a>
         ))}
       </div>
     </section>
 
     <section class="section gallery-source">
-      <div class="eyebrow">Source</div>
-      <p>作品按主题与内容组织；相机组、手机组与胶片组只作为投稿来源标注，不再决定作品所属分类。</p>
+      <div class="eyebrow">Contribute</div>
+      <p>作品来自摄影协会日常投稿与「每月九图」等长期影像项目。进入具体作品后，可以看到它的来源与摄影者署名。</p>
       <a class="text-link" href="/submit">前往投稿专区 <span>↗</span></a>
     </section>
   </div>

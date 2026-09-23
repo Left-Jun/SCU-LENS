@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const categories = {
+  campus: { title:"校园", en:"Campus", intro:"教学楼、湖畔、草木与校园日常中的空间和光线。" },
+  portrait: { title:"人物", en:"Portrait", intro:"关于人与人、姿态、表情和在场感的影像。" },
+  spring: { title:"春日", en:"Spring", intro:"花、风、光线以及春天短暂而鲜明的颜色。" },
+  city: { title:"城市", en:"City", intro:"街道、建筑、夜色与城市生活留下的切片。" },
+  night: { title:"夜色", en:"Night", intro:"夜晚、灯光与低照度环境里的观看。" },
+  everyday: { title:"日常", en:"Everyday", intro:"不被特别命名，却值得被留下来的日常瞬间。" },
+};
+
+export function getStaticPaths() {
+  return ["campus","portrait","spring","city","night","everyday"].map((slug) => ({ params:{ slug } }));
+}
+
+const { slug } = Astro.params;
+const category = categories[slug];
+---
+<BaseLayout title={category.title + " · 作品 · SCU LENS"} active="/gallery">
+  <div class="page-shell">
+    <section class="page-hero gallery-section-hero">
+      <div>
+        <a class="back-link" href="/gallery">← 返回作品</a>
+        <div class="eyebrow">Works · {category.en}</div>
+        <h1 class="display">{category.title}</h1>
+      </div>
+      <p>{category.intro}</p>
+    </section>
+
+    <section class="section gallery-empty-state">
+      <span class="eyebrow">SCU LENS</span>
+      <p>该主题分区的作品会按照片本身展开；来源与摄影者信息只出现在具体作品下方。</p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .back-link { display:inline-block; margin-bottom:26px; color:var(--muted); font-size:.82rem; }
+  .gallery-empty-state { min-height:36vh; display:flex; align-items:flex-end; justify-content:space-between; gap:40px; }
+  .gallery-empty-state p { max-width:620px; margin:0; color:var(--muted); line-height:1.8; }
+  @media (max-width:700px) {
+    .gallery-empty-state { min-height:24vh; flex-direction:column; align-items:flex-start; justify-content:flex-end; }
+  }
+</style>
