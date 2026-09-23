@@ -163,7 +163,7 @@ const issues = [
 <style>
   .monthly-hero { padding-top:var(--space-page-top); padding-bottom:var(--space-page-bottom); }
   .monthly-hero h1 { font-size:clamp(3.8rem,8vw,6.6rem); }
-  .monthly-hero p { max-width:560px; font-size:.98rem; line-height:1.72; }
+  .monthly-hero p { max-width:560px; font-size:var(--font-body); line-height:var(--line-body); }
   .latest-issue,.issue-list-section,.channel-join-panel { padding-top:var(--space-section-top); padding-bottom:var(--space-section-bottom); }
   .latest-issue-head { display:flex; justify-content:flex-start; gap:20px; align-items:flex-start; margin-bottom:28px; }
   .latest-status-row { display:flex; gap:12px; align-items:center; margin-top:15px; color:var(--muted); font-size:.72rem; }
@@ -177,7 +177,7 @@ const issues = [
   .latest-title-block > span { font-size:.75rem; opacity:.65; }
   .latest-right { min-width:0; }
   .latest-statement { display:flex; flex-direction:column; gap:11px; padding-top:clamp(46px,5vw,72px); }
-  .latest-statement > p { margin:0; color:var(--muted); font-size:.9rem; line-height:1.72; }
+  .latest-statement > p { margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   .latest-statement > p:first-child { color:var(--ink); font:400 clamp(1.08rem,1.55vw,1.38rem)/1.55 Georgia,serif; }
   .latest-actions { margin-top:8px; padding-top:20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; align-items:end; }
   .latest-primary { flex:none; padding-bottom:6px; border-bottom:1px solid var(--ink); font-size:.82rem; font-weight:800; }
@@ -202,7 +202,7 @@ const issues = [
   .channel-join-panel { display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:stretch; }
   .channel-join-copy { display:flex; flex-direction:column; align-items:flex-start; }
   .channel-join-copy h2 { margin:10px 0 16px; font:400 clamp(2.2rem,4vw,4.2rem)/.98 Georgia,serif; letter-spacing:-.05em; }
-  .channel-join-copy > p { max-width:620px; color:var(--muted); line-height:1.85; }
+  .channel-join-copy > p { margin:0; max-width:620px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   .channel-id { margin-top:auto; padding-top:34px; color:var(--muted); }
   .channel-id strong { color:var(--ink); }
   .channel-open-button { margin-top:16px; padding:15px 19px; background:var(--ink); color:white; font-weight:700; }
@@ -229,7 +229,7 @@ const issues = [
     .latest-issue-head { margin-bottom:22px; }
     .latest-title-block { aspect-ratio:4/3; padding:20px; }
     .latest-title-block h2 { font-size:clamp(2.8rem,13vw,4.4rem); }
-    .latest-statement > p { font-size:.9rem; line-height:1.72; }
+    .latest-statement > p { font-size:var(--font-body); line-height:var(--line-body); }
     .latest-statement > p:first-child { font-size:1.08rem; line-height:1.58; }
     .latest-statement { padding-top:6px; gap:9px; }
     .issue-card { grid-template-columns:1fr; gap:12px; }
