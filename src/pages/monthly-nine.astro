@@ -30,19 +30,25 @@ const issues = [
     tone: 5,
     preview: [
       {
-        src: "/images/monthly-nine/2025-yellow/sebastian/sebastian-960.jpg",
+        browserSrc: "/images/monthly-nine/2025-yellow/sebastian/sebastian-960.jpg",
+        browserSrcset: "/images/monthly-nine/2025-yellow/sebastian/sebastian-960.jpg 960w, /images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg 1800w",
+        originalSrc: "/images/monthly-nine/2025-yellow/sebastian/sebastian-original.jpg",
         alt: "《金黄芒节》· Sebastian",
         width: 3840,
         height: 5760,
       },
       {
-        src: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg",
+        browserSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg",
+        browserSrcset: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg 960w, /images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg 1191w",
+        originalSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-original.jpg",
         alt: "《捕捉阳光》· 一尾",
         width: 1191,
         height: 1920,
       },
       {
-        src: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg",
+        browserSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg",
+        browserSrcset: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/09-1800.jpg 1800w",
+        originalSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg",
         alt: "《金黄色的》· 三川",
         width: 2382,
         height: 1587,
@@ -132,14 +138,30 @@ const issues = [
 
       <div class="issue-card-list">
         {issues.map((issue, index) => (
-          <a class="issue-card" href={issue.href ?? "#"}>
+          <article class="issue-card">
             <div class="issue-card-index">{String(index + 1).padStart(2, "0")}</div>
             <div class:list={["issue-card-visual", "tone-" + issue.tone, { "has-preview": issue.preview }]}>
               <span class="issue-card-date">{issue.date}</span>
               {issue.preview ? (
                 <div class="issue-card-photo-preview">
                   {issue.preview.map((photo) => (
-                    <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
+                    <a class="preview-photo-link" href={photo.originalSrc} target="_blank" rel="noopener" aria-label={`查看原图：${photo.alt}`}>
+                      <img
+                        src={photo.browserSrc}
+                        srcset={photo.browserSrcset}
+                        sizes="(max-width: 700px) 48vw, 420px"
+                        data-browser-src={photo.browserSrc}
+                        data-browser-srcset={photo.browserSrcset}
+                        data-original-src={photo.originalSrc}
+                        data-loaded-quality="browser"
+                        alt={photo.alt}
+                        width={photo.width}
+                        height={photo.height}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span class="preview-open-hint">点开原图 ↗</span>
+                    </a>
                   ))}
                 </div>
               ) : (
@@ -158,9 +180,9 @@ const issues = [
                 <span>{issue.count}</span>
               </div>
               <p>{issue.summary}</p>
-              <b>{issue.href ? "查看本期 →" : "图片整理中"}</b>
+              {issue.href ? <a class="issue-detail-link" href={issue.href}>查看本期 →</a> : <b>图片整理中</b>}
             </div>
-          </a>
+          </article>
         ))}
       </div>
     </section>
@@ -217,14 +239,18 @@ const issues = [
   .issue-card-photo-layout span { border:1px solid rgba(255,255,255,.56); background:rgba(255,255,255,.16); }
   .issue-card-photo-layout span:first-child { grid-row:1 / span 2; }
   .issue-card-photo-preview { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.72fr); gap:6px; margin:18px 0; align-items:start; }
+  .preview-photo-link { position:relative; display:block; color:inherit; }
+  .issue-card-photo-preview .preview-photo-link:first-child { grid-row:span 2; }
   .issue-card-photo-preview img { display:block; width:100%; height:auto; border:1px solid rgba(255,255,255,.52); }
-  .issue-card-photo-preview img:first-child { grid-row:span 2; }
+  .preview-open-hint { position:absolute; right:8px; bottom:7px; padding:4px 6px; background:rgba(18,17,14,.58); color:#fff; font-size:.58rem; letter-spacing:.04em; opacity:0; transition:opacity .18s ease; }
+  .preview-photo-link:hover .preview-open-hint,.preview-photo-link:focus-visible .preview-open-hint { opacity:1; }
   .issue-card-title p { margin:0 0 8px; font-size:.66rem; letter-spacing:.16em; opacity:.72; }
   .issue-card-title h3 { margin:0; font:400 clamp(2.35rem,4.2vw,4.2rem)/.9 Georgia,serif; letter-spacing:-.065em; }
   .issue-card-copy { padding:22px; border:1px solid var(--line); background:rgba(255,255,255,.45); display:flex; flex-direction:column; }
   .issue-card-meta { display:flex; justify-content:space-between; gap:14px; color:var(--muted); font-size:.72rem; }
   .issue-card-copy > p { margin:auto 0 24px; color:var(--muted); font-size:.92rem; line-height:1.75; }
   .issue-card-copy b { font-size:.82rem; }
+  .issue-detail-link { align-self:flex-start; font-size:.82rem; font-weight:800; border-bottom:1px solid currentColor; padding-bottom:4px; }
   .channel-join-panel { display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:stretch; }
   .channel-join-copy { display:flex; flex-direction:column; align-items:flex-start; }
   .channel-join-copy h2 { margin:10px 0 16px; font:400 clamp(2.2rem,4vw,4.2rem)/.98 Georgia,serif; letter-spacing:-.05em; }
@@ -261,8 +287,9 @@ const issues = [
     .issue-card-index { display:none; }
     .issue-card-visual:not(.has-preview) { aspect-ratio:4/3; }
     .issue-card-photo-preview { grid-template-columns:1fr 1fr; }
-    .issue-card-photo-preview img:first-child { grid-row:auto; }
-    .issue-card-photo-preview img:last-child { grid-column:1 / -1; }
+    .issue-card-photo-preview .preview-photo-link:first-child { grid-row:auto; }
+    .issue-card-photo-preview .preview-photo-link:last-child { grid-column:1 / -1; }
+    .preview-open-hint { opacity:1; font-size:.54rem; }
     .issue-card-copy { grid-column:1; min-height:0; }
     .issue-card-copy > p { margin:26px 0 20px; }
     .channel-id { margin-top:28px; }

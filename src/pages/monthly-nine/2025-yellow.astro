@@ -41,7 +41,9 @@ const works = [
       {works.map((work) => (
         <article class="issue-work">
           <div class:list={["yellow-photo", work.orientation]}>
-            <img src={work.browserSrc} srcset={work.browserSrcset} sizes="(max-width: 900px) 100vw, 920px" data-browser-src={work.browserSrc} data-browser-srcset={work.browserSrcset} data-original-src={work.originalSrc} data-loaded-quality="browser" alt={`《${work.title}》· ${work.author}`} width={work.width} height={work.height} loading={work.no === "01" ? "eager" : "lazy"} fetchpriority={work.no === "01" ? "high" : "auto"} decoding="async" />
+            <a class="photo-open-link" href={work.originalSrc} target="_blank" rel="noopener" aria-label={`查看原图：《${work.title}》· ${work.author}`}>
+              <img src={work.browserSrc} srcset={work.browserSrcset} sizes="(max-width: 900px) 100vw, 920px" data-browser-src={work.browserSrc} data-browser-srcset={work.browserSrcset} data-original-src={work.originalSrc} data-loaded-quality="browser" alt={`《${work.title}》· ${work.author}`} width={work.width} height={work.height} loading={work.no === "01" ? "eager" : "lazy"} fetchpriority={work.no === "01" ? "high" : "auto"} decoding="async" />
+            </a>
             <span>{work.no}</span>
             {work.kind !== "单图" && <b>+ 9</b>}
           </div>
@@ -81,10 +83,12 @@ const works = [
   .yellow-photo { position:relative; width:100%; border:1px solid var(--line); background:#ddd8ca; }
   .yellow-photo.portrait { max-width:min(72vw,720px); margin-inline:auto; }
   .yellow-photo.landscape { max-width:100%; }
+  .photo-open-link { display:block; cursor:zoom-in; }
   .yellow-photo img { display:block; width:100%; height:auto; }
   .yellow-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent,rgba(17,17,15,.08)); }
   .yellow-photo > span { position:absolute; left:18px; top:16px; z-index:1; color:white; font-size:.72rem; letter-spacing:.12em; }
   .yellow-photo > b { position:absolute; right:18px; bottom:16px; z-index:1; color:white; font:400 2rem Georgia,serif; }
+  .yellow-photo > span,.yellow-photo > b,.yellow-photo::after { pointer-events:none; }
   .issue-work-caption { display:flex; justify-content:space-between; gap:30px; padding-top:18px; align-items:end; }
   .issue-work-caption span { color:var(--muted); font-size:.72rem; letter-spacing:.08em; }
   .issue-work-caption h2 { margin:8px 0 4px; font:400 clamp(2.1rem,4vw,4.4rem)/1 Georgia,serif; }

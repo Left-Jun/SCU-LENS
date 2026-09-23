@@ -42,7 +42,7 @@ const nav = [
       </nav>
       <button class="image-quality-switch" id="image-quality-switch" type="button" aria-label="切换图片加载质量" aria-pressed="false">
         <span>图片</span>
-        <strong data-quality-label>浏览图</strong>
+        <strong data-quality-label>浏览图 · 轻量</strong>
       </button>
     </header>
     <main><slot /></main>
@@ -80,7 +80,7 @@ const nav = [
         const applyMode = (mode) => {
           root.dataset.imageQuality = mode;
           switcher?.setAttribute("aria-pressed", String(mode === "original"));
-          if (label) label.textContent = mode === "original" ? "原图" : "浏览图";
+          if (label) label.textContent = mode === "original" ? "原图 · 高清" : "浏览图 · 轻量";
           document.querySelectorAll("img[data-browser-src][data-original-src]").forEach((img) => applyImageMode(img, mode));
         };
 

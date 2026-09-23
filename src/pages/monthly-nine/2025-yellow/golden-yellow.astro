@@ -31,7 +31,9 @@ const frames = [
     <section class="series-grid">
       {frames.map((frame, i) => (
         <figure class:list={["series-frame", frame.height > frame.width ? "portrait" : "landscape"]}>
-          <img src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg`} srcset={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg ${frame.browserWidth}w`} sizes="(max-width: 700px) 100vw, 58vw" data-browser-src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg`} data-browser-srcset={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg ${frame.browserWidth}w`} data-original-src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-original.jpg`} data-loaded-quality="browser" alt={`《金黄色的》· ${frame.no} · 三川`} width={frame.width} height={frame.height} loading={i === 0 ? "eager" : "lazy"} fetchpriority={i === 0 ? "high" : "auto"} decoding="async" />
+          <a class="series-photo-link" href={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-original.jpg`} target="_blank" rel="noopener" aria-label={`查看原图：《金黄色的》· ${frame.no}`}>
+            <img src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg`} srcset={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg ${frame.browserWidth}w`} sizes="(max-width: 700px) 100vw, 58vw" data-browser-src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg`} data-browser-srcset={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/${frame.no}-1800.jpg ${frame.browserWidth}w`} data-original-src={`/images/monthly-nine/2025-yellow/sanchuan/${frame.no}-original.jpg`} data-loaded-quality="browser" alt={`《金黄色的》· ${frame.no} · 三川`} width={frame.width} height={frame.height} loading={i === 0 ? "eager" : "lazy"} fetchpriority={i === 0 ? "high" : "auto"} decoding="async" />
+          </a>
           <figcaption>《金黄色的》· {frame.no}</figcaption>
         </figure>
       ))}
@@ -54,6 +56,7 @@ const frames = [
   .series-frame { margin:0; }
   .series-frame.landscape { grid-column:span 7; }
   .series-frame.portrait { grid-column:span 5; }
+  .series-photo-link { display:block; cursor:zoom-in; }
   .series-frame img { display:block; width:100%; height:auto; border:1px solid var(--line); background:#ddd8ca; }
   figcaption { padding-top:9px; color:var(--muted); font-size:.72rem; }
   .series-note { display:grid; grid-template-columns:.3fr 1fr; gap:30px; }

@@ -13,21 +13,23 @@ interface Props {
 const { browserSrc, originalSrc, alt, browserSrcset, width, height, originalSize, class: className, priority = false } = Astro.props;
 ---
 <figure class="photo-asset" data-photo-frame>
-  <img
-    class={className}
-    src={browserSrc}
-    srcset={browserSrcset}
-    data-browser-src={browserSrc}
-    data-browser-srcset={browserSrcset}
-    data-original-src={originalSrc}
-    data-loaded-quality="browser"
-    alt={alt}
-    width={width}
-    height={height}
-    loading={priority ? "eager" : "lazy"}
-    fetchpriority={priority ? "high" : "auto"}
-    decoding="async"
-  />
+  <a class="photo-open-link" href={originalSrc} target="_blank" rel="noopener" aria-label={`查看原图：${alt}`}>
+    <img
+      class={className}
+      src={browserSrc}
+      srcset={browserSrcset}
+      data-browser-src={browserSrc}
+      data-browser-srcset={browserSrcset}
+      data-original-src={originalSrc}
+      data-loaded-quality="browser"
+      alt={alt}
+      width={width}
+      height={height}
+      loading={priority ? "eager" : "lazy"}
+      fetchpriority={priority ? "high" : "auto"}
+      decoding="async"
+    />
+  </a>
   <figcaption class="photo-quality-note">
     <span>当前为浏览质量</span>
     <button type="button" data-load-original aria-pressed="false">查看原图{originalSize ? ` · ${originalSize}` : ""}</button>
@@ -35,6 +37,7 @@ const { browserSrc, originalSrc, alt, browserSrcset, width, height, originalSize
 </figure>
 <style>
   .photo-asset { margin:0; }
+  .photo-open-link { display:block; cursor:zoom-in; }
   .photo-asset img { display:block; width:100%; height:auto; }
   .photo-quality-note { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-top:10px; color:var(--muted); font-size:.7rem; }
   .photo-quality-note button { border:0; padding:0 0 4px; border-bottom:1px solid currentColor; background:transparent; color:var(--ink); font:inherit; font-weight:700; cursor:pointer; }
