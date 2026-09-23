@@ -2,10 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const featuredWorks = [
-  { title:"校园 / CAMPUS", source:"每月九图 · 江安青绿篇", author:"宫保鸡丁", image:"/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg", href:"/gallery/campus", cls:"work-wide" },
-  { title:"人物 / PORTRAIT", source:"每月九图 · 新春篇", author:"Left-俊", image:"/images/monthly-nine/2026-spring-festival/left-jun/new-year-1800.jpg", href:"/gallery/portrait", cls:"work-tall" },
-  { title:"春日 / SPRING", source:"每月九图 · 繁花篇", author:"一尾", image:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-1800.jpg", href:"/gallery/spring", cls:"" },
-  { title:"城市 / CITY", source:"每月九图 · 新春篇", author:"Azp", image:"/images/monthly-nine/2026-spring-festival/azp/tokyo-dream-1800.jpg", href:"/gallery/city", cls:"" },
+  { title:"校园", en:"CAMPUS", source:"每月九图 · 江安青绿篇", author:"宫保鸡丁", image:"/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg", href:"/gallery/campus" },
+  { title:"人物", en:"PORTRAIT", source:"每月九图 · 新春篇", author:"Left-俊", image:"/images/monthly-nine/2026-spring-festival/left-jun/new-year-1800.jpg", href:"/gallery/portrait" },
+  { title:"春日", en:"SPRING", source:"每月九图 · 繁花篇", author:"一尾", image:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-1800.jpg", href:"/gallery/spring" },
+  { title:"城市", en:"CITY", source:"每月九图 · 新春篇", author:"Azp", image:"/images/monthly-nine/2026-spring-festival/azp/tokyo-dream-1800.jpg", href:"/gallery/city" },
 ];
 
 const eventCards = [
@@ -75,10 +75,13 @@ const monthlyTiles = [
       </div>
       <div class="works-preview">
         {featuredWorks.map((work) => (
-          <article class:list={["work-preview-item",work.cls]}>
+          <article class="work-preview-item">
             <a class="work-tile" href={work.href}>
               <img src={work.image} alt="" loading="lazy" decoding="async" />
-              <span class="work-label">{work.title}</span>
+            </a>
+            <a class="work-category" href={work.href}>
+              <strong>{work.title}</strong>
+              <span>/ {work.en}</span>
             </a>
             <div class="work-meta">
               <span>{work.source}</span>
