@@ -90,7 +90,7 @@ const issues = [
             {latestIssue.statement.map((paragraph) => <p>{paragraph}</p>)}
             <div class="latest-actions">
               {latestIssue.state === "collecting" ? (
-                <a class="latest-primary" href={channelUrl} target="_blank" rel="noreferrer">前往 QQ 频道投稿 ↗</a>
+                <a class="latest-primary" href="/submit">前往投稿专区 →</a>
               ) : latestIssue.href ? (
                 <a class="latest-primary" href={latestIssue.href}>查看本期完整结果 →</a>
               ) : null}
@@ -143,10 +143,10 @@ const issues = [
     <section class="section channel-join-panel">
       <div class="channel-join-copy">
         <div class="eyebrow">Contribute on QQ Channel</div>
-        <h2>投稿仍然发生在频道。</h2>
-        <p>官网不要求重复上传。扫描二维码或直接打开四川大学摄影协会 QQ 频道，在相机组、胶片组或手机组对应板块投稿。</p>
+        <h2>投稿从这里继续。</h2>
+        <p>查看完整投稿说明、署名方式与分区规则；也可以直接扫描右侧二维码快速加入四川大学摄影协会 QQ 频道。</p>
         <div class="channel-id">频道号 · <strong>pd77222624</strong></div>
-        <a class="channel-open-button" href={channelUrl} target="_blank" rel="noreferrer">打开 QQ 频道 <span>↗</span></a>
+        <a class="channel-open-button" href="/submit">进入投稿专区 <span>→</span></a>
       </div>
       <a class="channel-qr-card" href={channelUrl} target="_blank" rel="noreferrer">
         <div class="qr-card-head">

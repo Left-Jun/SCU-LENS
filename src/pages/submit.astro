@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
+---
+
+<BaseLayout title="投稿 · SCU LENS" active="/submit">
+  <div class="page-shell">
+    <section class="page-hero submit-hero">
+      <div>
+        <div class="eyebrow">Contribute · 投稿</div>
+        <h1 class="display">投稿</h1>
+      </div>
+      <p>所有日常作品与「每月九图」专项征集，都从这里进入。投稿实际发生在四川大学摄影协会 QQ 频道，官网负责说明规则与长期归档。</p>
+    </section>
+
+    <section class="section submit-main">
+      <div class="submit-copy">
+        <div class="eyebrow">How to Submit</div>
+        <h2>在频道里发布你的作品。</h2>
+        <p>进入四川大学摄影协会 QQ 频道后，根据作品类型选择对应板块投稿。照片可以来自相机、胶片或手机，日常投稿张数不限。</p>
+
+        <div class="submit-rules">
+          <article>
+            <span>01</span>
+            <h3>注明署名</h3>
+            <p>发布时请注明用于展示的署名，可以使用真实姓名，也可以使用网名。</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>选择分区</h3>
+            <p>根据作品类型进入相机组、胶片组或手机组对应板块，不需要在官网重复上传。</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>补充文字</h3>
+            <p>可以附上照片的描述、拍摄心得或理解，帮助我们更完整地理解作品。</p>
+          </article>
+        </div>
+
+        <a class="submit-primary" href={channelUrl} target="_blank" rel="noreferrer">打开 QQ 频道投稿 ↗</a>
+      </div>
+
+      <a class="submit-qr" href={channelUrl} target="_blank" rel="noreferrer">
+        <div class="submit-qr-head">
+          <img src="/images/scu-photo-logo.jpg" alt="" />
+          <div>
+            <strong>四川大学摄影协会</strong>
+            <span>频道号 · pd77222624</span>
+          </div>
+        </div>
+        <img class="submit-qr-image" src="/images/qq-channel-qr.png" alt="四川大学摄影协会 QQ 频道二维码" />
+        <div class="submit-qr-foot">
+          <span>扫码加入频道</span>
+          <b>QQ CHANNEL</b>
+        </div>
+      </a>
+    </section>
+
+    <section class="section submit-special">
+      <div>
+        <div class="eyebrow">Monthly Nine · 每月九图</div>
+        <h2>专项征集也从投稿页进入。</h2>
+      </div>
+      <div class="submit-special-copy">
+        <p>「每月九图」开启新一期征集时，主题页会显示当期完整文案、征集时间与投稿入口。点击投稿后会回到这里，再进入 QQ 频道对应板块发布作品。</p>
+        <p>当前没有正在进行的「每月九图」征集。历期主题与入选作品仍可在月度档案中浏览。</p>
+        <a href="/monthly-nine">查看每月九图 →</a>
+      </div>
+    </section>
+
+    <section class="section submit-note">
+      <div class="eyebrow">Rights & Notes</div>
+      <p>投稿作品应为本人原创，并确保拥有相应发布权。作品若被选入官网、每月九图或其他协会展示，将按投稿署名进行标注。</p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .submit-hero { padding-bottom:48px; }
+  .submit-hero p { max-width:560px; font-size:.98rem; line-height:1.8; }
+  .submit-main { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr); gap:clamp(36px,6vw,90px); align-items:start; }
+  .submit-copy h2,.submit-special h2 { margin:12px 0 18px; font:400 clamp(2.4rem,5vw,5rem)/.95 Georgia,serif; letter-spacing:-.055em; }
+  .submit-copy > p,.submit-special-copy p,.submit-note p { color:var(--muted); line-height:1.8; }
+  .submit-rules { margin:36px 0; border-top:1px solid var(--line); }
+  .submit-rules article { display:grid; grid-template-columns:42px 150px minmax(0,1fr); gap:18px; padding:22px 0; border-bottom:1px solid var(--line); align-items:start; }
+  .submit-rules span { color:var(--muted); font-size:.7rem; letter-spacing:.1em; }
+  .submit-rules h3 { margin:0; font:400 1.2rem/1.2 Georgia,serif; }
+  .submit-rules p { margin:0; color:var(--muted); line-height:1.7; font-size:.9rem; }
+  .submit-primary { display:inline-block; padding:12px 0 7px; border-bottom:1px solid currentColor; font-weight:800; }
+  .submit-qr { display:block; padding:24px; border:1px solid var(--line); background:rgba(255,255,255,.42); color:inherit; }
+  .submit-qr-head { display:flex; align-items:center; gap:14px; }
+  .submit-qr-head > img { width:48px; height:48px; object-fit:cover; }
+  .submit-qr-head div { display:grid; gap:4px; }
+  .submit-qr-head span { color:var(--muted); font-size:.72rem; }
+  .submit-qr-image { display:block; width:min(100%,360px); margin:28px auto; background:white; }
+  .submit-qr-foot { display:flex; justify-content:space-between; gap:20px; padding-top:16px; border-top:1px solid var(--line); font-size:.72rem; }
+  .submit-special { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(34px,6vw,80px); align-items:start; }
+  .submit-special-copy { padding-top:12px; }
+  .submit-special-copy a { display:inline-block; margin-top:14px; padding-bottom:5px; border-bottom:1px solid currentColor; font-weight:700; }
+  .submit-note { display:grid; grid-template-columns:180px minmax(0,1fr); gap:32px; }
+  .submit-note p { margin:0; max-width:760px; }
+  @media (max-width:700px) {
+    .submit-main,.submit-special,.submit-note { grid-template-columns:1fr; }
+    .submit-rules article { grid-template-columns:32px 1fr; gap:10px 14px; }
+    .submit-rules article p { grid-column:2; }
+    .submit-qr { padding:18px; }
+  }
+</style>
