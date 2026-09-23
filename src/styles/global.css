@@ -332,6 +332,8 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 .footer-links { display:flex; gap:18px; justify-self:center; }
 .footer-links a:hover { color:var(--ink); }
 .site-footer p { margin:0; }
+.footer-note { justify-self:end; text-align:right; display:grid; gap:6px; }
+.footer-note span { color:var(--muted); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; }
 
 html.viewer-open,html.viewer-open body { overflow:hidden; }
 .photo-viewer { position:fixed; inset:0; z-index:999; background:#050505; color:#fff; }
@@ -502,4 +504,5 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .join-note { grid-template-columns:1fr; }
   .site-footer { grid-template-columns:1fr; }
   .footer-links { justify-self:start; flex-wrap:wrap; }
+  .footer-note { justify-self:start; text-align:left; }
 }

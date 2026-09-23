@@ -137,6 +137,10 @@ const mailto = "mailto:" + presidentMail + "?subject=" + mailSubject + "&body=" 
     .join-experience .section-display { font-size:clamp(2.4rem,4vw,3.8rem); }
   }
   @media (max-width:700px) {
+    .join-departments .section-kicker-row,
+    .join-experience .section-kicker-row { align-items:flex-start; text-align:left; }
+    .join-departments .section-kicker-row > div,
+    .join-experience .section-kicker-row > div { width:100%; align-self:flex-start; text-align:left; }
     .join-departments .section-display,
     .join-experience .section-display { font-size:clamp(2.2rem,10vw,3.2rem); }
     .department-grid,.experience-grid { grid-template-columns:1fr; }
