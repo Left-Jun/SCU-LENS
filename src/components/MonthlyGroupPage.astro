@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const { issueTitle, issueDate, title, author, frames, viewerItems, viewerGroup, viewerOffset = 0, backHref, nextTitle, nextSummary, nextHref } = Astro.props;
+---
+<BaseLayout title={`《${title}》· ${author} · SCU LENS`} active="/monthly-nine">
+  <div class="page-shell">
+    <section class="page-hero group-hero">
+      <div>
+        <a class="back-link" href={backHref}>← 返回「{issueTitle}」</a>
+        <div class="eyebrow">Monthly Nine · Photo Series</div>
+        <h1 class="display">{title}</h1>
+      </div>
+      <div class="group-meta">
+        <p>摄影 / <strong>{author}</strong></p>
+        <p>{issueDate} 每月九图 · {issueTitle}</p>
+        <p>{frames.length} 张组图</p>
+      </div>
+    </section>
+    <section class="series-grid">
+      {frames.map((frame, i) => (
+        <figure class:list={["series-frame", frame.height > frame.width ? "portrait" : "landscape"]}>
+          <a class="series-photo-link" href={frame.original} data-viewer-open={`${viewerGroup}:${i + viewerOffset}`} aria-label={`打开看图：《${title}》· ${String(i + 1).padStart(2,"0")}`}>
+            <img src={frame.src} srcset={frame.srcset} sizes="(max-width:700px) 100vw, 58vw" alt={frame.alt} width={frame.width} height={frame.height} loading={i === 0 ? "eager" : "lazy"} decoding="async" />
+          </a>
+          <figcaption>《{title}》· {String(i + 1).padStart(2,"0")}</figcaption>
+        </figure>
+      ))}
+    </section>
+    <div class="viewer-registry" hidden>
+      {viewerItems.map((item, index) => (
+        <span
+          data-viewer-item data-viewer-group={viewerGroup}
+          data-viewer-src={item.src} data-original-src={item.original}
+          data-viewer-alt={item.alt} data-viewer-title={item.title}
+          data-viewer-author={item.author} data-viewer-kicker={item.kicker}
+          data-viewer-issue={`${issueTitle} · ${issueDate}`}
+          data-next-title={index === viewerItems.length - 1 ? nextTitle : undefined}
+          data-next-summary={index === viewerItems.length - 1 ? nextSummary : undefined}
+          data-next-href={index === viewerItems.length - 1 ? nextHref : undefined}
+        ></span>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+<style>
+  .group-hero { display:grid; grid-template-columns:1.2fr .8fr; gap:50px; align-items:end; }
+  .group-hero h1 { margin-top:18px; font-size:clamp(4.6rem,11vw,9rem); }
+  .back-link { display:inline-block; margin-bottom:34px; color:var(--muted); font-size:.82rem; }
+  .group-meta { align-self:end; padding-bottom:8px; }
+  .group-meta p { margin:8px 0; color:var(--muted); }
+  .series-grid { display:grid; grid-template-columns:repeat(12,1fr); grid-auto-flow:dense; gap:42px 16px; padding:20px 0 84px; align-items:start; }
+  .series-frame { margin:0; }
+  .series-frame.landscape { grid-column:span 7; }
+  .series-frame.portrait { grid-column:span 5; }
+  .series-photo-link { display:block; cursor:zoom-in; }
+  .series-frame img { display:block; width:100%; height:auto; }
+  figcaption { padding-top:9px; color:var(--muted); font-size:.72rem; }
+  @media (max-width:700px) {
+    .group-hero { grid-template-columns:1fr; }
+    .series-grid { grid-template-columns:1fr; }
+    .series-frame,.series-frame.landscape,.series-frame.portrait { grid-column:1; }
+  }
+</style>

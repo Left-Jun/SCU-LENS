@@ -1,0 +1,30 @@
+﻿[
+    {
+        "issue":  "2026-blossom",
+        "dest":  "tiantian\\butterfly-flower\\01",
+        "width":  6016,
+        "height":  4016,
+        "originalBytes":  5437098
+    },
+    {
+        "issue":  "2026-blossom",
+        "dest":  "tiantian\\butterfly-flower\\02",
+        "width":  1492,
+        "height":  1269,
+        "originalBytes":  568038
+    },
+    {
+        "issue":  "2026-blossom",
+        "dest":  "sebastian\\shadowless-hall",
+        "width":  2160,
+        "height":  3840,
+        "originalBytes":  4729269
+    },
+    {
+        "issue":  "2026-blossom",
+        "dest":  "yiwei\\spring-blossom",
+        "width":  4288,
+        "height":  2848,
+        "originalBytes":  6092551
+    }
+]

@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const {
+  title,
+  en,
+  date,
+  resultDate,
+  summary,
+  works,
+  viewerItems,
+  viewerGroup,
+  nextTitle,
+  nextSummary,
+  nextHref,
+  backHref = "/monthly-nine",
+} = Astro.props;
+---
+
+<BaseLayout title={`${title} · 每月九图 · SCU LENS`} active="/monthly-nine">
+  <div class="page-shell">
+    <section class="page-hero issue-detail-hero">
+      <div>
+        <a class="back-link" href={backHref}>← 返回每月九图</a>
+        <div class="eyebrow">Monthly Nine · {date}</div>
+        <h1 class="display">{title}</h1>
+      </div>
+    </section>
+
+    <section class="section issue-detail-meta">
+      <span>本期主题 · {en}</span>
+      <span>公布结果 · {resultDate}</span>
+      <span>{works.length} 组入选作品 · {viewerItems.length} 张照片</span>
+    </section>
+
+    <section class="section issue-statement">
+      <div><div class="eyebrow">Theme Archive · 主题档案</div></div>
+      <div class="issue-statement-copy">
+        {(Array.isArray(summary) ? summary : [summary]).map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+
+    <section class="issue-work-list">
+      {works.map((work) => (
+        <article class="issue-work">
+          <div class:list={["issue-photo", work.height > work.width ? "portrait" : "landscape"]}>
+            <a class="photo-open-link" href={work.originalSrc} data-viewer-open={`${viewerGroup}:${work.viewerIndex}`} aria-label={`打开看图：《${work.title}》· ${work.author}`}>
+              <img
+                src={work.browserSrc}
+                srcset={work.browserSrcset}
+                sizes="(max-width: 900px) 100vw, 920px"
+                alt={`《${work.title}》· ${work.author}`}
+                width={work.width}
+                height={work.height}
+                loading={work.no === "01" ? "eager" : "lazy"}
+                fetchpriority={work.no === "01" ? "high" : "auto"}
+                decoding="async"
+              />
+            </a>
+            <span>{work.no}</span>
+            {work.photoCount > 1 && <b>+ {work.photoCount}</b>}
+          </div>
+          <div class="issue-work-caption">
+            <div>
+              <span>{work.photoCount > 1 ? `${work.photoCount} 张组图` : "单图"}</span>
+              <h2>《{work.title}》</h2>
+              <p>摄影 / {work.author}</p>
+            </div>
+            {work.href ? <a href={work.href}>查看完整组图 →</a> : null}
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="section issue-next">
+      <span class="eyebrow">Next Issue</span>
+      <h2>{nextTitle === "已至最新一期" ? nextTitle : nextTitle ? `下一主题 · ${nextTitle}` : "已至最新一期"}</h2>
+      <a href={nextHref ?? "/monthly-nine"}>{nextTitle && nextTitle !== "已至最新一期" ? "查看下一期 →" : "返回历期总览 →"}</a>
+    </section>
+
+    <div class="viewer-registry" hidden>
+      {viewerItems.map((item, index) => (
+        <span
+          data-viewer-item
+          data-viewer-group={viewerGroup}
+          data-viewer-src={item.src}
+          data-original-src={item.original}
+          data-viewer-alt={item.alt}
+          data-viewer-title={item.title}
+          data-viewer-author={item.author}
+          data-viewer-kicker={item.kicker}
+          data-viewer-issue={`${title} · ${date}`}
+          data-next-title={index === viewerItems.length - 1 ? nextTitle : undefined}
+          data-next-summary={index === viewerItems.length - 1 ? nextSummary : undefined}
+          data-next-href={index === viewerItems.length - 1 ? nextHref : undefined}
+        ></span>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .issue-detail-hero { display:block; padding-bottom:42px; }
+  .issue-detail-hero h1 { margin-top:14px; font-size:clamp(4.2rem,10vw,8rem); }
+  .back-link { display:inline-block; margin-bottom:26px; color:var(--muted); font-size:.82rem; }
+  .issue-detail-meta { display:flex; justify-content:space-between; gap:20px; padding-top:34px; padding-bottom:34px; color:var(--muted); font-size:.78rem; letter-spacing:.05em; }
+  .issue-statement { display:grid; grid-template-columns:180px minmax(0,1fr); gap:clamp(28px,5vw,64px); align-items:start; padding-top:46px; padding-bottom:54px; }
+  .issue-statement-copy { display:grid; gap:18px; }
+  .issue-statement-copy > p { margin:0; max-width:760px; color:var(--muted); font-size:.96rem; line-height:1.82; }
+  .issue-work-list { padding-bottom:68px; }
+  .issue-work { padding:56px 0; border-top:1px solid var(--line); }
+  .issue-photo { position:relative; width:100%; background:#ddd8ca; }
+  .issue-photo.portrait { max-width:min(72vw,720px); margin-inline:auto; }
+  .photo-open-link { display:block; cursor:zoom-in; }
+  .issue-photo img { display:block; width:100%; height:auto; }
+  .issue-photo > span { position:absolute; left:18px; top:16px; z-index:1; color:white; font-size:.72rem; letter-spacing:.12em; text-shadow:0 1px 8px rgba(0,0,0,.45); pointer-events:none; }
+  .issue-photo > b { position:absolute; right:18px; bottom:16px; z-index:1; color:white; font:400 2rem Georgia,serif; text-shadow:0 1px 8px rgba(0,0,0,.45); pointer-events:none; }
+  .issue-work-caption { display:flex; justify-content:space-between; gap:30px; padding-top:18px; align-items:end; }
+  .issue-work-caption span { color:var(--muted); font-size:.72rem; letter-spacing:.08em; }
+  .issue-work-caption h2 { margin:8px 0 4px; font:400 clamp(2.1rem,4vw,4.4rem)/1 Georgia,serif; }
+  .issue-work-caption p { margin:0; color:var(--muted); }
+  .issue-work-caption a { border-bottom:1px solid var(--ink); padding-bottom:5px; font-weight:700; font-size:.82rem; }
+  .issue-next { display:grid; grid-template-columns:.4fr 1fr auto; gap:24px; align-items:end; }
+  .issue-next h2 { margin:0; font:400 clamp(2rem,4vw,4rem)/1 Georgia,serif; }
+  .issue-next a { font-weight:700; font-size:.82rem; }
+  @media (max-width:700px) {
+    .issue-detail-hero { padding-top:54px; padding-bottom:28px; }
+    .issue-detail-hero h1 { font-size:clamp(3.8rem,18vw,5.8rem); }
+    .issue-detail-meta { padding-top:28px; padding-bottom:28px; gap:12px; font-size:.68rem; flex-wrap:wrap; }
+    .issue-statement { grid-template-columns:1fr; gap:20px; padding-top:34px; padding-bottom:40px; }
+    .issue-work { padding:44px 0; }
+    .issue-photo.portrait { max-width:100%; }
+    .issue-work-caption { flex-direction:column; align-items:flex-start; }
+    .issue-next { grid-template-columns:1fr; }
+  }
+</style>

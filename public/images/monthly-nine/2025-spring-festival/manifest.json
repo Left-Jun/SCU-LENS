@@ -1,0 +1,51 @@
+﻿[
+    {
+        "issue":  "2025-spring-festival",
+        "dest":  "left-jun\\new-year",
+        "width":  1620,
+        "height":  1080,
+        "originalBytes":  185882
+    },
+    {
+        "issue":  "2025-spring-festival",
+        "dest":  "azp\\tokyo-dream",
+        "width":  3845,
+        "height":  5768,
+        "originalBytes":  5348434
+    },
+    {
+        "issue":  "2025-spring-festival",
+        "dest":  "kale-c\\lion-fireworks\\01",
+        "width":  6000,
+        "height":  4000,
+        "originalBytes":  12228306
+    },
+    {
+        "issue":  "2025-spring-festival",
+        "dest":  "kale-c\\lion-fireworks\\02",
+        "width":  3473,
+        "height":  5212,
+        "originalBytes":  10306539
+    },
+    {
+        "issue":  "2025-spring-festival",
+        "dest":  "kale-c\\lion-fireworks\\03",
+        "width":  4000,
+        "height":  6000,
+        "originalBytes":  5313924
+    },
+    {
+        "issue":  "2025-spring-festival",
+        "dest":  "kale-c\\lion-fireworks\\04",
+        "width":  2160,
+        "height":  3840,
+        "originalBytes":  2781240
+    },
+    {
+        "issue":  "2025-spring-festival",
+        "dest":  "kale-c\\lion-fireworks\\05",
+        "width":  3330,
+        "height":  2380,
+        "originalBytes":  1563614
+    }
+]

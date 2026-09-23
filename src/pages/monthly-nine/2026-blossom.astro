@@ -1,0 +1,23 @@
+---
+import MonthlyIssuePage from "../../components/MonthlyIssuePage.astro";
+const base = "/images/monthly-nine/2026-blossom";
+const viewerItems = [
+  { title:"蝴蝶与花", author:"天天快乐", kicker:"组图 · 01 / 02", src:`${base}/tiantian/butterfly-flower/01-1800.jpg`, original:`${base}/tiantian/butterfly-flower/01-original.jpg`, alt:"《蝴蝶与花》· 01 · 天天快乐" },
+  { title:"蝴蝶与花", author:"天天快乐", kicker:"组图 · 02 / 02", src:`${base}/tiantian/butterfly-flower/02-1800.jpg`, original:`${base}/tiantian/butterfly-flower/02-original.jpg`, alt:"《蝴蝶与花》· 02 · 天天快乐" },
+  { title:"无影堂下花隐无", author:"Sebastian", kicker:"单图 · Blossom", src:`${base}/sebastian/shadowless-hall-1800.jpg`, original:`${base}/sebastian/shadowless-hall-original.jpg`, alt:"《无影堂下花隐无》· Sebastian" },
+  { title:"春日繁花", author:"一尾", kicker:"单图 · Blossom", src:`${base}/yiwei/spring-blossom-1800.jpg`, original:`${base}/yiwei/spring-blossom-original.jpg`, alt:"《春日繁花》· 一尾" },
+];
+const works = [
+  { no:"01", title:"蝴蝶与花", author:"天天快乐", photoCount:2, viewerIndex:0, browserSrc:`${base}/tiantian/butterfly-flower/01-1800.jpg`, browserSrcset:`${base}/tiantian/butterfly-flower/01-960.jpg 960w, ${base}/tiantian/butterfly-flower/01-1800.jpg 1800w`, originalSrc:`${base}/tiantian/butterfly-flower/01-original.jpg`, width:6016, height:4016, href:"/monthly-nine/2026-blossom/butterfly-flower" },
+  { no:"02", title:"无影堂下花隐无", author:"Sebastian", photoCount:1, viewerIndex:2, browserSrc:`${base}/sebastian/shadowless-hall-1800.jpg`, browserSrcset:`${base}/sebastian/shadowless-hall-960.jpg 960w, ${base}/sebastian/shadowless-hall-1800.jpg 1800w`, originalSrc:`${base}/sebastian/shadowless-hall-original.jpg`, width:2160, height:3840 },
+  { no:"03", title:"春日繁花", author:"一尾", photoCount:1, viewerIndex:3, browserSrc:`${base}/yiwei/spring-blossom-1800.jpg`, browserSrcset:`${base}/yiwei/spring-blossom-960.jpg 960w, ${base}/yiwei/spring-blossom-1800.jpg 1800w`, originalSrc:`${base}/yiwei/spring-blossom-original.jpg`, width:4288, height:2848 },
+];
+---
+<MonthlyIssuePage
+  title="繁花" en="BLOSSOM" date="2026.03" resultDate="2026.04.15"
+  summary="在春风与光影的交织里，以花为题，记录春日里那些鲜明、热烈又柔软的瞬间。"
+  works={works} viewerItems={viewerItems} viewerGroup="blossom-2026"
+  nextTitle="春"
+  nextSummary="2026.04 · 下一主题为“春”，记录江安河畔、梧桐、玉兰与长桥上的春日校园。"
+  nextHref="/monthly-nine"
+/>

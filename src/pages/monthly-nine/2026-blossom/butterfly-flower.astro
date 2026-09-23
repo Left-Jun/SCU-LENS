@@ -1,0 +1,18 @@
+---
+import MonthlyGroupPage from "../../../components/MonthlyGroupPage.astro";
+const base="/images/monthly-nine/2026-blossom";
+const dims=[[6016,4016],[1492,1269]];
+const frames=dims.map(([width,height],i)=>{ const no=String(i+1).padStart(2,"0"); const bw=Math.min(width,1800); return {width,height,src:`${base}/tiantian/butterfly-flower/${no}-1800.jpg`,srcset:`${base}/tiantian/butterfly-flower/${no}-960.jpg 960w, ${base}/tiantian/butterfly-flower/${no}-1800.jpg ${bw}w`,original:`${base}/tiantian/butterfly-flower/${no}-original.jpg`,alt:`《蝴蝶与花》· ${no} · 天天快乐`};});
+const viewerItems=[
+  ...frames.map((f,i)=>({title:"蝴蝶与花",author:"天天快乐",kicker:`组图 · ${String(i+1).padStart(2,"0")} / 02`,src:f.src,original:f.original,alt:f.alt})),
+  {title:"无影堂下花隐无",author:"Sebastian",kicker:"单图 · Blossom",src:`${base}/sebastian/shadowless-hall-1800.jpg`,original:`${base}/sebastian/shadowless-hall-original.jpg`,alt:"《无影堂下花隐无》· Sebastian"},
+  {title:"春日繁花",author:"一尾",kicker:"单图 · Blossom",src:`${base}/yiwei/spring-blossom-1800.jpg`,original:`${base}/yiwei/spring-blossom-original.jpg`,alt:"《春日繁花》· 一尾"},
+];
+---
+<MonthlyGroupPage
+  issueTitle="繁花" issueDate="2026.03"
+  title="蝴蝶与花" author="天天快乐"
+  frames={frames} viewerItems={viewerItems} viewerGroup="blossom-2026"
+  backHref="/monthly-nine/2026-blossom"
+  nextTitle="春" nextSummary="2026.04 · 下一主题为“春”。" nextHref="/monthly-nine"
+/>

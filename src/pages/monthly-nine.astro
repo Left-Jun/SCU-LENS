@@ -4,7 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 
 const latestIssue = {
-  href: null,
+  href: "/monthly-nine/2026-jiang-an-green",
   date: "2026.05—07",
   title: "江安青绿",
   en: "JIANG'AN GREEN",
@@ -12,9 +12,10 @@ const latestIssue = {
   status: "已完成 · 结果已公布",
   deadline: "结果公布 · 2026.07.03",
   count: "3 组入选作品",
+  cover: "/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg",
   statement: [
     "盛夏漫染江安，青绿铺展满园。荷塘、萍叶、草木与水面共同构成一段属于江安夏日的青绿记录。我们希望这一期不只是寻找一种颜色，而是从校园里寻找那些被盛夏包围的呼吸感：风经过荷叶留下的起伏，水边植物彼此交叠的层次，以及人在青绿之间偶然出现的尺度。",
-    "本期征集现已结束，并于 2026 年 7 月 3 日公布结果。入选作品为 Sebastian《浮鸭戏芳华》、宫保鸡丁《荷风满塘》与冬淋《清新脱俗小雏菊》。完整图片正在按原始作品资料逐步归档，完成后会在本期页面中完整展开。",
+    "本期征集现已结束，并于 2026 年 7 月 3 日公布结果。入选作品为 Sebastian《浮鸭戏芳华》、宫保鸡丁《荷风满塘》与冬淋《清新脱俗小雏菊》。三组作品原图现已完成归档，可进入本期页面连续浏览。",
   ],
 };
 
@@ -56,6 +57,7 @@ const issues = [
     ],
   },
   {
+    href: "/monthly-nine/2025-spring-festival",
     date: "2025.01—03",
     title: "新春",
     en: "NEW SPRING",
@@ -63,8 +65,14 @@ const issues = [
     summary: "新春，是时空在日历上轻轻翻页的光痕。旧联、新桃、团圆饭与街巷灯火，都成为这一期的共同记忆。",
     count: "3 组入选作品",
     tone: 6,
+    preview: [
+      { browserSrc:"/images/monthly-nine/2025-spring-festival/left-jun/new-year-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/left-jun/new-year-original.jpg", alt:"《新年》· Left-俊", width:1620, height:1080 },
+      { browserSrc:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/azp/tokyo-dream-original.jpg", alt:"《东京迷梦》· Azp", width:3845, height:5768 },
+      { browserSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-960.jpg", originalSrc:"/images/monthly-nine/2025-spring-festival/kale-c/lion-fireworks/01-original.jpg", alt:"《年味来自醒狮爆竹和烟花》· 卡乐C", width:6000, height:4000 },
+    ],
   },
   {
+    href: "/monthly-nine/2026-blossom",
     date: "2026.03",
     title: "繁花",
     en: "BLOSSOM",
@@ -72,6 +80,11 @@ const issues = [
     summary: "在春风与光影的交织里，以花为题，记录春日里那些鲜明、热烈又柔软的瞬间。",
     count: "3 组入选作品",
     tone: 3,
+    preview: [
+      { browserSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-original.jpg", alt:"《春日繁花》· 一尾", width:4288, height:2848 },
+      { browserSrc:"/images/monthly-nine/2026-blossom/sebastian/shadowless-hall-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/sebastian/shadowless-hall-original.jpg", alt:"《无影堂下花隐无》· Sebastian", width:2160, height:3840 },
+      { browserSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-original.jpg", alt:"《蝴蝶与花》· 天天快乐", width:6016, height:4016 },
+    ],
   },
   {
     date: "2026.04",
@@ -106,7 +119,7 @@ const issues = [
         <span class="latest-date">{latestIssue.date}</span>
       </div>
       <div class="latest-issue-grid">
-        <div class="latest-title-block">
+        <div class="latest-title-block" style={`background-image:linear-gradient(180deg,rgba(18,25,18,.08),rgba(18,25,18,.7)),url('${latestIssue.cover}');`}>
           <p>{latestIssue.en}</p>
           <h2 id="latest-issue-title">{latestIssue.title}</h2>
           <span>{latestIssue.count}</span>
@@ -218,7 +231,7 @@ const issues = [
   .latest-status.collecting { background:var(--ink); color:white; }
   .latest-date { font:400 clamp(1.65rem,3vw,3rem)/1 Georgia,serif; letter-spacing:-.045em; }
   .latest-issue-grid { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(28px,4.5vw,64px); align-items:start; }
-  .latest-title-block { width:100%; aspect-ratio:4/3; padding:24px; background:#294334; color:#f5f0e6; display:flex; flex-direction:column; border:1px solid var(--line); }
+  .latest-title-block { width:100%; aspect-ratio:4/3; padding:24px; background-color:#294334; background-size:cover; background-position:center; color:#f5f0e6; display:flex; flex-direction:column; border:1px solid var(--line); text-shadow:0 1px 14px rgba(0,0,0,.28); }
   .latest-title-block > p { margin:0; font-size:.68rem; letter-spacing:.15em; opacity:.62; }
   .latest-title-block h2 { margin:auto 0 16px; max-width:7ch; font:400 clamp(3.1rem,5.6vw,5.8rem)/.88 Georgia,serif; letter-spacing:-.065em; }
   .latest-title-block > span { font-size:.75rem; opacity:.65; }

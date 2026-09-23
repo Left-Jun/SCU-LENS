@@ -1,0 +1,24 @@
+---
+import MonthlyGroupPage from "../../../components/MonthlyGroupPage.astro";
+const base = "/images/monthly-nine/2025-spring-festival";
+const frameDims = [[6000,4000],[3473,5212],[4000,6000],[2160,3840],[3330,2380]];
+const frames = frameDims.map(([width,height], i) => {
+  const no = String(i + 1).padStart(2,"0");
+  const browserWidth = Math.min(width,1800);
+  return { width,height, src:`${base}/kale-c/lion-fireworks/${no}-1800.jpg`, srcset:`${base}/kale-c/lion-fireworks/${no}-960.jpg 960w, ${base}/kale-c/lion-fireworks/${no}-1800.jpg ${browserWidth}w`, original:`${base}/kale-c/lion-fireworks/${no}-original.jpg`, alt:`《年味来自醒狮爆竹和烟花》· ${no} · 卡乐C` };
+});
+const viewerItems = [
+  { title:"新年", author:"Left-俊", kicker:"单图 · New Spring", src:`${base}/left-jun/new-year-1800.jpg`, original:`${base}/left-jun/new-year-original.jpg`, alt:"《新年》· Left-俊" },
+  { title:"东京迷梦", author:"Azp", kicker:"单图 · New Spring", src:`${base}/azp/tokyo-dream-1800.jpg`, original:`${base}/azp/tokyo-dream-original.jpg`, alt:"《东京迷梦》· Azp" },
+  ...frames.map((frame,i)=>({ title:"年味来自醒狮爆竹和烟花", author:"卡乐C", kicker:`组图 · ${String(i+1).padStart(2,"0")} / 05`, src:frame.src, original:frame.original, alt:frame.alt }))
+];
+---
+<MonthlyGroupPage
+  issueTitle="新春" issueDate="2025.01—03"
+  title="年味来自醒狮爆竹和烟花" author="卡乐C"
+  frames={frames} viewerItems={viewerItems} viewerGroup="spring-festival-2025" viewerOffset={2}
+  backHref="/monthly-nine/2025-spring-festival"
+  nextTitle="繁花"
+  nextSummary="2026.03 · 下一期以繁花为题。"
+  nextHref="/monthly-nine/2026-blossom"
+/>

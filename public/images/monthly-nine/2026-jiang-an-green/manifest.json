@@ -1,0 +1,23 @@
+﻿[
+    {
+        "issue":  "2026-jiang-an-green",
+        "dest":  "sebastian\\duck",
+        "width":  2558,
+        "height":  3836,
+        "originalBytes":  4425129
+    },
+    {
+        "issue":  "2026-jiang-an-green",
+        "dest":  "gongbao\\lotus-wind",
+        "width":  4096,
+        "height":  3072,
+        "originalBytes":  7251201
+    },
+    {
+        "issue":  "2026-jiang-an-green",
+        "dest":  "donglin\\daisy",
+        "width":  9566,
+        "height":  6374,
+        "originalBytes":  29311423
+    }
+]
