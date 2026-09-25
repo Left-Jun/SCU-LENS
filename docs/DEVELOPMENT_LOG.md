@@ -232,3 +232,4 @@ QQ 频道：
 - Vercel 只保留历史/备用，不再作为正式域名生产托管。
 - 本次排查发现 EdgeOne 生产停留在旧提交 589887f，而 GitHub main 已推进到 8e6d11e；后续发布必须以 EdgeOne 实际出现对应 commit 并上线为完成标准。
 
+- 重新建立 GitHub ↔ EdgeOne Git 关联；本次 main push 专门用于验证自动生产部署触发链路。
