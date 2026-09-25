@@ -1,14 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import galleryData from "../data/gallery.generated.json";
 
-const categories = [
-  { slug:"campus", title:"校园", en:"Campus", cls:"visual-campus" },
-  { slug:"humanity", title:"人文", en:"Humanity", cls:"visual-documentary" },
-  { slug:"urban", title:"城市", en:"Urban", cls:"visual-city" },
-  { slug:"nature", title:"自然", en:"Nature", cls:"visual-flower" },
-  { slug:"portrait", title:"人像", en:"Portrait", cls:"visual-portrait" },
-  { slug:"animals", title:"动物", en:"Animals", cls:"visual-night" },
+const categoryDefs = [
+  { slug:"campus", title:"校园", en:"Campus" },
+  { slug:"humanity", title:"人文", en:"Humanity" },
+  { slug:"urban", title:"城市", en:"Urban" },
+  { slug:"nature", title:"自然", en:"Nature" },
+  { slug:"portrait", title:"人像", en:"Portrait" },
+  { slug:"animals", title:"动物", en:"Animals" },
 ];
+
+const categories = categoryDefs.map((category) => {
+  const works = galleryData.items.filter((item) => item.category === category.slug);
+  return {
+    ...category,
+    count: works.length,
+    cover: works[0]?.src,
+  };
+});
 ---
 <BaseLayout title="作品 · SCU LENS" active="/gallery">
   <div class="page-shell">
@@ -17,18 +27,20 @@ const categories = [
         <div class="eyebrow">Selected Works</div>
         <h1 class="display">作品</h1>
       </div>
-      <p>从校园出发，沿着人文、城市、自然、人像与动物六类主题浏览属于川大的不同影像。</p>
+      <p>从校园、人文、城市、自然、人像与动物六个入口浏览协会影像。当前分类来自人工整理，未归档作品暂不展示。</p>
     </section>
 
     <section class="section">
       <div class="gallery-grid gallery-category-grid">
-        {categories.map((category, i) => (
-          <a class:list={["photo-card","gallery-category-card","photo-" + (i + 1)]} href={`/gallery/${category.slug}`}>
-            <div class:list={["photo-visual",category.cls]}></div>
+        {categories.map((category) => (
+          <a class="photo-card gallery-category-card" href={`/gallery/${category.slug}`}>
+            {category.cover
+              ? <img class="photo-visual category-cover" src={category.cover} alt={`${category.title}分类代表图`} loading="lazy" decoding="async" />
+              : <div class="photo-visual category-cover-empty"></div>}
             <div class="photo-caption">
               <div>
                 <h2>{category.title} / <em>{category.en}</em></h2>
-                <p>进入主题分区 →</p>
+                <p>{category.count} 张已归档作品 · 进入分类 →</p>
               </div>
             </div>
           </a>
@@ -37,9 +49,14 @@ const categories = [
     </section>
 
     <section class="section gallery-source">
-      <div class="eyebrow">Contribute</div>
-      <p>作品来自摄影协会日常投稿与「每月九图」等长期影像项目。</p>
-      <a class="text-link" href="/submit">前往投稿专区 <span>↗</span></a>
+      <div class="eyebrow">Archive Logic</div>
+      <p>题材分类只决定作品从哪个入口被浏览；投稿来源与「每月九图」等专题身份作为独立信息保留，不互相替代。</p>
+      <a class="text-link" href="/monthly-nine">查看每月九图 <span>→</span></a>
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .category-cover { display:block; object-fit:cover; }
+  .category-cover-empty { background:var(--panel); }
+</style>
