@@ -1,4 +1,4 @@
-﻿# SCU LENS 项目全档案
+# SCU LENS 项目全档案
 
 > 2026-09-23 更新：当前整体完成度约 **80%**。一级架构、主要页面、视觉规则和内容模型已基本稳定，后续重点转向真实内容补齐、响应式精修与自动化接入准备。  
 > 日常维护与更新规则请优先阅读：`docs/CONTENT_UPDATE_GUIDE.md`。
@@ -623,13 +623,13 @@ HTTPS：
 - OCSP 开启；
 - HSTS 当前关闭。
 
-生产环境变量：
+生产 canonical 域名直接固定在 `astro.config.mjs`：
 
 ```text
-SITE_URL=https://sculens.leftjun.com
+https://sculens.leftjun.com
 ```
 
-用于 sitemap 等构建。
+与个人站一致，不再依赖生产环境变量决定站点地址或 sitemap 是否启用。
 
 ### 已知部署注意事项
 
@@ -825,7 +825,7 @@ SCU LENS 与个人站 `leftjun.com` 统一采用 Git 驱动的 Tencent EdgeOne M
 - Build Command：`npm run build`
 - Output Directory：`dist`
 - Node.js：22.11.0
-- Production env：`SITE_URL=https://sculens.leftjun.com`
+- Production env：无
 - 自动部署：生产环境开启
 - 加速区域：全球可用区（不含中国大陆），与个人站当前未备案阶段的部署策略一致
 
@@ -843,7 +843,7 @@ SCU LENS 与个人站 `leftjun.com` 统一采用 Git 驱动的 Tencent EdgeOne M
 4. 部署成功后检查 `sculens.leftjun.com`，不能只以 GitHub push 成功作为发布完成；
 5. `/gallery` 等关键页面必须实际检查生产内容。
 
-Vercel 项目 `scu-lens` 只保留为历史/备用部署，不再承载 `sculens.leftjun.com` 的正式生产链路。后续不要再把正式域名切回 Vercel，除非明确重新讨论部署架构。
+Vercel 项目 `scu-lens` 仅作为历史记录，不属于现行部署链路，不再作为备用生产方案。正式发布只允许走 GitHub main → EdgeOne Makers。
 
 ### 每月九图首页最新一期规则
 

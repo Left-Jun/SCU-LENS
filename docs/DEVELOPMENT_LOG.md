@@ -30,8 +30,7 @@
 - Force HTTPS 开启。
 - OCSP 开启。
 - HSTS 暂时关闭。
-- 生产环境变量：
-  - `SITE_URL=https://sculens.leftjun.com`
+- 初期曾使用 `SITE_URL=https://sculens.leftjun.com` 作为生产环境变量；该做法已在 2026-09-25 的部署收敛中移除，改为与个人站一致的固定 canonical 配置。
 - Sitemap 生成验证成功。
 
 ## 2026-09-22 — 内容分区第一次扩展
@@ -229,7 +228,15 @@ QQ 频道：
 - 按个人站 leftjun.com 的部署方式，将 SCU LENS 正式生产链路重新固定为：本地 → GitHub main → EdgeOne Makers Git Integration → 自动生产部署。
 - 正式项目为 scu-lens-global，正式域名为 sculens.leftjun.com；DNS 使用 EdgeOne Pages CNAME。
 - EdgeOne 构建配置统一为 Astro / 根目录 ./ / npm ci / npm run build / dist / Node 22.11.0。
-- Vercel 只保留历史/备用，不再作为正式域名生产托管。
+- Vercel 仅保留为历史记录，不再作为正式或备用生产托管。
 - 本次排查发现 EdgeOne 生产停留在旧提交 589887f，而 GitHub main 已推进到 8e6d11e；后续发布必须以 EdgeOne 实际出现对应 commit 并上线为完成标准。
 
 - 重新建立 GitHub ↔ EdgeOne Git 关联；本次 main push 专门用于验证自动生产部署触发链路。
+
+## 2026-09-25 — 部署配置严格对齐个人站
+
+- 以个人站 `leftjun.com` 当前实际生产配置为基准复核 SCU LENS。
+- `astro.config.mjs` 改为直接固定 `https://sculens.leftjun.com`，移除 `SITE_URL` 环境变量依赖；sitemap 始终启用。
+- 本地安装说明统一为 `npm ci`，与 EdgeOne 生产安装命令一致。
+- 正式部署链路唯一保留为：本地 → GitHub `main` → EdgeOne Makers Git Integration → 自动生产部署。
+- Vercel 不再作为备用部署方案，仅保留历史记录；维护文档中的现行发布说明全部改为 EdgeOne。
