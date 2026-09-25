@@ -806,15 +806,19 @@ EdgeOne 曾出现：
 
 ## 17. 生产部署基线（2026-09-25）
 
-SCU LENS 与个人站 `leftjun.com` 统一采用 Git 驱动的 Tencent EdgeOne Makers / Pages 部署流程：
+本节以 `leftjun.com` 当前控制台、仓库配置和三个实际可访问部署结果为准，不再根据平台名称推测职责。
+
+个人站与 SCU LENS 的目标拓扑均为：同一个 GitHub `main` 提交并行触发三份独立静态构建。
 
     本地开发
       → GitHub main
-      → EdgeOne Makers Git Integration
-      → 自动构建 / 自动生产部署
-      → sculens.leftjun.com
+          ├─ EdgeOne Makers Git Integration → 正式自定义域名
+          ├─ Vercel Git Integration → *.vercel.app 备用入口
+          └─ GitHub Actions → GitHub Pages 备用入口
 
-当前生产项目：
+其中 EdgeOne 负责正式域名与其 EdgeOne 网络能力，但不是唯一构建副本；Vercel 与 GitHub Pages 必须继续保留独立构建结果。
+
+### EdgeOne Makers
 
 - EdgeOne Makers Project：`scu-lens-global`
 - GitHub：`Left-Jun/SCU-LENS`
@@ -822,28 +826,58 @@ SCU LENS 与个人站 `leftjun.com` 统一采用 Git 驱动的 Tencent EdgeOne M
 - Framework：Astro
 - Root Directory：`./`
 - Install Command：`npm ci`
-- Build Command：`npm run build`
-- Output Directory：`dist`
+- Build Command：`npm run build:site`
+- Output Directory：`apps/site/dist`
 - Node.js：22.11.0
 - Production env：无
-- 自动部署：生产环境开启
-- 加速区域：全球可用区（不含中国大陆），与个人站当前未备案阶段的部署策略一致
-
-正式域名：
+- Production 自动部署：开启
+- Preview：所有未分配分支，自动部署关闭
+- 加速区域：全球可用区（不含中国大陆）
 
 - `https://sculens.leftjun.com`
 - DNS：`sculens CNAME sculens.leftjun.com.pages.dnsoe5.com`
 - HTTPS 由 EdgeOne 提供。
 
+### Vercel
+
+- Project：`scu-lens`
+- Git Repository：`Left-Jun/SCU-LENS`
+- 根目录：仓库根目录
+- `vercel.json` 与个人站保持同构：Framework Astro / Install `npm ci` / Build `npm run build:site` / Output `apps/site/dist`。
+- Vercel 默认生产域名仅作为独立备用入口，不承载 `sculens.leftjun.com`。
+- Git LFS：Disabled
+- Deploy Hooks：无
+- Pull Request Comments：开启
+- Commit Comments：关闭
+- `deployment_status` / `repository_dispatch` events：开启
+- Commit Status：开启
+
+### GitHub Pages
+
+- Workflow：`.github/workflows/astro-pages.yml`
+- Trigger：push `main` + `workflow_dispatch`
+- Node：22
+- 安装：`npm ci`
+- 顺序执行：test → production audit → content validation → media validation → Astro check → build → generated-link check
+- Artifact：`apps/site/dist`
+- Deploy：`actions/deploy-pages@v4`
+
+### 仓库统一约束
+
+- `.nvmrc`：`22`
+- `package.json` Node engine：`>=22.12 <23`
+- canonical：`https://sculens.leftjun.com`
+- `edgeone.json` 保持与个人站同一条 `$wwwhost → $host` 301 规则。
+- `main` 是三路部署的共同源。
+
 发布纪律：
 
-1. 本地 `npm run build` 必须通过；
+1. 本地先完整执行与 Pages workflow 同等的检查链；
 2. push 到 GitHub `main`；
-3. EdgeOne 必须出现对应 commit 的生产部署；
-4. 部署成功后检查 `sculens.leftjun.com`，不能只以 GitHub push 成功作为发布完成；
-5. `/gallery` 等关键页面必须实际检查生产内容。
-
-Vercel 项目 `scu-lens` 仅作为历史记录，不属于现行部署链路，不再作为备用生产方案。正式发布只允许走 GitHub main → EdgeOne Makers。
+3. 分别确认 EdgeOne、Vercel、GitHub Pages 都收到同一提交；
+4. 正式访问以 `sculens.leftjun.com` 为准；
+5. `/gallery` 等关键页面必须实际检查生产内容；
+6. 任何部署平台的角色、配置或自动触发方式发生变化，都必须同步更新本文档。
 
 ### 每月九图首页最新一期规则
 

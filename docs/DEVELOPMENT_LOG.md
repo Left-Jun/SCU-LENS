@@ -240,3 +240,14 @@ QQ 频道：
 - 本地安装说明统一为 `npm ci`，与 EdgeOne 生产安装命令一致。
 - 正式部署链路唯一保留为：本地 → GitHub `main` → EdgeOne Makers Git Integration → 自动生产部署。
 - Vercel 不再作为备用部署方案，仅保留历史记录；维护文档中的现行发布说明全部改为 EdgeOne。
+
+## 2026-09-25 — 复核个人站真实三路部署并纠正前述收敛
+
+- 直接核查 `leftjun.com` 的 GitHub、Vercel、EdgeOne、DNSPod 与三个线上入口后，确认个人站并非 EdgeOne 单路部署。
+- 真实结构为同一 GitHub `main` 并行触发三份独立静态构建：EdgeOne Makers、Vercel Git Integration、GitHub Actions → GitHub Pages。
+- `leftjun.com` / `www.leftjun.com` 的正式自定义域名由 EdgeOne 接管；Vercel 与 GitHub Pages 保留各自独立备用入口。
+- 前述“Vercel 仅历史记录 / 正式发布只允许 EdgeOne”属于错误收敛，本节起作废；SCU LENS 改为完全复刻个人站的三路拓扑。
+- 恢复 Vercel `scu-lens` 与 `Left-Jun/SCU-LENS` 的 Git 关联。
+- 新增与个人站同结构的 `vercel.json`、`.nvmrc`、`.github/workflows/astro-pages.yml`。
+- 统一部署命令为 `npm ci` / `npm run build:site`，统一输出目录为 `apps/site/dist`，Node engine 对齐为 `>=22.12 <23`。
+- EdgeOne 继续作为 `sculens.leftjun.com` 的正式域名层，生产分支 `main` 自动部署、预览自动部署关闭、Node 22.11.0、无环境变量。

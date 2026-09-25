@@ -1,5 +1,6 @@
 node_modules/
 dist/
+apps/site/dist/
 .astro/
 .edgeone/
 .DS_Store
