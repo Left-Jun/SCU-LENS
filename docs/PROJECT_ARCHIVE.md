@@ -1,4 +1,4 @@
-# SCU LENS 项目全档案
+﻿# SCU LENS 项目全档案
 
 > 2026-09-23 更新：当前整体完成度约 **80%**。一级架构、主要页面、视觉规则和内容模型已基本稳定，后续重点转向真实内容补齐、响应式精修与自动化接入准备。  
 > 日常维护与更新规则请优先阅读：`docs/CONTENT_UPDATE_GUIDE.md`。
@@ -804,38 +804,46 @@ EdgeOne 曾出现：
 > 当前不要因为未来要做动态站而中断静态框架建设。
 > 先把“什么内容、怎么展示、彼此如何关联”做稳定，再决定后端。
 
-## 17. Vercel 自动部署链路（2026-09-22）
+## 17. 生产部署基线（2026-09-25）
 
-当前部署策略调整为：
+SCU LENS 与个人站 `leftjun.com` 统一采用 Git 驱动的 Tencent EdgeOne Makers / Pages 部署流程：
 
     本地开发
       → GitHub main
-      → Vercel Git Integration
+      → EdgeOne Makers Git Integration
       → 自动构建 / 自动生产部署
+      → sculens.leftjun.com
 
-当前 Vercel 项目：
+当前生产项目：
 
-- Team：Left_Jun's projects
-- Project：scu-lens
+- EdgeOne Makers Project：`scu-lens-global`
+- GitHub：`Left-Jun/SCU-LENS`
+- Production Branch：`main`
 - Framework：Astro
-- Production Branch：main
-- 默认生产域名：scu-lens.vercel.app
+- Root Directory：`./`
+- Install Command：`npm ci`
+- Build Command：`npm run build`
+- Output Directory：`dist`
+- Node.js：22.11.0
+- Production env：`SITE_URL=https://sculens.leftjun.com`
+- 自动部署：生产环境开启
+- 加速区域：全球可用区（不含中国大陆），与个人站当前未备案阶段的部署策略一致
 
-验证状态：
+正式域名：
 
-- 已从 GitHub Left-Jun/SCU-LENS 导入项目；
-- 首次生产部署已成功构建，状态为 Ready；
-- 首次生产部署对应提交 0019829；
-- 后续以 GitHub main push 作为生产发布入口，不再把手动打开 EdgeOne 控制台作为常规发布步骤。
+- `https://sculens.leftjun.com`
+- DNS：`sculens CNAME sculens.leftjun.com.pages.dnsoe5.com`
+- HTTPS 由 EdgeOne 提供。
 
-自定义域名已完成切换与验证：
+发布纪律：
 
-- `sculens.leftjun.com` 已绑定到 Vercel 项目 `scu-lens`；
-- DNSPod 中 `sculens` 使用 Vercel 当前推荐的 CNAME：`f4a1b3973b67b43c.vercel-dns-017.com.`；
-- Vercel Domains 显示 `Valid Configuration`；
-- `https://sculens.leftjun.com` 已由 Vercel 提供 HTTPS，实测 HTTP 200；
-- 正式域名已能访问最新 GitHub `main` 对应内容；
-- EdgeOne 不再作为 `sculens.leftjun.com` 的构建 / 生产托管链路；保留其他既有域名配置，不影响 `leftjun.com` 主站与 `www`。
+1. 本地 `npm run build` 必须通过；
+2. push 到 GitHub `main`；
+3. EdgeOne 必须出现对应 commit 的生产部署；
+4. 部署成功后检查 `sculens.leftjun.com`，不能只以 GitHub push 成功作为发布完成；
+5. `/gallery` 等关键页面必须实际检查生产内容。
+
+Vercel 项目 `scu-lens` 只保留为历史/备用部署，不再承载 `sculens.leftjun.com` 的正式生产链路。后续不要再把正式域名切回 Vercel，除非明确重新讨论部署架构。
 
 ### 每月九图首页最新一期规则
 
@@ -857,3 +865,4 @@ EdgeOne 曾出现：
 - 浏览图支持 srcset、loading=lazy、decoding=async；首屏关键图片可使用 eager + high priority；
 - 原图只在用户明确选择后请求；
 - 当前真实摄影作品尚未完整接入，因此先完成加载基础设施，后续接入原图时统一使用 PhotoAsset.astro。
+
