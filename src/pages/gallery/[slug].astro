@@ -174,12 +174,15 @@ const submissions = [...groupMap.values()].sort(
   }
   @media (max-width:700px) {
     .work-wall { columns:1; column-gap:0; }
-    .archive-work-card { margin-bottom:30px; padding-bottom:26px; }
-    .archive-work-heading { margin-bottom:12px; }
-    .archive-work-heading h2 { font-size:1rem; }
-    .archive-work-media { gap:8px; }
-    .archive-work-copy { padding-top:12px; }
-    .archive-work-description { font-size:.82rem; line-height:1.7; }
-    .archive-work-byline { align-items:center; }
+    .archive-work-card { margin-bottom:24px; padding-bottom:18px; }
+    .archive-work-heading { margin:0 0 10px; align-items:baseline; }
+    .archive-work-heading h2 { font-size:1rem; line-height:1.22; }
+    .archive-work-heading time { font-size:.72rem; }
+    .archive-work-media { gap:10px; }
+    .archive-work-copy { padding-top:10px; }
+    .archive-work-description { margin:0 0 10px; font-size:.82rem; line-height:1.65; }
+    .archive-work-byline { align-items:center; gap:10px; }
+    .archive-work-author { font-size:.88rem; }
+    .archive-work-tags { gap:6px; }
   }
 </style>
