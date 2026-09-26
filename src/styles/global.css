@@ -419,18 +419,17 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   nav { width:100%; justify-content:flex-start; overflow-x:auto; flex-wrap:nowrap; padding-bottom:2px; }
   .nav-link { font-size:.82rem; }
   .photo-viewer { overflow:hidden; touch-action:pan-x; }
-  .photo-viewer-stage { display:grid; grid-template-rows:minmax(0,1fr) clamp(190px,23dvh,235px); grid-template-columns:1fr; height:100dvh; overflow:hidden; }
+  .photo-viewer-stage { display:grid; grid-template-rows:minmax(0,1fr) auto; grid-template-columns:1fr; height:100dvh; overflow:hidden; }
   .photo-viewer-media { width:100vw; min-height:0; height:auto; background:#000; overflow:hidden; }
   .photo-viewer-track { height:100%; }
   .photo-viewer-slide { width:100vw; height:100%; min-height:0; padding:0; overflow:hidden; display:flex; align-items:center; justify-content:center; }
   .photo-viewer-slide img { width:auto; height:auto; max-width:100%; max-height:100%; object-fit:contain; }
-  .photo-viewer-info { width:100%; min-height:0; overflow:hidden; padding:10px 20px calc(10px + env(safe-area-inset-bottom)); background:#090909; display:grid; grid-template-rows:minmax(0,1fr) auto; }
-  .photo-viewer-copy { min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; padding-right:2px; }
-  .photo-viewer-copy::-webkit-scrollbar { display:none; }
+  .photo-viewer-info { width:100%; min-height:0; padding:10px 20px calc(10px + env(safe-area-inset-bottom)); background:#090909; display:grid; grid-template-rows:auto auto; }
+  .photo-viewer-copy { min-height:0; padding-right:2px; }
   .photo-viewer-kicker { font-size:.58rem; }
   .photo-viewer-copy h2 { margin:6px 0 3px; font-size:clamp(1.55rem,6.9vw,2.2rem); line-height:1.02; text-wrap:balance; }
   .photo-viewer-copy > p:not(.photo-viewer-description) { margin:0; font-size:.78rem; }
-  .photo-viewer-description { margin-top:12px !important; font-size:.81rem; line-height:1.48; }
+  .photo-viewer-description { margin-top:8px !important; font-size:.81rem; line-height:1.48; }
   .photo-viewer-footer { margin-top:7px; padding:7px 0 0; min-height:40px; background:#090909; flex:0 0 auto; align-items:end; }
   .photo-viewer-footer div { gap:3px; font-size:.62rem; }
   .photo-viewer-footer strong { font-size:.84rem; line-height:1; }
