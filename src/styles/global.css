@@ -371,6 +371,8 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
 .photo-viewer-kicker { color:rgba(255,255,255,.45); font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
 .photo-viewer-copy h2 { margin:14px 0 10px; font:400 clamp(2rem,3.8vw,4.4rem)/1 var(--font-serif); letter-spacing:-.028em; }
 .photo-viewer-copy > p { margin:0; color:rgba(255,255,255,.65); }
+.photo-viewer-author-link { color:inherit; border-bottom:1px solid rgba(255,255,255,.34); padding-bottom:1px; }
+.photo-viewer-author-link:hover { color:#fff; border-bottom-color:#fff; }
 .photo-viewer-description { margin-top:28px !important; line-height:1.8; font-size:.9rem; }
 .photo-viewer-footer { margin-top:auto; padding-top:24px; border-top:1px solid rgba(255,255,255,.16); display:flex; justify-content:space-between; gap:24px; align-items:end; }
 .photo-viewer-footer div { display:grid; gap:8px; color:rgba(255,255,255,.52); font-size:.72rem; }

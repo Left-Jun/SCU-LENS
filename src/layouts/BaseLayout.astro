@@ -192,7 +192,23 @@ const nav = [
           }
           if (kicker) kicker.textContent = item.dataset.viewerKicker || "";
           if (title) title.textContent = item.dataset.viewerTitle || "";
-          if (author) author.textContent = item.dataset.viewerAuthor ? `摄影 / ${item.dataset.viewerAuthor}` : "";
+          if (author) {
+            author.textContent = "";
+            const authorName = item.dataset.viewerAuthor || "";
+            if (authorName) {
+              author.append(document.createTextNode("摄影 / "));
+              const authorHref = item.dataset.viewerAuthorHref || "";
+              if (authorHref) {
+                const link = document.createElement("a");
+                link.href = authorHref;
+                link.textContent = authorName;
+                link.className = "photo-viewer-author-link";
+                author.append(link);
+              } else {
+                author.append(document.createTextNode(authorName));
+              }
+            }
+          }
           if (description) description.textContent = item.dataset.viewerDescription || "";
           if (issue) issue.textContent = item.dataset.viewerIssue || "";
           if (count) count.textContent = `${index + 1} / ${items.length}`;
