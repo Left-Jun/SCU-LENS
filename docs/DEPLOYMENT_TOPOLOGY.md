@@ -1,4 +1,4 @@
-﻿# SCU LENS Deployment Topology
+# SCU LENS Deployment Topology
 
 Verified on 2026-09-26 against the live configuration of `Left-Jun/Left-Jun.github.io` and the SCU LENS deployment projects.
 
@@ -27,6 +27,8 @@ The custom domain currently resolves directly to the EdgeOne Pages/Makers domain
 - Preview environment: all unassigned Git branches; auto deployment disabled
 - Environment variables: none
 - Deployment hooks: none
+- GitHub App used for automatic push delivery: `EO Makers`
+- GitHub App repository access is **Only select repositories**; `Left-Jun/SCU-LENS` must be explicitly selected alongside the personal-site repository. If SCU-LENS is omitted, manual EdgeOne builds can still clone the repository while Git push will not trigger automatic deployment.
 - EdgeOne zone: same live zone as the personal project
 - Adaptive rate limiting: enabled; 2000 requests / 5 seconds per visitor; loose adaptive mode; JavaScript challenge action
 - Custom security rules: none
