@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Stop'
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $libraryRoot = Join-Path $projectRoot 'content\photo-library'
@@ -125,6 +125,7 @@ foreach ($folder in $categoryMap.Keys) {
 
     $items.Add([ordered]@{
       id = $id
+      submissionId = if ($row.submission_id) { $row.submission_id } else { $null }
       filename = $file.Name
       src = "/images/gallery-generated/$($info.slug)/$outputName"
       category = $info.slug
@@ -133,6 +134,9 @@ foreach ($folder in $categoryMap.Keys) {
       date = $row.date
       section = $row.section
       author = $row.author
+      title = if ($row.title) { $row.title } else { $null }
+      titleSource = if ($row.title_source) { $row.title_source } else { $null }
+      caption = if ($row.caption) { $row.caption } else { $null }
       description = $row.description
       tags = @($row.tags -split '\s*[;,，；]\s*' | Where-Object { $_ })
       monthlyNine = $issue
@@ -159,4 +163,3 @@ foreach ($folder in $categoryMap.Keys) {
   $count = @($items | Where-Object category -eq $slug).Count
   Write-Output "$folder / $slug = $count"
 }
-

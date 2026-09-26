@@ -23,11 +23,16 @@
 
 ## metadata 字段
 
-`filename,date,section,author,description,tags,monthly_nine_issue`
+`filename,date,section,author,title,title_source,description,caption,submission_id,tags,monthly_nine_issue`
 
 其中：
 
 - `section` 只表示原始投稿来源：相机组投稿 / 手机组投稿 / 胶片组投稿。
+- `title` 是作品或整组图集标题；作者未提供标题时可由网站整理补题。
+- `title_source` 建议写 `author` 或 `editorial`，用于区分作者原标题与整理补题；该字段不在前台显示。
+- `description` 是整组作品的正文说明，可为空；不要再把作者名或标题塞进 description。
+- `caption` 预留给单张图片自己的说明，可为空。
+- `submission_id` 标识同一次频道投稿 / 同一图集。多张图属于同一投稿时必须保持相同值。
 - `tags=每月九图` 表示作品曾入选每月九图。
 - `monthly_nine_issue=YYYY-MM` 表示对应每月九图期次。
 - 题材分类不写入原始投稿 section，而由图片所在六个正式题材目录决定。
