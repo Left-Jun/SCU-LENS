@@ -194,18 +194,33 @@ const nav = [
           if (title) title.textContent = item.dataset.viewerTitle || "";
           if (author) {
             author.textContent = "";
-            const authorName = item.dataset.viewerAuthor || "";
-            if (authorName) {
-              author.append(document.createTextNode("摄影 / "));
-              const authorHref = item.dataset.viewerAuthorHref || "";
-              if (authorHref) {
+            let categories = [];
+            try {
+              categories = JSON.parse(item.dataset.viewerCategories || "[]");
+            } catch {}
+            if (Array.isArray(categories) && categories.length) {
+              categories.forEach((category, categoryIndex) => {
+                if (categoryIndex > 0) author.append(document.createTextNode(" · "));
                 const link = document.createElement("a");
-                link.href = authorHref;
-                link.textContent = authorName;
-                link.className = "photo-viewer-author-link";
+                link.href = category.href || "#";
+                link.textContent = category.label || "";
+                link.className = "photo-viewer-category-link";
                 author.append(link);
-              } else {
-                author.append(document.createTextNode(authorName));
+              });
+            } else {
+              const authorName = item.dataset.viewerAuthor || "";
+              if (authorName) {
+                author.append(document.createTextNode("摄影 / "));
+                const authorHref = item.dataset.viewerAuthorHref || "";
+                if (authorHref) {
+                  const link = document.createElement("a");
+                  link.href = authorHref;
+                  link.textContent = authorName;
+                  link.className = "photo-viewer-author-link";
+                  author.append(link);
+                } else {
+                  author.append(document.createTextNode(authorName));
+                }
               }
             }
           }
@@ -277,7 +292,13 @@ const nav = [
           if (event.key === "ArrowLeft") go(-1);
           if (event.key === "ArrowRight") go(1);
         });
+        const isInteractiveTarget = (target) => target instanceof Element && Boolean(target.closest("a,button"));
+
         viewer?.addEventListener("touchstart", (event) => {
+          if (isInteractiveTarget(event.target)) {
+            dragging = false;
+            return;
+          }
           const touch = event.changedTouches[0];
           touchStartX = touch.clientX;
           touchStartY = touch.clientY;
@@ -294,6 +315,10 @@ const nav = [
           track.style.transform = `translate3d(${-index * width + dx}px,0,0)`;
         }, { passive: true });
         viewer?.addEventListener("touchend", (event) => {
+          if (!dragging || isInteractiveTarget(event.target)) {
+            dragging = false;
+            return;
+          }
           const touch = event.changedTouches[0];
           const dx = touch.clientX - touchStartX;
           const dy = touch.clientY - touchStartY;

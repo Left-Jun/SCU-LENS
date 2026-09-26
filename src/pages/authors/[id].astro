@@ -25,6 +25,10 @@ const viewerItems = submissions.flatMap((submission) =>
     description: submission.description,
     kicker: "Author Archive · 作者档案",
     issue: `${submission.section} · ${submission.date}`,
+    categories: submission.categories.map((category) => ({
+      label: categoryMeta[category]?.title || category,
+      href: `/gallery/${category}`,
+    })),
     photoId: photo.id,
   }))
 );
@@ -106,6 +110,7 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
           data-viewer-title={item.title}
           data-viewer-author={item.author}
           data-viewer-author-href={authorHref(item.author)}
+          data-viewer-categories={JSON.stringify(item.categories)}
           data-viewer-description={item.description}
           data-viewer-kicker={item.kicker}
           data-viewer-issue={item.issue}
