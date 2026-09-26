@@ -1,6 +1,4 @@
 import { readFile } from "node:fs/promises";
-import { pathToFileURL } from "node:url";
-import { resolve } from "node:path";
 
 const errors = [];
 const expectEqual = (actual, expected, label) => {
@@ -14,23 +12,24 @@ const pkg = JSON.parse(await readFile("package.json", "utf8"));
 const vercel = JSON.parse(await readFile("vercel.json", "utf8"));
 const workflow = await readFile(".github/workflows/astro-pages.yml", "utf8");
 const nvmrc = (await readFile(".nvmrc", "utf8")).trim();
-const astroModule = await import(pathToFileURL(resolve("astro.config.mjs")).href);
-const astro = astroModule.default;
+const astroConfig = await readFile("astro.config.mjs", "utf8");
 
-expectEqual(pkg.engines?.node, ">=22.11 <23", "package.json engines.node");
-expectEqual(nvmrc, "22.11.0", ".nvmrc");
+expectEqual(pkg.engines?.node, ">=22.19 <23", "package.json engines.node");
+expectEqual(nvmrc, "22.21.1", ".nvmrc");
 expectEqual(pkg.scripts?.["build:site"], "astro build", "package.json build:site");
 expectEqual(pkg.scripts?.["check:site"], "astro check", "package.json check:site");
 expectEqual(vercel.framework, "astro", "vercel framework");
 expectEqual(vercel.installCommand, "npm ci", "vercel installCommand");
 expectEqual(vercel.buildCommand, "npm run build:site", "vercel buildCommand");
 expectEqual(vercel.outputDirectory, "apps/site/dist", "vercel outputDirectory");
-expectEqual(astro.output, "static", "Astro output");
-expectEqual(astro.outDir, "./apps/site/dist", "Astro outDir");
-expectEqual(astro.site, "https://sculens.leftjun.com", "Astro canonical site");
+for (const [needle, label] of [
+  ['site: "https://sculens.leftjun.com"', "Astro canonical site"],
+  ['output: "static"', "Astro static output"],
+  ['outDir: "./apps/site/dist"', "Astro outDir"]
+]) expectIncludes(astroConfig, needle, label);
 
 for (const [needle, label] of [
-  ['node-version: "22.11.0"', "Pages Node version"],
+  ['node-version: "22.21.1"', "Pages Node version"],
   ["run: npm ci", "Pages install command"],
   ["run: npm run build:site", "Pages build command"],
   ["path: apps/site/dist", "Pages artifact path"],

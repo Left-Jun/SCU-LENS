@@ -76,4 +76,4 @@ The repository now enforces this in CI:
 - `npm run check:deploy-config` detects drift between Astro, Vercel and the Pages workflow.
 - GitHub Pages artifacts are post-processed by `npm run prepare:pages` so root-absolute links and assets work under the `/SCU-LENS` project path without changing the EdgeOne/Vercel root deployment.
 - After GitHub Pages deploys, `npm run check:live` checks EdgeOne, Vercel and GitHub Pages with retries. It verifies the homepage identity, the gallery route, the generated stylesheet, and a real image asset.
-- Node is pinned to `22.11.0` for deployment consistency; `package.json` accepts the matching Node 22 line.
+- Node is pinned to `22.21.1` for deployment consistency. This satisfies the current Astro/Vite/Undici engine floor while staying on Node 22 LTS, and matches the available EdgeOne runtime.
