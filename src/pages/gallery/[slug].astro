@@ -82,7 +82,7 @@ const submissions = [...groupMap.values()].sort(
 const viewerGroup = `gallery-${slug}`;
 const viewerItems = submissions.flatMap((submission) =>
   submission.photos.map((photo) => ({
-    src: photo.src,
+    src: photo.viewerSrc || photo.src,
     original: photo.originalSrc || photo.src,
     alt: submission.description || `《${submission.title}》· ${submission.author}`,
     title: submission.title,
@@ -128,7 +128,11 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
                 >
                   <img
                     src={photo.src}
+                    srcset={photo.srcset}
+                    sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 33vw"
                     alt={submission.description || `《${submission.title}》· ${submission.author}`}
+                    width={photo.width}
+                    height={photo.height}
                     loading="lazy"
                     decoding="async"
                   />

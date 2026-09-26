@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $libraryRoot = Join-Path $projectRoot 'content\photo-library'
@@ -60,7 +60,7 @@ function Fix-Orientation([System.Drawing.Image]$image) {
   catch { }
 }
 
-function Write-BrowserJpeg([string]$source, [string]$destination, [int]$maxEdge = 1200, [long]$quality = 82) {
+function Write-BrowserJpeg([string]$source, [string]$destination, [int]$maxEdge, [long]$quality) {
   $sourceImage = [System.Drawing.Image]::FromFile($source)
   try {
     Fix-Orientation $sourceImage
@@ -84,6 +84,7 @@ function Write-BrowserJpeg([string]$source, [string]$destination, [int]$maxEdge 
       $parameters.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter([System.Drawing.Imaging.Encoder]::Quality, $quality)
       $bitmap.Save($destination, $jpegCodec, $parameters)
       $parameters.Dispose()
+      return [ordered]@{ width = $width; height = $height }
     }
     finally { $bitmap.Dispose() }
   }
@@ -108,10 +109,30 @@ foreach ($folder in $categoryMap.Keys) {
 
     $row = $metadataByName[$file.Name]
     $id = Get-PhotoId $file.Name
-    $outputName = "$id.jpg"
-    $outputPath = Join-Path $categoryOutput $outputName
-    Write-BrowserJpeg $file.FullName $outputPath
-    [void]$seenOutput.Add($outputPath)
+    # Conservative responsive JPEG ladder. Every derivative is rendered once
+    # from the archived source, never from another compressed derivative.
+    $variants = @(
+      @{ edge = 960; quality = 88 },
+      @{ edge = 1440; quality = 90 },
+      @{ edge = 1800; quality = 91 }
+    )
+    $generated = New-Object System.Collections.Generic.List[object]
+    foreach ($variant in $variants) {
+      $outputName = "$id-$($variant.edge).jpg"
+      $outputPath = Join-Path $categoryOutput $outputName
+      $dimensions = Write-BrowserJpeg $file.FullName $outputPath $variant.edge $variant.quality
+      [void]$seenOutput.Add($outputPath)
+      $generated.Add([ordered]@{
+        edge = $variant.edge
+        width = $dimensions.width
+        height = $dimensions.height
+        src = "/images/gallery-generated/$($info.slug)/$outputName"
+      }) | Out-Null
+    }
+
+    $listVariant = $generated | Select-Object -First 1
+    $viewerVariant = $generated | Select-Object -Last 1
+    $srcset = ($generated | ForEach-Object { "$($_.src) $($_.width)w" }) -join ', '
 
     $issue = $null
     if ($row.monthly_nine_issue -and $issueMap.ContainsKey($row.monthly_nine_issue)) {
@@ -127,7 +148,12 @@ foreach ($folder in $categoryMap.Keys) {
       id = $id
       submissionId = if ($row.submission_id) { $row.submission_id } else { $null }
       filename = $file.Name
-      src = "/images/gallery-generated/$($info.slug)/$outputName"
+      src = $listVariant.src
+      srcset = $srcset
+      viewerSrc = $viewerVariant.src
+      originalSrc = $viewerVariant.src
+      width = $viewerVariant.width
+      height = $viewerVariant.height
       category = $info.slug
       categoryTitle = $info.title
       categoryEn = $info.en

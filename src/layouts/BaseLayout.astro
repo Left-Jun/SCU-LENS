@@ -131,6 +131,24 @@ const nav = [
           );
         };
 
+        const loadViewerWindow = () => {
+          if (!(track instanceof HTMLElement) || !items.length) return;
+          const focusIndex = Math.min(index, items.length - 1);
+          const start = Math.max(0, focusIndex - 1);
+          const end = Math.min(items.length - 1, focusIndex + 1);
+          for (let i = start; i <= end; i++) {
+            const item = items[i];
+            const slide = track.children[i];
+            const img = slide?.querySelector("img");
+            if (!(item instanceof HTMLElement) || !(img instanceof HTMLImageElement)) continue;
+            if (!img.getAttribute("src")) {
+              img.src = item.dataset.viewerSrc || item.dataset.originalSrc || "";
+              img.alt = item.dataset.viewerAlt || "";
+              img.decoding = "async";
+            }
+          }
+        };
+
         const render = () => {
           if (!viewer) return;
           const atNextIssue = hasNextPanel() && index === items.length;
@@ -167,6 +185,7 @@ const nav = [
           }
           const item = items[index];
           if (!(item instanceof HTMLElement)) return;
+          loadViewerWindow();
           if (track instanceof HTMLElement) {
             track.style.transition = dragging ? "none" : "transform .32s cubic-bezier(.22,.72,.24,1)";
             track.style.transform = `translate3d(-${index * 100}%,0,0)`;
@@ -187,11 +206,12 @@ const nav = [
           if (!viewer || !items.length) return;
           if (track instanceof HTMLElement) {
             track.innerHTML = "";
-            for (const item of items) {
+            for (let i = 0; i < items.length; i++) {
+              const item = items[i];
               const slide = document.createElement("div");
               slide.className = "photo-viewer-slide";
+              slide.dataset.viewerIndex = String(i);
               const img = document.createElement("img");
-              img.src = item.dataset.viewerSrc || item.dataset.originalSrc || "";
               img.alt = item.dataset.viewerAlt || "";
               img.draggable = false;
               slide.appendChild(img);
@@ -202,6 +222,7 @@ const nav = [
           viewer.hidden = false;
           viewer.setAttribute("aria-hidden", "false");
           document.documentElement.classList.add("viewer-open");
+          loadViewerWindow();
           render();
         };
 
