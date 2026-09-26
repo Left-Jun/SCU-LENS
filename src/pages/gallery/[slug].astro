@@ -78,6 +78,22 @@ for (const work of works) {
 const submissions = [...groupMap.values()].sort(
   (a, b) => b.date.localeCompare(a.date) || a.photos[0].filename.localeCompare(b.photos[0].filename)
 );
+
+const viewerGroup = `gallery-${slug}`;
+const viewerItems = submissions.flatMap((submission) =>
+  submission.photos.map((photo) => ({
+    src: photo.src,
+    original: photo.originalSrc || photo.src,
+    alt: submission.description || `《${submission.title}》· ${submission.author}`,
+    title: submission.title,
+    author: submission.author,
+    description: submission.description,
+    kicker: `Works · ${category.en}`,
+    issue: `${submission.section} · ${submission.date}`,
+    photoId: photo.id,
+  }))
+);
+const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, index]));
 ---
 <BaseLayout title={`${category.title} · 作品 · SCU LENS`} active="/gallery">
   <div class="page-shell">
@@ -106,9 +122,8 @@ const submissions = [...groupMap.values()].sort(
               {submission.photos.map((photo, index) => (
                 <a
                   class="archive-image-link"
-                  href={photo.src}
-                  target="_blank"
-                  rel="noreferrer"
+                  href={photo.originalSrc || photo.src}
+                  data-viewer-open={`${viewerGroup}:${viewerIndexById.get(photo.id) ?? 0}`}
                   aria-label={`查看《${submission.title}》${submission.photos.length > 1 ? `第 ${index + 1} 张` : ""}`}
                 >
                   <img
@@ -141,6 +156,23 @@ const submissions = [...groupMap.values()].sort(
         <p>这一分类暂时还没有完成归档的作品。</p>
       </section>
     )}
+
+    <div class="viewer-registry" hidden>
+      {viewerItems.map((item) => (
+        <span
+          data-viewer-item
+          data-viewer-group={viewerGroup}
+          data-viewer-src={item.src}
+          data-original-src={item.original}
+          data-viewer-alt={item.alt}
+          data-viewer-title={item.title}
+          data-viewer-author={item.author}
+          data-viewer-description={item.description}
+          data-viewer-kicker={item.kicker}
+          data-viewer-issue={item.issue}
+        ></span>
+      ))}
+    </div>
   </div>
 </BaseLayout>
 

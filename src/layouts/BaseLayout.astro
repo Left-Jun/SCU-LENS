@@ -120,10 +120,20 @@ const nav = [
         let dragging = false;
 
         const readItems = (group) => Array.from(document.querySelectorAll(`[data-viewer-item][data-viewer-group="${group}"]`));
+        const hasNextPanel = () => {
+          const source = items[items.length - 1];
+          if (!(source instanceof HTMLElement)) return false;
+          return Boolean(
+            source.dataset.nextHref ||
+            source.dataset.nextTitle ||
+            source.dataset.nextSummary ||
+            source.dataset.nextPreviews
+          );
+        };
 
         const render = () => {
           if (!viewer) return;
-          const atNextIssue = index === items.length;
+          const atNextIssue = hasNextPanel() && index === items.length;
           viewer.classList.toggle("show-next-issue", atNextIssue);
           nextIssue?.toggleAttribute("hidden", !atNextIssue);
           viewer.querySelector(".photo-viewer-media")?.toggleAttribute("hidden", atNextIssue);
@@ -169,7 +179,7 @@ const nav = [
           if (count) count.textContent = `${index + 1} / ${items.length}`;
           if (original) original.setAttribute("href", item.dataset.originalSrc || item.dataset.viewerSrc || "#");
           if (prev instanceof HTMLButtonElement) prev.disabled = index <= 0;
-          if (next instanceof HTMLButtonElement) next.disabled = false;
+          if (next instanceof HTMLButtonElement) next.disabled = index >= items.length - 1 && !hasNextPanel();
         };
 
         const openViewer = (group, startIndex) => {
@@ -204,7 +214,8 @@ const nav = [
         };
 
         const go = (delta) => {
-          index = Math.max(0, Math.min(index + delta, items.length));
+          const maxIndex = hasNextPanel() ? items.length : items.length - 1;
+          index = Math.max(0, Math.min(index + delta, maxIndex));
           render();
         };
 
