@@ -47,9 +47,9 @@ async function encode(jpegPath, format) {
   }
 
   if (format === "avif") {
-    await pipeline.avif({ quality: 58, effort: 4, chromaSubsampling: "4:4:4" }).toFile(output);
+    await pipeline.avif({ quality: 58, effort: 1, chromaSubsampling: "4:4:4" }).toFile(output);
   } else {
-    await pipeline.webp({ quality: 82, effort: 4, smartSubsample: true }).toFile(output);
+    await pipeline.webp({ quality: 82, effort: 2, smartSubsample: true }).toFile(output);
   }
   return true;
 }
