@@ -12,7 +12,18 @@ async function collect(root) {
   return result;
 }
 
-for (const file of await collect("content")) {
+const contentRoots = ["src/data", "src/pages"];
+const files = [];
+
+for (const root of contentRoots) {
+  files.push(...await collect(root));
+}
+
+if (files.length === 0) {
+  throw new Error(`No site content found under: ${contentRoots.join(", ")}`);
+}
+
+for (const file of files) {
   const info = await stat(file);
   if (info.size === 0) throw new Error(`Empty content file: ${file}`);
 }
