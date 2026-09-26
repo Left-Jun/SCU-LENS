@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import GalleryImage from "../../components/GalleryImage.astro";
 import galleryData from "../../data/gallery.generated.json";
 import { authorHref, authorId, categoryMeta, groupSubmissions } from "../../lib/gallery-archive";
 
@@ -17,7 +18,7 @@ const submissions = groupSubmissions(works);
 const viewerGroup = `author-${id}`;
 const viewerItems = submissions.flatMap((submission) =>
   submission.photos.map((photo) => ({
-    src: photo.viewerSrc || photo.src,
+    src: (photo.viewerSrc || photo.src).replace(/\.jpg$/i, ".webp"),
     original: photo.originalSrc || photo.src,
     alt: submission.description || `《${submission.title}》· ${author}`,
     title: submission.title,
@@ -65,15 +66,10 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
                 data-viewer-open={`${viewerGroup}:${viewerIndexById.get(photo.id) ?? 0}`}
                 aria-label={`查看《${submission.title}》${submission.photos.length > 1 ? `第 ${index + 1} 张` : ""}`}
               >
-                <img
-                  src={photo.src}
-                  srcset={photo.srcset}
+                <GalleryImage
+                  photo={photo}
                   sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 33vw"
                   alt={submission.description || `《${submission.title}》· ${author}`}
-                  width={photo.width}
-                  height={photo.height}
-                  loading="lazy"
-                  decoding="async"
                 />
               </a>
             ))}

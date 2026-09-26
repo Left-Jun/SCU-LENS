@@ -27,7 +27,7 @@ const nav = [
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="zh_CN" />
     <meta name="twitter:card" content="summary" />
-    <link rel="icon" type="image/png" href="/images/brand/scu-lens-logo-simple.png" />
+    <link rel="icon" type="image/png" href="/images/brand/scu-lens-logo-text.png" />
     <title>{title}</title>
   </head>
   <body>
@@ -95,6 +95,39 @@ const nav = [
       <button class="photo-viewer-nav photo-viewer-next" type="button" aria-label="下一张">›</button>
     </div>
     <script is:inline>
+      (() => {
+        const activate = (picture) => {
+          if (!(picture instanceof HTMLPictureElement) || picture.dataset.galleryLazy !== "pending") return;
+          for (const source of picture.querySelectorAll("source[data-srcset]")) {
+            source.setAttribute("srcset", source.dataset.srcset || "");
+            source.removeAttribute("data-srcset");
+          }
+          const img = picture.querySelector("img[data-src]");
+          if (img instanceof HTMLImageElement) {
+            const fallbackSrcset = img.dataset.srcset || "";
+            if (fallbackSrcset) img.setAttribute("srcset", fallbackSrcset);
+            img.src = img.dataset.src || "";
+            img.removeAttribute("data-src");
+            img.removeAttribute("data-srcset");
+          }
+          picture.dataset.galleryLazy = "loaded";
+        };
+
+        const pictures = Array.from(document.querySelectorAll('picture[data-gallery-lazy="pending"]'));
+        if (!("IntersectionObserver" in window)) {
+          pictures.forEach(activate);
+          return;
+        }
+        const observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            activate(entry.target);
+            observer.unobserve(entry.target);
+          }
+        }, { rootMargin: "800px 0px" });
+        pictures.forEach((picture) => observer.observe(picture));
+      })();
+
       (() => {
         const viewer = document.getElementById("photo-viewer");
         const track = document.getElementById("photo-viewer-track");

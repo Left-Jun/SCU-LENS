@@ -15,3 +15,5 @@ apps/site/dist/
 /docs_probe*.txt
 
 /content/photo-library/
+/public/images/gallery-generated/**/*.avif
+/public/images/gallery-generated/**/*.webp

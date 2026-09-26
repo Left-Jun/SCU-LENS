@@ -1,0 +1,60 @@
+---
+interface Props {
+  photo: any;
+  alt: string;
+  sizes?: string;
+  class?: string;
+  priority?: boolean;
+}
+
+const {
+  photo,
+  alt,
+  sizes = "100vw",
+  class: className,
+  priority = false,
+} = Astro.props;
+
+const modernSrcset = (srcset: string | undefined, extension: "avif" | "webp") =>
+  String(srcset || "")
+    .split(",")
+    .map((entry) => entry.trim().replace(/\.jpg(?=\s+\d+w$)/i, `.${extension}`))
+    .filter(Boolean)
+    .join(", ");
+
+const avifSrcset = modernSrcset(photo.srcset, "avif");
+const webpSrcset = modernSrcset(photo.srcset, "webp");
+---
+
+<picture class="gallery-responsive-picture" data-gallery-lazy={priority ? undefined : "pending"}>
+  {avifSrcset && (
+    <source type="image/avif" srcset={priority ? avifSrcset : undefined} data-srcset={priority ? undefined : avifSrcset} sizes={sizes} />
+  )}
+  {webpSrcset && (
+    <source type="image/webp" srcset={priority ? webpSrcset : undefined} data-srcset={priority ? undefined : webpSrcset} sizes={sizes} />
+  )}
+  <img
+    src={priority ? photo.src : undefined}
+    srcset={priority ? photo.srcset : undefined}
+    data-src={priority ? undefined : photo.src}
+    data-srcset={priority ? undefined : photo.srcset}
+    sizes={sizes}
+    alt={alt}
+    class={className}
+    width={photo.width}
+    height={photo.height}
+    loading={priority ? "eager" : "lazy"}
+    decoding="async"
+    fetchpriority={priority ? "high" : "low"}
+  />
+  <noscript>
+    <img src={photo.src} srcset={photo.srcset} sizes={sizes} alt={alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
+  </noscript>
+</picture>
+
+<style is:global>
+  .gallery-responsive-picture { display:block; }
+  .gallery-responsive-picture img { display:block; width:100%; height:auto; transition:transform .28s ease, filter .28s ease; }
+  .archive-image-link:hover .gallery-responsive-picture img,
+  .author-image-link:hover .gallery-responsive-picture img { transform:scale(1.008); filter:saturate(1.04); }
+</style>
