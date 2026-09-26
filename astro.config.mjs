@@ -1,3 +1,4 @@
+// EdgeOne native push trigger verification
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
