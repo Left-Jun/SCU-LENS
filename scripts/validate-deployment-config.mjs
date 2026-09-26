@@ -16,7 +16,7 @@ const astroConfig = await readFile("astro.config.mjs", "utf8");
 
 expectEqual(pkg.engines?.node, ">=22.19 <23", "package.json engines.node");
 expectEqual(nvmrc, "22.21.1", ".nvmrc");
-expectEqual(pkg.scripts?.["build:site"], "astro build", "package.json build:site");
+expectEqual(pkg.scripts?.["build:site"], "node scripts/optimize-gallery-media.mjs && astro build", "package.json build:site");
 expectEqual(pkg.scripts?.["check:site"], "astro check", "package.json check:site");
 expectEqual(vercel.framework, "astro", "vercel framework");
 expectEqual(vercel.installCommand, "npm ci", "vercel installCommand");
