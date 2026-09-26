@@ -196,7 +196,10 @@ const nav = [
           if (description) description.textContent = item.dataset.viewerDescription || "";
           if (issue) issue.textContent = item.dataset.viewerIssue || "";
           if (count) count.textContent = `${index + 1} / ${items.length}`;
-          if (original) original.setAttribute("href", item.dataset.originalSrc || item.dataset.viewerSrc || "#");
+          if (original) {
+            original.setAttribute("href", item.dataset.originalSrc || item.dataset.viewerSrc || "#");
+            original.textContent = item.dataset.viewerOriginalLabel || "查看原图 ↗";
+          }
           if (prev instanceof HTMLButtonElement) prev.disabled = index <= 0;
           if (next instanceof HTMLButtonElement) next.disabled = index >= items.length - 1 && !hasNextPanel();
         };
