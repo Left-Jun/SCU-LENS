@@ -353,7 +353,14 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
 }
 .footer-brand { display:flex; gap:12px; color:var(--ink); }
 .footer-brand-main { display:flex; align-items:baseline; gap:8px; }
-.footer-brand-main small { display:none; }
+.footer-brand-main small {
+  display:block;
+  color:var(--muted);
+  font-size:.66rem;
+  line-height:1.35;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
 .footer-org { display:grid; gap:3px; }
 .footer-org > span { color:var(--ink); }
 .footer-org small { color:var(--muted); font-size:.66rem; line-height:1.35; letter-spacing:.02em; }
