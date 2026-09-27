@@ -53,7 +53,10 @@ export function galleryPhoto(id: string) {
   };
 }
 
-export function viewerPhoto(id: string, extra: Record<string, unknown> = {}) {
+export function viewerPhoto<T extends Record<string, unknown> = Record<string, never>>(
+  id: string,
+  extra: T = {} as T,
+) {
   const item = galleryPhoto(id);
   return {
     ...extra,
