@@ -351,8 +351,10 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
   color:var(--muted);
   font-size:.82rem;
 }
-.footer-brand { display:grid; gap:6px; max-width:560px; color:var(--ink); }
-.footer-brand span { color:var(--muted); line-height:1.6; }
+.footer-brand { display:flex; gap:12px; color:var(--ink); }
+.footer-org { display:grid; gap:3px; }
+.footer-org > span { color:var(--ink); }
+.footer-org small { color:var(--muted); font-size:.66rem; line-height:1.35; letter-spacing:.02em; }
 .footer-links { display:flex; gap:18px; justify-self:center; }
 .footer-links a:hover { color:var(--ink); }
 .site-footer p { margin:0; }
