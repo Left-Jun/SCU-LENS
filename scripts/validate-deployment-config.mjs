@@ -10,7 +10,6 @@ const expectIncludes = (text, needle, label) => {
 
 const pkg = JSON.parse(await readFile("package.json", "utf8"));
 const vercel = JSON.parse(await readFile("vercel.json", "utf8"));
-const workflow = await readFile(".github/workflows/astro-pages.yml", "utf8");
 const nvmrc = (await readFile(".nvmrc", "utf8")).trim();
 const astroConfig = await readFile("astro.config.mjs", "utf8");
 
@@ -28,17 +27,8 @@ for (const [needle, label] of [
   ['outDir: "./apps/site/dist"', "Astro outDir"]
 ]) expectIncludes(astroConfig, needle, label);
 
-for (const [needle, label] of [
-  ['node-version: "22.21.1"', "Pages Node version"],
-  ["run: npm ci", "Pages install command"],
-  ["run: npm run build:site", "Pages build command"],
-  ["path: apps/site/dist", "Pages artifact path"],
-  ["run: npm run prepare:pages", "Pages base-path preparation"],
-  ["run: npm run check:live", "post-deploy health check"]
-]) expectIncludes(workflow, needle, label);
-
 if (errors.length) {
   console.error("Deployment configuration drift detected:\n- " + errors.join("\n- "));
   process.exit(1);
 }
-console.log("Deployment configuration is aligned across Astro, Vercel, and GitHub Pages.");
+console.log("Deployment configuration is aligned across Astro, EdgeOne-oriented output, and Vercel.");

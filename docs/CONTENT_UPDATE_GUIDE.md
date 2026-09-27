@@ -21,7 +21,7 @@ SCU LENS 已从“框架搭建”进入“结构基本稳定、继续补内容�
 - QQ 频道入口；
 - 基础响应式布局；
 - 统一页头、页脚、字体层级、间距规则；
-- 构建与 GitHub / EdgeOne / Vercel / GitHub Pages 三路发布流程。
+- GitHub 源码仓库 + EdgeOne 正式部署 + Vercel 备用部署流程。
 
 剩余约 20% 主要是：
 

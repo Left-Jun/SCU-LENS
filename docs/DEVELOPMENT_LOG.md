@@ -1,4 +1,4 @@
-﻿# SCU LENS Development Log
+# SCU LENS Development Log
 
 ## 2026-09-27 — UI Visual Baseline 冻结
 
@@ -266,3 +266,11 @@ QQ 频道：
 - 新增与个人站同结构的 `vercel.json`、`.nvmrc`、`.github/workflows/astro-pages.yml`。
 - 统一部署命令为 `npm ci` / `npm run build:site`，统一输出目录为 `apps/site/dist`，Node engine 对齐为 `>=22.12 <23`。
 - EdgeOne 继续作为 `sculens.leftjun.com` 的正式域名层，生产分支 `main` 自动部署、预览自动部署关闭、Node 22.11.0、无环境变量。
+
+## 2026-09-28 — 移除 SCU LENS 的 GitHub Pages 链路
+
+- SCU LENS 不再继续复刻个人站的 GitHub Pages 备用部署，现行发布拓扑收敛为 GitHub `main` → EdgeOne Makers（正式站）与 Vercel（备用 / 排错）两路。
+- GitHub 继续作为源码仓库及 EdgeOne / Vercel 自动部署的共同来源，不移除 GitHub 仓库。
+- 删除 `.github/workflows/astro-pages.yml` 与 `scripts/prepare-pages-artifact.mjs`，同时移除 `prepare:pages` 脚本及 Pages 专用 base-path 处理。
+- `check:live` 改为仅检查 EdgeOne 与 Vercel；`check:deploy-config` 不再依赖 GitHub Pages workflow。
+- 后续不再以 `left-jun.github.io/SCU-LENS/` 为发布或验收目标，也不再因 GitHub Pages 构建产生 Actions 部署邮件。

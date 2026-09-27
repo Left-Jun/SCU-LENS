@@ -10,7 +10,6 @@
     "validate:media": "node scripts/validate-media.mjs",
     "check:links": "node scripts/check-built-links.mjs",
     "check:deploy-config": "node scripts/validate-deployment-config.mjs",
-    "prepare:pages": "node scripts/prepare-pages-artifact.mjs",
     "check:live": "node scripts/check-live-deployments.mjs",
     "dev:site": "astro dev --host 127.0.0.1 --port 4321",
     "build:site": "node scripts/optimize-gallery-media.mjs && astro build",

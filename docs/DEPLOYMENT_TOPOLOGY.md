@@ -1,16 +1,16 @@
 # SCU LENS Deployment Topology
 
-Verified on 2026-09-26 against the live configuration of `Left-Jun/Left-Jun.github.io` and the SCU LENS deployment projects.
+Updated on 2026-09-28 for the current SCU LENS deployment projects.
 
 ## Publishing topology
 
-A push to GitHub `main` fans out into three independent static-site deployments:
+A push to GitHub `main` fans out into two independent static-site deployments:
 
 1. **EdgeOne Makers / Pages** -> `sculens.leftjun.com`
 2. **Vercel** -> `scu-lens.vercel.app`
-3. **GitHub Actions / Pages** -> `left-jun.github.io/SCU-LENS/`
 
 The custom domain currently resolves directly to the EdgeOne Pages/Makers domain. Any separate H1 / acceleration layer is treated only as an acceleration layer, not as the source publishing platform.
+GitHub remains the source repository and automatic deployment trigger source. GitHub Pages is intentionally not part of the active publishing topology.
 
 ## EdgeOne parity with the personal site
 
@@ -55,25 +55,12 @@ Repository `vercel.json` is intentionally aligned with the personal site:
 
 The Vercel dashboard currently shows the same `Hugo` framework-preset UI value on both projects; this is deliberately left unchanged because the repository config is the effective build configuration and parity with the personal site is the target.
 
-## GitHub Pages parity with the personal site
-
-`.github/workflows/astro-pages.yml` follows the personal site's workflow pattern:
-
-- trigger on push to `main` and manual dispatch
-- Node 22
-- `npm ci`
-- validation / checks
-- `npm run build:site`
-- upload `apps/site/dist`
-- deploy with GitHub Pages
-
 ## Verification rule
 
-A deployment change is not considered complete merely because `git push` succeeds. After each deployment-related change, verify the real production deployment and the public endpoint for all three paths.
+A deployment change is not considered complete merely because `git push` succeeds. After each deployment-related change, verify the EdgeOne production deployment and the Vercel mirror.
 
-The repository now enforces this in CI:
+The repository keeps local/manual deployment checks:
 
-- `npm run check:deploy-config` detects drift between Astro, Vercel and the Pages workflow.
-- GitHub Pages artifacts are post-processed by `npm run prepare:pages` so root-absolute links and assets work under the `/SCU-LENS` project path without changing the EdgeOne/Vercel root deployment.
-- After GitHub Pages deploys, `npm run check:live` checks EdgeOne, Vercel and GitHub Pages with retries. It verifies the homepage identity, the gallery route, the generated stylesheet, and a real image asset.
+- `npm run check:deploy-config` validates the shared Astro/Vercel build contract.
+- `npm run check:live` checks EdgeOne and Vercel with retries. It verifies the homepage identity, the gallery route, the generated stylesheet, and a real image asset.
 - Node is pinned to `22.21.1` for deployment consistency. This satisfies the current Astro/Vite/Undici engine floor while staying on Node 22 LTS, and matches the available EdgeOne runtime.

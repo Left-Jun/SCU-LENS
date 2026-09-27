@@ -1,4 +1,4 @@
-﻿# SCU LENS 项目全档案
+# SCU LENS 项目全档案
 
 > 2026-09-23 更新：当前整体完成度约 **80%**。一级架构、主要页面、视觉规则和内容模型已基本稳定，后续重点转向真实内容补齐、响应式精修与自动化接入准备。  
 > 日常维护与更新规则请优先阅读：`docs/CONTENT_UPDATE_GUIDE.md`。
@@ -809,17 +809,16 @@ EdgeOne 曾出现：
 
 ## 17. 生产部署基线（2026-09-25）
 
-本节以 `leftjun.com` 当前控制台、仓库配置和三个实际可访问部署结果为准，不再根据平台名称推测职责。
+本节原记录 2026-09-25 的三路部署基线；SCU LENS 已于 2026-09-28 主动移除 GitHub Pages，以下内容按现行两路拓扑更新。
 
-个人站与 SCU LENS 的目标拓扑均为：同一个 GitHub `main` 提交并行触发三份独立静态构建。
+SCU LENS 当前拓扑为：同一个 GitHub `main` 提交并行触发 EdgeOne 与 Vercel 两份独立静态构建。
 
     本地开发
       → GitHub main
           ├─ EdgeOne Makers Git Integration → 正式自定义域名
-          ├─ Vercel Git Integration → *.vercel.app 备用入口
-          └─ GitHub Actions → GitHub Pages 备用入口
+          └─ Vercel Git Integration → *.vercel.app 备用入口
 
-其中 EdgeOne 负责正式域名与其 EdgeOne 网络能力，但不是唯一构建副本；Vercel 与 GitHub Pages 必须继续保留独立构建结果。
+其中 EdgeOne 负责正式域名与其 EdgeOne 网络能力，Vercel 保留为独立备用与排错入口。GitHub 只承担源码仓库与自动部署源，不再承担 Pages 托管。
 
 ### EdgeOne Makers
 
@@ -855,29 +854,19 @@ EdgeOne 曾出现：
 - `deployment_status` / `repository_dispatch` events：开启
 - Commit Status：开启
 
-### GitHub Pages
-
-- Workflow：`.github/workflows/astro-pages.yml`
-- Trigger：push `main` + `workflow_dispatch`
-- Node：22
-- 安装：`npm ci`
-- 顺序执行：test → production audit → content validation → media validation → Astro check → build → generated-link check
-- Artifact：`apps/site/dist`
-- Deploy：`actions/deploy-pages@v4`
-
 ### 仓库统一约束
 
 - `.nvmrc`：`22`
 - `package.json` Node engine：`>=22.12 <23`
 - canonical：`https://sculens.leftjun.com`
 - `edgeone.json` 保持与个人站同一条 `$wwwhost → $host` 301 规则。
-- `main` 是三路部署的共同源。
+- `main` 是 EdgeOne 与 Vercel 两路部署的共同源。
 
 发布纪律：
 
-1. 本地先完整执行与 Pages workflow 同等的检查链；
+1. 本地执行必要的类型检查、内容检查与正式构建；
 2. push 到 GitHub `main`；
-3. 分别确认 EdgeOne、Vercel、GitHub Pages 都收到同一提交；
+3. 分别确认 EdgeOne、Vercel 都收到同一提交；
 4. 正式访问以 `sculens.leftjun.com` 为准；
 5. `/gallery` 等关键页面必须实际检查生产内容；
 6. 任何部署平台的角色、配置或自动触发方式发生变化，都必须同步更新本文档。

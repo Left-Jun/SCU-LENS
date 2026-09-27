@@ -1,7 +1,6 @@
 const sites = [
   { name: "EdgeOne production", base: "https://sculens.leftjun.com", prefix: "" },
-  { name: "Vercel mirror", base: "https://scu-lens.vercel.app", prefix: "" },
-  { name: "GitHub Pages mirror", base: "https://left-jun.github.io", prefix: "/SCU-LENS" }
+  { name: "Vercel mirror", base: "https://scu-lens.vercel.app", prefix: "" }
 ];
 
 const attempts = Number(process.env.HEALTH_ATTEMPTS || 18);
@@ -34,9 +33,6 @@ async function checkSite(site) {
   await get(resolveSameSite(imagePath));
   const { text: gallery } = await get(`${site.base}${site.prefix}/gallery`);
   if (!gallery.includes("SCU LENS")) throw new Error("gallery identity marker missing");
-  if (site.prefix && (!cssPath.startsWith(site.prefix + "/") || !imagePath.startsWith(site.prefix + "/"))) {
-    throw new Error(`base-path leak: css=${cssPath}, image=${imagePath}`);
-  }
 }
 
 let lastErrors = [];
@@ -52,7 +48,7 @@ for (let attempt = 1; attempt <= attempts; attempt++) {
     }
   }
   if (lastErrors.length === 0) {
-    console.log("All live deployment paths passed health checks.");
+    console.log("All active live deployment paths passed health checks.");
     process.exit(0);
   }
   if (attempt < attempts) {

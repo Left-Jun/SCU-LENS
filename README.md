@@ -8,7 +8,6 @@
 - Static output
 - EdgeOne Pages
 - Vercel
-- GitHub Pages
 - GitHub
 
 ## 本地开发
@@ -24,4 +23,4 @@ npm run dev:site
 npm run build:site
 ```
 
-构建产物输出到 `apps/site/dist/`。`main` 推送后与个人站一致，同时触发 EdgeOne Makers、Vercel 与 GitHub Pages 三路静态部署；`sculens.leftjun.com` 由 EdgeOne 承载正式域名。
+构建产物输出到 `apps/site/dist/`。`main` 推送后触发 EdgeOne Makers 与 Vercel 两路静态部署；`sculens.leftjun.com` 由 EdgeOne 承载正式域名，Vercel 仅作为备用与排错入口。GitHub 负责源码版本管理与两路自动部署的源仓库，不再使用 GitHub Pages。
