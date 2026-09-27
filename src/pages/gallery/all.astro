@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import GallerySubmissionCard from "../../components/GallerySubmissionCard.astro";
 import galleryData from "../../data/gallery.generated.json";
@@ -43,7 +43,7 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
       </div>
     </section>
 
-    <section class="section work-wall" id="all-gallery-results" aria-label="全部归档作品">
+    <section class="section work-wall archive-flow-wide" id="all-gallery-results" aria-label="全部归档作品">
       {submissions.map((submission) => (
         <GallerySubmissionCard submission={submission} viewerGroup={viewerGroup} viewerIndexById={viewerIndexById} />
       ))}
@@ -71,8 +71,9 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
   .category-intro { align-self:end; }
   .category-intro p { margin:0; max-width:620px; color:var(--muted); line-height:var(--line-body); }
   .category-intro span { display:block; margin-top:12px; color:var(--muted); font-size:.72rem; letter-spacing:.06em; }
-  .work-wall { columns:3; column-gap:18px; padding-top:14px; }
-  @media (max-width:980px) { .work-wall { columns:2; } }
+  .work-wall { columns:2; column-gap:24px; padding-top:14px; }
+  .archive-flow-wide { width:min(1440px,calc(100vw - 48px)); margin-left:50%; transform:translateX(-50%); }
+  @media (max-width:980px) { .archive-flow-wide { width:100%; margin-left:0; transform:none; } }
   @media (max-width:700px) {
     .work-wall { columns:1; column-gap:0; }
   }

@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import GalleryImage from "../../components/GalleryImage.astro";
 import galleryData from "../../data/gallery.generated.json";
@@ -52,7 +52,7 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
     </section>
 
     {submissions.length > 0 ? (
-      <section class="section work-wall" aria-label={`${category.title}作品`}>
+      <section class="section work-wall archive-flow-wide" aria-label={`${category.title}作品`}>
         {submissions.map((submission) => (
           <article class="archive-work-card">
             <header class="archive-work-heading">
@@ -70,7 +70,7 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
                 >
                   <GalleryImage
                     photo={photo}
-                    sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 33vw"
+                    sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 48vw"
                     alt={submission.description || `《${submission.title}》· ${submission.author}`}
                   />
                 </a>
@@ -128,7 +128,8 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
   .category-intro p { margin:0; max-width:620px; color:var(--muted); line-height:var(--line-body); }
   .category-intro span { display:block; margin-top:12px; color:var(--muted); font-size:.72rem; letter-spacing:.06em; }
 
-  .work-wall { columns:3; column-gap:18px; padding-top:14px; }
+  .work-wall { columns:2; column-gap:24px; padding-top:14px; }
+  .archive-flow-wide { width:min(1440px,calc(100vw - 48px)); margin-left:50%; transform:translateX(-50%); }
   .archive-work-card { break-inside:avoid; margin:0 0 34px; border-bottom:1px solid var(--line); padding-bottom:24px; }
   .archive-work-heading { display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin:0 0 11px; }
   .archive-work-heading h2 { margin:0; min-width:0; font:600 1rem/1.3 var(--font-sans); letter-spacing:-.012em; }
@@ -149,7 +150,7 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
   .empty-state { border-top:1px solid var(--line); color:var(--muted); }
 
   @media (max-width:980px) {
-    .work-wall { columns:2; }
+    .archive-flow-wide { width:100%; margin-left:0; transform:none; }
   }
   @media (max-width:700px) {
     .work-wall { columns:1; column-gap:0; padding-top:14px; }
