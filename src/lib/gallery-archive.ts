@@ -1,12 +1,12 @@
 import { createHash } from "node:crypto";
 
 export const categoryMeta = {
-  campus: { title: "校园", en: "Campus", intro: "校园空间、日常、植物、建筑与季节变化中的影像。" },
-  humanity: { title: "人文", en: "Humanity", intro: "人与环境、生活方式、事件、习俗与文化场景中的真实片段。" },
-  urban: { title: "城市", en: "Urban", intro: "街道、建筑、夜色、交通与城市生活留下的切片。" },
-  nature: { title: "自然", en: "Nature", intro: "风景、植物、山水、季节与自然环境中的光线和变化。" },
-  portrait: { title: "人像", en: "Portrait", intro: "人物、姿态、表情，以及人与镜头之间的关系。" },
-  animals: { title: "动物", en: "Animals", intro: "鸟类、昆虫、校园动物、宠物与其他生命的瞬间。" },
+  campus: { title: "校园", en: "Campus", intro: "这里收录校园空间、日常、植物、建筑与季节变化中的影像。" },
+  humanity: { title: "人文", en: "Humanity", intro: "这里收录人与环境、生活方式、事件、习俗与文化场景中的真实片段。" },
+  urban: { title: "城市", en: "Urban", intro: "这里收录街道、建筑、夜色、交通与城市生活留下的切片。" },
+  nature: { title: "自然", en: "Nature", intro: "这里收录风景、植物、山水、季节与自然环境中的光线和变化。" },
+  portrait: { title: "人像", en: "Portrait", intro: "这里收录人物、姿态、表情，以及人与镜头之间发生的关系。" },
+  animals: { title: "动物", en: "Animals", intro: "这里收录鸟类、昆虫、校园动物、宠物与其他生命留下的瞬间。" },
 } as const;
 
 const fallbackTitles: Record<string, string> = {

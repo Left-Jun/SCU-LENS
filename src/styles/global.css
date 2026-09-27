@@ -233,7 +233,7 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
   grid-template-columns:minmax(0,1fr) minmax(340px,.72fr);
   gap:clamp(38px,7vw,110px);
   align-items:end;
-  padding:var(--space-page-top) 0 var(--space-page-bottom);
+  padding:var(--space-page-top) 0 18px;
 }
 .page-hero-title { min-width:0; }
 .page-hero-title .eyebrow { margin-bottom:7px; }
@@ -493,7 +493,7 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   }
   .section-title,.section-kicker-row { align-items:flex-start; flex-direction:column; }
   .section-kicker-row { display:flex; }
-  .page-hero { display:block; padding:var(--space-page-top) 0 var(--space-page-bottom); }
+  .page-hero { display:block; padding:var(--space-page-top) 0 14px; }
   .page-hero-title .eyebrow { margin-bottom:6px; }
   .page-hero h1 { font-size:clamp(3rem,14vw,4.5rem); }
   .page-hero > p { margin-top:14px; max-width:none; }
