@@ -551,7 +551,46 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .join-card-main { grid-row:auto; min-height:380px; }
   .apply-panel { align-items:flex-start; flex-direction:column; }
   .join-note { grid-template-columns:1fr; }
-  .site-footer { grid-template-columns:1fr; }
-  .footer-links { justify-self:start; flex-wrap:wrap; }
-  .footer-note { justify-self:start; text-align:left; }
+  .site-footer {
+    grid-template-columns:1fr;
+    gap:24px;
+    margin-top:64px;
+    padding:30px 20px 34px;
+  }
+  .footer-brand {
+    display:grid;
+    gap:4px;
+  }
+  .footer-brand > strong {
+    font-size:1.05rem;
+    letter-spacing:.02em;
+  }
+  .footer-org {
+    gap:4px;
+  }
+  .footer-org > span {
+    font-size:.92rem;
+  }
+  .footer-org small {
+    font-size:.66rem;
+    line-height:1.4;
+  }
+  .footer-links {
+    justify-self:start;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 22px;
+  }
+  .footer-note {
+    justify-self:start;
+    text-align:left;
+    gap:5px;
+  }
+  .footer-note p {
+    font-size:.82rem;
+    line-height:1.65;
+  }
+  .footer-note span {
+    font-size:.64rem;
+  }
 }
