@@ -1,5 +1,17 @@
 # SCU LENS Development Log
 
+## 2026-09-28 — Architecture Baseline 架构冻结
+
+- 静态阶段正式从 Framework Construction 进入 **Architecture Baseline / 架构冻结**。
+- 新增 `docs/ARCHITECTURE_BASELINE.md`，集中记录一级导航、全部公开路由、各页面职责、作品 / 作者 / 分类 / 每月九图关系、共享 Viewer、Footer 与部署拓扑。
+- GitHub 仓库首页 README 改为可直接阅读的站点结构入口，并链接全部维护文档，使仓库页面可以直接查看详细建构与各页面说明。
+- 一级导航冻结为：首页 → 每月九图 → 作品 → 活动 → 投稿 → 加入我们 → 关于。
+- 重新冻结 Mobile 一级页头节奏：每月九图标题与描述恢复和其它一级页面一致的 14px 间距。
+- 重新冻结 Footer：`SCU LENS / SINCE 1982` 与 `四川大学摄影协会 / 学生组织 · 非四川大学官方网站` 组成严格 2×2 对齐；Mobile 品牌 / 导航 / slogan 三组间距收敛后固定。
+- 首页归档语义修正为“秋日的黄色”；作品来源说明固定为“作品来自摄影协会 QQ 频道”，不再把「每月九图」与 QQ 频道并列为来源。
+- GitHub Pages 已移除；生产拓扑冻结为 GitHub `main` → EdgeOne Makers（正式）+ Vercel（备用 / 排错）。
+- 本次冻结建立 Git 标签：`architecture-baseline-2026-09-28`。
+
 ## 2026-09-27 — UI Visual Baseline 冻结
 
 - 冻结当前 SCU LENS 视觉语言、字体、一级页头间距、作品页「查看全部」位置与页面描述文案规则。
