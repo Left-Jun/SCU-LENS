@@ -440,7 +440,7 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .photo-viewer-meta-row > p,.photo-viewer-issue-inline { font:inherit; line-height:inherit; }
   .photo-viewer-issue-inline { text-align:right; }
   .photo-viewer-description { margin-top:8px !important; font-size:.81rem; line-height:1.48; }
-  .photo-viewer-footer { margin-top:1px; padding:4px 0 0; min-height:36px; background:#090909; flex:0 0 auto; align-items:end; }
+  .photo-viewer-footer { margin-top:4px; padding:4px 0 0; min-height:36px; background:#090909; flex:0 0 auto; align-items:end; }
   .photo-viewer-footer div { gap:3px; font-size:.62rem; }
   .photo-viewer-footer strong { font-size:.84rem; line-height:1; }
   .photo-viewer-footer a { font-size:.66rem; padding-bottom:3px; }
