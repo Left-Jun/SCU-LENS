@@ -258,7 +258,20 @@ const nav = [
             }
           }
           if (description) description.textContent = item.dataset.viewerDescription || "";
-          if (issue) issue.textContent = item.dataset.viewerIssue || "";
+          if (issue) {
+            issue.textContent = "";
+            const issueLabel = item.dataset.viewerIssue || "";
+            const issueHref = item.dataset.viewerIssueHref || "";
+            if (issueLabel && issueHref) {
+              const link = document.createElement("a");
+              link.href = issueHref;
+              link.textContent = issueLabel;
+              link.className = "photo-viewer-issue-link";
+              issue.append(link);
+            } else {
+              issue.textContent = issueLabel;
+            }
+          }
           if (count) count.textContent = `${index + 1} / ${items.length}`;
           if (original) {
             original.setAttribute("href", item.dataset.originalSrc || item.dataset.viewerSrc || "#");

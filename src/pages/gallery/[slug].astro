@@ -25,7 +25,10 @@ const viewerItems = submissions.flatMap((submission) =>
     author: submission.author,
     description: submission.description,
     kicker: `Works · ${category.en}`,
-    issue: `${submission.section} · ${submission.date}`,
+    issue: submission.monthlyNine
+      ? `每月九图 · ${submission.monthlyNine.issue}`
+      : `${submission.section} · ${submission.date}`,
+    issueHref: submission.monthlyNine?.href || "",
     authorHref: authorHref(submission.author),
     photoId: photo.id,
   }))
@@ -107,6 +110,7 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
           data-viewer-description={item.description}
           data-viewer-kicker={item.kicker}
           data-viewer-issue={item.issue}
+          data-viewer-issue-href={item.issueHref}
           data-viewer-original-label="查看高清图 ↗"
         ></span>
       ))}

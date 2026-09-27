@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { authorHref } from "../lib/gallery-archive";
 const { issueTitle, issueDate, title, author, frames, viewerItems, viewerGroup, viewerOffset = 0, backHref, nextTitle, nextSummary, nextHref, nextPreviewItems = [] } = Astro.props;
 ---
 <BaseLayout title={`《${title}》· ${author} · SCU LENS`} active="/monthly-nine">
@@ -32,8 +33,9 @@ const { issueTitle, issueDate, title, author, frames, viewerItems, viewerGroup, 
           data-viewer-item data-viewer-group={viewerGroup}
           data-viewer-src={item.src} data-original-src={item.original}
           data-viewer-alt={item.alt} data-viewer-title={item.title}
-          data-viewer-author={item.author} data-viewer-kicker={item.kicker}
+          data-viewer-author={item.author} data-viewer-author-href={authorHref(item.author)} data-viewer-kicker={item.kicker}
           data-viewer-issue={`${issueTitle} · ${issueDate}`}
+          data-viewer-issue-href={backHref}
           data-next-title={index === viewerItems.length - 1 ? nextTitle : undefined}
           data-next-summary={index === viewerItems.length - 1 ? nextSummary : undefined}
           data-next-href={index === viewerItems.length - 1 ? nextHref : undefined}
