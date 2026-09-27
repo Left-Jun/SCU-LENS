@@ -440,10 +440,10 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .photo-viewer-kicker { font-size:.58rem; }
   .photo-viewer-copy h2 { margin:6px 0 3px; font-size:clamp(1.55rem,6.9vw,2.2rem); line-height:1.02; text-wrap:balance; }
   .photo-viewer-meta-row { gap:12px; align-items:center; }
-  .photo-viewer-meta-row > p { margin:0; font-size:.78rem; }
-  .photo-viewer-issue-inline { font-size:.66rem; text-align:right; }
+  .photo-viewer-meta-row > p { margin:0; font-size:.78rem; line-height:1.25; }
+  .photo-viewer-issue-inline { font-size:.78rem; line-height:1.25; text-align:right; }
   .photo-viewer-description { margin-top:8px !important; font-size:.81rem; line-height:1.48; }
-  .photo-viewer-footer { margin-top:7px; padding:7px 0 0; min-height:40px; background:#090909; flex:0 0 auto; align-items:end; }
+  .photo-viewer-footer { margin-top:3px; padding:5px 0 0; min-height:38px; background:#090909; flex:0 0 auto; align-items:end; }
   .photo-viewer-footer div { gap:3px; font-size:.62rem; }
   .photo-viewer-footer strong { font-size:.84rem; line-height:1; }
   .photo-viewer-footer a { font-size:.66rem; padding-bottom:3px; }
