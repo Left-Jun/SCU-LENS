@@ -1,0 +1,97 @@
+---
+import GalleryImage from "./GalleryImage.astro";
+import { authorHref, categoryMeta } from "../lib/gallery-archive";
+
+interface Props {
+  submission: any;
+  viewerGroup: string;
+  viewerIndexById: Map<string, number>;
+  searchable?: boolean;
+}
+
+const { submission, viewerGroup, viewerIndexById, searchable = false } = Astro.props;
+const searchText = [
+  submission.author,
+  submission.title,
+  submission.description,
+  submission.section,
+  submission.date,
+  submission.monthlyNine?.title,
+  submission.monthlyNine?.issue,
+  ...submission.categories.map((category: string) => categoryMeta[category]?.title || category),
+  ...submission.photos.flatMap((photo: any) => photo.tags || []),
+].filter(Boolean).join(" ").toLowerCase();
+---
+
+<article class="archive-work-card" data-search-card={searchable ? "" : undefined} data-search-text={searchable ? searchText : undefined}>
+  <header class="archive-work-heading">
+    <h2>{submission.title}</h2>
+    <time datetime={submission.date}>{submission.date}</time>
+  </header>
+
+  <div class:list={["archive-work-media", { "is-album": submission.photos.length > 1 }]}>
+    {submission.photos.map((photo: any, index: number) => (
+      <a
+        class="archive-image-link"
+        href={photo.originalSrc || photo.src}
+        data-viewer-open={`${viewerGroup}:${viewerIndexById.get(photo.id) ?? 0}`}
+        aria-label={`查看《${submission.title}》${submission.photos.length > 1 ? `第 ${index + 1} 张` : ""}`}
+      >
+        <GalleryImage
+          photo={photo}
+          sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 33vw"
+          alt={submission.description || `《${submission.title}》· ${submission.author}`}
+        />
+      </a>
+    ))}
+  </div>
+
+  <div class="archive-work-copy">
+    {submission.description && <p class="archive-work-description">{submission.description}</p>}
+    <div class="archive-work-byline">
+      <a class="archive-work-author" href={authorHref(submission.author)}>{submission.author}</a>
+      <div class="archive-work-tags">
+        {submission.categories.map((category: string) => (
+          <a class="category-tag" href={`/gallery/${category}`}>{categoryMeta[category]?.title || category}</a>
+        ))}
+        <span>{submission.section}</span>
+        {submission.monthlyNine && (
+          <a class="monthly-tag" href={submission.monthlyNine.href}>每月九图 · {submission.monthlyNine.title} →</a>
+        )}
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .archive-work-card { break-inside:avoid; margin:0 0 34px; border-bottom:1px solid var(--line); padding-bottom:24px; }
+  .archive-work-heading { display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin:0 0 11px; }
+  .archive-work-heading h2 { margin:0; min-width:0; font:600 1rem/1.3 var(--font-sans); letter-spacing:-.012em; }
+  .archive-work-heading time { flex:0 0 auto; color:var(--muted); font-size:.68rem; font-variant-numeric:tabular-nums; }
+  .archive-work-media { display:grid; gap:8px; }
+  .archive-image-link { display:block; background:var(--panel); overflow:hidden; }
+  .archive-image-link :global(img) { display:block; width:100%; height:auto; transition:transform .28s ease, filter .28s ease; }
+  .archive-image-link:hover :global(img) { transform:scale(1.008); filter:saturate(1.04); }
+  .archive-work-copy { padding-top:12px; }
+  .archive-work-description { margin:0 0 12px; color:var(--muted); font-size:.8rem; line-height:1.68; white-space:pre-line; }
+  .archive-work-byline { display:flex; justify-content:space-between; gap:16px; align-items:center; }
+  .archive-work-author { min-width:0; font-size:.84rem; font-weight:600; border-bottom:1px solid transparent; }
+  .archive-work-author:hover { border-bottom-color:currentColor; }
+  .archive-work-tags { margin-left:auto; display:flex; justify-content:flex-end; flex-wrap:wrap; gap:6px 8px; align-items:center; }
+  .archive-work-tags span,.archive-work-tags a { border:1px solid var(--line); padding:4px 7px; font-size:.62rem; line-height:1; }
+  .archive-work-tags .monthly-tag { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .archive-work-tags .category-tag { background:transparent; color:inherit; }
+
+  @media (max-width:700px) {
+    .archive-work-card { margin-bottom:24px; padding-bottom:18px; }
+    .archive-work-heading { margin:0 0 10px; align-items:baseline; }
+    .archive-work-heading h2 { font-size:1rem; line-height:1.22; }
+    .archive-work-heading time { font-size:.72rem; }
+    .archive-work-media { gap:10px; }
+    .archive-work-copy { padding-top:10px; }
+    .archive-work-description { margin:0 0 10px; font-size:.82rem; line-height:1.65; }
+    .archive-work-byline { align-items:center; gap:10px; }
+    .archive-work-author { font-size:.88rem; }
+    .archive-work-tags { gap:6px; }
+  }
+</style>
