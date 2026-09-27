@@ -352,6 +352,8 @@ nav { display:flex; gap:clamp(14px,2.4vw,30px); align-items:center; }
   font-size:.82rem;
 }
 .footer-brand { display:flex; gap:12px; color:var(--ink); }
+.footer-brand-main { display:flex; align-items:baseline; gap:8px; }
+.footer-brand-main small { display:none; }
 .footer-org { display:grid; gap:3px; }
 .footer-org > span { color:var(--ink); }
 .footer-org small { color:var(--muted); font-size:.66rem; line-height:1.35; letter-spacing:.02em; }
@@ -553,17 +555,31 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .join-note { grid-template-columns:1fr; }
   .site-footer {
     grid-template-columns:1fr;
-    gap:24px;
+    gap:16px;
     margin-top:64px;
-    padding:30px 20px 34px;
+    padding:28px 20px 30px;
   }
   .footer-brand {
     display:grid;
+    grid-template-columns:auto 1fr;
+    align-items:start;
+    gap:18px;
+  }
+  .footer-brand-main {
+    display:grid;
     gap:4px;
   }
-  .footer-brand > strong {
+  .footer-brand-main > strong {
     font-size:1.05rem;
     letter-spacing:.02em;
+  }
+  .footer-brand-main small {
+    display:block;
+    color:var(--muted);
+    font-size:.66rem;
+    line-height:1.4;
+    letter-spacing:.06em;
+    text-transform:uppercase;
   }
   .footer-org {
     gap:4px;
