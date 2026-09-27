@@ -64,12 +64,14 @@ const categories = categoryDefs.map((category) => {
 <style>
   .category-cover { display:block; object-fit:cover; }
   .category-cover-empty { background:var(--panel); }
-  .gallery-overview-copy { align-self:end; display:flex; flex-direction:column; align-items:flex-end; gap:16px; }
+  .gallery-overview { padding-bottom:20px; }
+  .gallery-overview-copy { position:relative; align-self:end; }
   .gallery-overview-copy p { width:100%; max-width:620px; margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
-  .view-all-link { align-self:flex-end; padding-bottom:3px; border-bottom:1px solid var(--ink); font-size:.78rem; font-weight:700; }
+  .view-all-link { position:absolute; right:0; bottom:0; padding-bottom:3px; border-bottom:1px solid var(--ink); font-size:.78rem; font-weight:700; }
   @media (max-width:700px) {
-    .gallery-overview-copy { margin-top:14px; gap:12px; }
+    .gallery-overview { padding-bottom:14px; }
+    .gallery-overview-copy { margin-top:14px; }
     .gallery-overview-copy p { max-width:none; }
-    .view-all-link { font-size:.76rem; }
+    .view-all-link { bottom:-2px; font-size:.76rem; }
   }
 </style>
