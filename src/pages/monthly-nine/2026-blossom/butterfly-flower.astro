@@ -1,15 +1,15 @@
 ---
 import MonthlyGroupPage from "../../../components/MonthlyGroupPage.astro";
-const base="/images/monthly-nine/2026-blossom";
-const dims=[[6016,4016],[1492,1269]];
-const frames=dims.map(([width,height],i)=>{ const no=String(i+1).padStart(2,"0"); const bw=Math.min(width,1800); return {width,height,src:`${base}/tiantian/butterfly-flower/${no}-1800.jpg`,srcset:`${base}/tiantian/butterfly-flower/${no}-960.jpg 960w, ${base}/tiantian/butterfly-flower/${no}-1800.jpg ${bw}w`,original:`${base}/tiantian/butterfly-flower/${no}-original.jpg`,alt:`《蝴蝶与花》· ${no} · 天天快乐`};});
+import { galleryPhoto, monthlyNinePhotoIds, viewerPhoto } from "../../../lib/monthly-nine";
+const ids=monthlyNinePhotoIds.blossom2026;
+const frames=ids.tiantian.map((id,i)=>{ const p=galleryPhoto(id); const no=String(i+1).padStart(2,"0"); return {width:p.width,height:p.height,src:p.browserSrc,srcset:p.browserSrcset,original:p.original,alt:`《蝴蝶与花》· ${no} · 天天快乐`};});
 const viewerItems=[
-  ...frames.map((f,i)=>({title:"蝴蝶与花",author:"天天快乐",kicker:`组图 · ${String(i+1).padStart(2,"0")} / 02`,src:f.src,original:f.original,alt:f.alt})),
-  {title:"无影堂下花隐无",author:"Sebastian",kicker:"单图 · Blossom",src:`${base}/sebastian/shadowless-hall-1800.jpg`,original:`${base}/sebastian/shadowless-hall-original.jpg`,alt:"《无影堂下花隐无》· Sebastian"},
-  {title:"春日繁花",author:"一尾",kicker:"单图 · Blossom",src:`${base}/yiwei/spring-blossom-1800.jpg`,original:`${base}/yiwei/spring-blossom-original.jpg`,alt:"《春日繁花》· 一尾"},
+  ...ids.tiantian.map((id,i)=>viewerPhoto(id,{title:"蝴蝶与花",author:"天天快乐",kicker:`组图 · ${String(i+1).padStart(2,"0")} / 02`,alt:frames[i].alt})),
+  viewerPhoto(ids.sebastian,{title:"无影堂下花隐无",author:"Sebastian",kicker:"单图 · Blossom",alt:"《无影堂下花隐无》· Sebastian"}),
+  viewerPhoto(ids.yiwei,{title:"春日繁花",author:"一尾",kicker:"单图 · Blossom",alt:"《春日繁花》· 一尾"}),
 ];
 const nextPreviewItems=[
-  {src:"/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-960.jpg",alt:"《荷风满塘》· 宫保鸡丁"}
+  {src:galleryPhoto(monthlyNinePhotoIds.jianganGreen2026.ze).src,alt:"《荷风满塘》· 宫保鸡丁"}
 ];
 ---
 <MonthlyGroupPage

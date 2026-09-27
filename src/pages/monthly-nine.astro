@@ -1,7 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { galleryPhoto, monthlyNinePhotoIds } from "../lib/monthly-nine";
 
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
+const latestCover=galleryPhoto(monthlyNinePhotoIds.jianganGreen2026.ze);
+const yellowPreview=galleryPhoto(monthlyNinePhotoIds.yellow2025.sanchuan[8]);
+const springPreview=galleryPhoto(monthlyNinePhotoIds.springFestival2026.leftJun);
+const blossomPreview=galleryPhoto(monthlyNinePhotoIds.blossom2026.yiwei);
 
 const latestIssue = {
   href: "/monthly-nine/2026-jiang-an-green",
@@ -11,7 +16,7 @@ const latestIssue = {
   state: "closed",
   status: "已完成 · 结果已公布",
   count: "3 组入选作品",
-  cover: "/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg",
+  cover: latestCover.browserSrc,
   statement: [
     "春风退场，江安被层层叠叠的绿意拥入怀中。",
     "湖畔垂柳铺展浓荫，红砖楼宇隐在繁茂草木之间，湖光映着满校园深浅不一的青碧，风穿过教学楼与林荫小道，把江安独有的温柔绿意吹遍每个角落。",
@@ -33,7 +38,7 @@ const issues = [
     summary: "黄色，是校园银杏树下铺就的金黄地毯，是落日余晖与云隙夕照，也是乡间田野起伏的麦浪。这个金秋，记录生活中的每一抹黄色。",
     count: "3 组入选作品",
     tone: 5,
-    preview: { browserSrc:"/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg", originalSrc:"/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg", alt:"《金黄色的》· 彡川", width:2382, height:1587 },
+    preview: { browserSrc:yellowPreview.src, originalSrc:yellowPreview.original, alt:"《金黄色的》· 彡川", width:yellowPreview.width, height:yellowPreview.height },
   },
   {
     href: "/monthly-nine/2026-spring-festival",
@@ -44,7 +49,7 @@ const issues = [
     summary: "新春，是时空在日历上轻轻翻页的光痕。镜头记录旧联与新桃、团圆与灯火，也记录离散与重逢之间温暖的同步。",
     count: "3 组入选作品",
     tone: 6,
-    preview: { browserSrc:"/images/monthly-nine/2026-spring-festival/left-jun/new-year-960.jpg", originalSrc:"/images/monthly-nine/2026-spring-festival/left-jun/new-year-original.jpg", alt:"《新年》· Left-俊", width:1620, height:1080 },
+    preview: { browserSrc:springPreview.src, originalSrc:springPreview.original, alt:"《新年》· Left-俊", width:springPreview.width, height:springPreview.height },
   },
   {
     href: "/monthly-nine/2026-blossom",
@@ -55,7 +60,7 @@ const issues = [
     summary: "花开，是春天写给人间的温柔信笺。以花为景，以光为笔，记录枝头初绽、风拂花瓣与光影里最动人的春色。",
     count: "3 组入选作品",
     tone: 3,
-    preview: { browserSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", originalSrc:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-original.jpg", alt:"《春日繁花》· 一尾", width:4288, height:2848 },
+    preview: { browserSrc:blossomPreview.src, originalSrc:blossomPreview.original, alt:"《春日繁花》· 一尾", width:blossomPreview.width, height:blossomPreview.height },
   },
 ].reverse();
 ---

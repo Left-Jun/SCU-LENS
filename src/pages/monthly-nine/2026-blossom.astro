@@ -1,19 +1,23 @@
 ---
 import MonthlyIssuePage from "../../components/MonthlyIssuePage.astro";
-const base = "/images/monthly-nine/2026-blossom";
+import { galleryPhoto, monthlyNinePhotoIds, viewerPhoto } from "../../lib/monthly-nine";
+const ids=monthlyNinePhotoIds.blossom2026;
+const butterfly=ids.tiantian.map((id)=>galleryPhoto(id));
+const shadowless=galleryPhoto(ids.sebastian);
+const springBlossom=galleryPhoto(ids.yiwei);
 const viewerItems = [
-  { title:"蝴蝶与花", author:"天天快乐", kicker:"组图 · 01 / 02", src:`${base}/tiantian/butterfly-flower/01-1800.jpg`, original:`${base}/tiantian/butterfly-flower/01-original.jpg`, alt:"《蝴蝶与花》· 01 · 天天快乐" },
-  { title:"蝴蝶与花", author:"天天快乐", kicker:"组图 · 02 / 02", src:`${base}/tiantian/butterfly-flower/02-1800.jpg`, original:`${base}/tiantian/butterfly-flower/02-original.jpg`, alt:"《蝴蝶与花》· 02 · 天天快乐" },
-  { title:"无影堂下花隐无", author:"Sebastian", kicker:"单图 · Blossom", src:`${base}/sebastian/shadowless-hall-1800.jpg`, original:`${base}/sebastian/shadowless-hall-original.jpg`, alt:"《无影堂下花隐无》· Sebastian" },
-  { title:"春日繁花", author:"一尾", kicker:"单图 · Blossom", src:`${base}/yiwei/spring-blossom-1800.jpg`, original:`${base}/yiwei/spring-blossom-original.jpg`, alt:"《春日繁花》· 一尾" },
+  viewerPhoto(ids.tiantian[0],{ title:"蝴蝶与花", author:"天天快乐", kicker:"组图 · 01 / 02", alt:"《蝴蝶与花》· 01 · 天天快乐" }),
+  viewerPhoto(ids.tiantian[1],{ title:"蝴蝶与花", author:"天天快乐", kicker:"组图 · 02 / 02", alt:"《蝴蝶与花》· 02 · 天天快乐" }),
+  viewerPhoto(ids.sebastian,{ title:"无影堂下花隐无", author:"Sebastian", kicker:"单图 · Blossom", alt:"《无影堂下花隐无》· Sebastian" }),
+  viewerPhoto(ids.yiwei,{ title:"春日繁花", author:"一尾", kicker:"单图 · Blossom", alt:"《春日繁花》· 一尾" }),
 ];
 const works = [
-  { no:"01", title:"蝴蝶与花", author:"天天快乐", photoCount:2, viewerIndex:0, browserSrc:`${base}/tiantian/butterfly-flower/01-1800.jpg`, browserSrcset:`${base}/tiantian/butterfly-flower/01-960.jpg 960w, ${base}/tiantian/butterfly-flower/01-1800.jpg 1800w`, originalSrc:`${base}/tiantian/butterfly-flower/01-original.jpg`, width:6016, height:4016, href:"/monthly-nine/2026-blossom/butterfly-flower" },
-  { no:"02", title:"无影堂下花隐无", author:"Sebastian", photoCount:1, viewerIndex:2, browserSrc:`${base}/sebastian/shadowless-hall-1800.jpg`, browserSrcset:`${base}/sebastian/shadowless-hall-960.jpg 960w, ${base}/sebastian/shadowless-hall-1800.jpg 1800w`, originalSrc:`${base}/sebastian/shadowless-hall-original.jpg`, width:2160, height:3840 },
-  { no:"03", title:"春日繁花", author:"一尾", photoCount:1, viewerIndex:3, browserSrc:`${base}/yiwei/spring-blossom-1800.jpg`, browserSrcset:`${base}/yiwei/spring-blossom-960.jpg 960w, ${base}/yiwei/spring-blossom-1800.jpg 1800w`, originalSrc:`${base}/yiwei/spring-blossom-original.jpg`, width:4288, height:2848 },
+  { no:"01", title:"蝴蝶与花", author:"天天快乐", photoCount:2, viewerIndex:0, browserSrc:butterfly[0].browserSrc, browserSrcset:butterfly[0].browserSrcset, originalSrc:butterfly[0].original, width:butterfly[0].width, height:butterfly[0].height, href:"/monthly-nine/2026-blossom/butterfly-flower" },
+  { no:"02", title:"无影堂下花隐无", author:"Sebastian", photoCount:1, viewerIndex:2, browserSrc:shadowless.browserSrc, browserSrcset:shadowless.browserSrcset, originalSrc:shadowless.original, width:shadowless.width, height:shadowless.height },
+  { no:"03", title:"春日繁花", author:"一尾", photoCount:1, viewerIndex:3, browserSrc:springBlossom.browserSrc, browserSrcset:springBlossom.browserSrcset, originalSrc:springBlossom.original, width:springBlossom.width, height:springBlossom.height },
 ];
 const nextPreviewItems = [
-  { src:"/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-960.jpg", alt:"《荷风满塘》· 宫保鸡丁" },
+  { src:galleryPhoto(monthlyNinePhotoIds.jianganGreen2026.ze).src, alt:"《荷风满塘》· 宫保鸡丁" },
 ];
 const summary = [
   "花开，是春天写给人间的温柔信笺。快门，是我们与繁花相遇的印记。",

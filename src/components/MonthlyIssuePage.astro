@@ -92,8 +92,11 @@ const {
           data-viewer-author={item.author}
           data-viewer-author-href={authorHref(item.author)}
           data-viewer-kicker={item.kicker}
-          data-viewer-issue={`${title} · ${date}`}
+          data-viewer-issue={`每月九图 · ${title}`}
           data-viewer-issue-href={Astro.url.pathname}
+          data-viewer-section={item.section}
+          data-viewer-date={item.date}
+          data-viewer-original-label="查看高清图 ↗"
           data-next-title={index === viewerItems.length - 1 ? nextTitle : undefined}
           data-next-summary={index === viewerItems.length - 1 ? nextSummary : undefined}
           data-next-href={index === viewerItems.length - 1 ? nextHref : undefined}

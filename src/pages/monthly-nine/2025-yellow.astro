@@ -1,32 +1,36 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { authorHref } from "../../lib/gallery-archive";
+import { galleryPhoto, monthlyNinePhotoIds, viewerPhoto } from "../../lib/monthly-nine";
+
+const ids=monthlyNinePhotoIds.yellow2025;
+const sebastian=galleryPhoto(ids.sebastian);
+const yiwei=galleryPhoto(ids.yiwei);
+const sanchuan=ids.sanchuan.map((id)=>galleryPhoto(id));
 
 const works = [
-  { no: "01", title: "金黄芒节", author: "Sebastian", kind: "单图", browserSrc: "/images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg", browserSrcset: "/images/monthly-nine/2025-yellow/sebastian/sebastian-960.jpg 960w, /images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg 1800w", originalSrc: "/images/monthly-nine/2025-yellow/sebastian/sebastian-original.jpg", width: 3840, height: 5760, orientation: "portrait" },
-  { no: "02", title: "捕捉阳光", author: "一尾", kind: "单图", browserSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg", browserSrcset: "/images/monthly-nine/2025-yellow/yiwei/yiwei-960.jpg 960w, /images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg 1191w", originalSrc: "/images/monthly-nine/2025-yellow/yiwei/yiwei-original.jpg", width: 1191, height: 1920, orientation: "portrait" },
-  { no: "03", title: "金黄色的", author: "彡川", kind: "9 张组图", browserSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-1800.jpg", browserSrcset: "/images/monthly-nine/2025-yellow/sanchuan/09-960.jpg 960w, /images/monthly-nine/2025-yellow/sanchuan/09-1800.jpg 1800w", originalSrc: "/images/monthly-nine/2025-yellow/sanchuan/09-original.jpg", width: 2382, height: 1587, orientation: "landscape", href: "/monthly-nine/2025-yellow/golden-yellow" },
+  { no: "01", title: "金黄芒节", author: "Sebastian", kind: "单图", browserSrc: sebastian.browserSrc, browserSrcset: sebastian.browserSrcset, originalSrc: sebastian.original, width: sebastian.width, height: sebastian.height, orientation: "portrait" },
+  { no: "02", title: "捕捉阳光", author: "一尾", kind: "单图", browserSrc: yiwei.browserSrc, browserSrcset: yiwei.browserSrcset, originalSrc: yiwei.original, width: yiwei.width, height: yiwei.height, orientation: "portrait" },
+  { no: "03", title: "金黄色的", author: "彡川", kind: "9 张组图", browserSrc: sanchuan[8].browserSrc, browserSrcset: sanchuan[8].browserSrcset, originalSrc: sanchuan[8].original, width: sanchuan[8].width, height: sanchuan[8].height, orientation: "landscape", href: "/monthly-nine/2025-yellow/golden-yellow" },
 ];
 
 const galleryItems = [
-  { title:"金黄芒节", author:"Sebastian", kicker:"单图 · Yellow", src:"/images/monthly-nine/2025-yellow/sebastian/sebastian-1800.jpg", original:"/images/monthly-nine/2025-yellow/sebastian/sebastian-original.jpg", alt:"《金黄芒节》· Sebastian" },
-  { title:"捕捉阳光", author:"一尾", kicker:"单图 · Yellow", src:"/images/monthly-nine/2025-yellow/yiwei/yiwei-1800.jpg", original:"/images/monthly-nine/2025-yellow/yiwei/yiwei-original.jpg", alt:"《捕捉阳光》· 一尾" },
-  ...Array.from({ length: 9 }, (_, i) => {
+  viewerPhoto(ids.sebastian,{ title:"金黄芒节", author:"Sebastian", kicker:"单图 · Yellow", alt:"《金黄芒节》· Sebastian" }),
+  viewerPhoto(ids.yiwei,{ title:"捕捉阳光", author:"一尾", kicker:"单图 · Yellow", alt:"《捕捉阳光》· 一尾" }),
+  ...ids.sanchuan.map((id, i) => {
     const no = String(i + 1).padStart(2, "0");
-    return {
+    return viewerPhoto(id,{
       title:"金黄色的",
       author:"彡川",
       kicker:`组图 · ${no} / 09`,
-      src:`/images/monthly-nine/2025-yellow/sanchuan/${no}-1800.jpg`,
-      original:`/images/monthly-nine/2025-yellow/sanchuan/${no}-original.jpg`,
       alt:`《金黄色的》· ${no} · 彡川`,
-    };
+    });
   }),
 ];
 const nextPreviewItems = [
-  { src:"/images/monthly-nine/2026-spring-festival/azp/tokyo-dream-960.jpg", alt:"《东京迷梦》· Azp" },
-  { src:"/images/monthly-nine/2026-spring-festival/kale-c/lion-fireworks/01-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C" },
-  { src:"/images/monthly-nine/2026-spring-festival/kale-c/lion-fireworks/02-960.jpg", alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C" },
+  { src:galleryPhoto(monthlyNinePhotoIds.springFestival2026.azp).src, alt:"《东京迷梦》· Azp" },
+  { src:galleryPhoto(monthlyNinePhotoIds.springFestival2026.kaleC[0]).src, alt:"《年味来自醒狮爆竹和烟花》· 01 · 卡乐C" },
+  { src:galleryPhoto(monthlyNinePhotoIds.springFestival2026.kaleC[1]).src, alt:"《年味来自醒狮爆竹和烟花》· 02 · 卡乐C" },
 ];
 ---
 <BaseLayout title="黄色 · 每月九图 · SCU LENS" active="/monthly-nine">
@@ -94,8 +98,11 @@ const nextPreviewItems = [
           data-viewer-author={item.author}
           data-viewer-author-href={authorHref(item.author)}
           data-viewer-kicker={item.kicker}
-          data-viewer-issue="黄色 · 2025.12"
+          data-viewer-issue="每月九图 · 黄色"
           data-viewer-issue-href="/monthly-nine/2025-yellow"
+          data-viewer-section={item.section}
+          data-viewer-date={item.date}
+          data-viewer-original-label="查看高清图 ↗"
           data-next-title={index === galleryItems.length - 1 ? "新春" : undefined}
           data-next-summary={index === galleryItems.length - 1 ? "2026.01 · 下一期主题「新春」。继续浏览旧联、新桃、团圆灯火与新年旅途中的影像记录。" : undefined}
           data-next-href={index === galleryItems.length - 1 ? "/monthly-nine/2026-spring-festival" : undefined}

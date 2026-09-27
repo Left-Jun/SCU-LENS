@@ -5,10 +5,7 @@ import galleryData from "../../data/gallery.generated.json";
 import { authorHref, authorId, categoryMeta, groupSubmissions } from "../../lib/gallery-archive";
 
 export function getStaticPaths() {
-  const authors = [...new Set([
-    ...(galleryData.items as any[]).map((item) => item.author).filter(Boolean),
-    "宫保鸡丁",
-  ])];
+  const authors = [...new Set((galleryData.items as any[]).map((item) => item.author).filter(Boolean))];
   return authors.map((author) => ({ params: { id: authorId(author) }, props: { author } }));
 }
 
@@ -17,39 +14,12 @@ const id = authorId(author);
 const works = (galleryData.items as any[])
   .filter((item) => item.author === author)
   .sort((a, b) => b.date.localeCompare(a.date) || a.filename.localeCompare(b.filename));
-const supplementalSubmissions: Record<string, any[]> = {
-  "宫保鸡丁": [{
-    key: "monthly-nine-2026-jiang-an-green-gongbao",
-    date: "2026-05",
-    section: "每月九图",
-    author: "宫保鸡丁",
-    monthlyNine: { issue: "2026.05—07", href: "/monthly-nine/2026-jiang-an-green" },
-    title: "荷风满塘",
-    description: "",
-    categories: [],
-    photos: [{
-      id: "monthly-nine-2026-jiang-an-green-gongbao-lotus-wind",
-      src: "/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg",
-      srcset: "/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-960.jpg 960w, /images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg 1800w",
-      viewerSrc: "/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-1800.jpg",
-      originalSrc: "/images/monthly-nine/2026-jiang-an-green/gongbao/lotus-wind-original.jpg",
-      width: 4096,
-      height: 3072,
-      preserveFormat: true,
-    }],
-  }],
-};
-const submissions = [
-  ...groupSubmissions(works),
-  ...(supplementalSubmissions[author] || []),
-].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+const submissions = groupSubmissions(works);
 const photoCount = submissions.reduce((sum, submission) => sum + submission.photos.length, 0);
 const viewerGroup = `author-${id}`;
 const viewerItems = submissions.flatMap((submission) =>
   submission.photos.map((photo) => ({
-    src: photo.preserveFormat
-      ? (photo.viewerSrc || photo.src)
-      : (photo.viewerSrc || photo.src).replace(/\.jpg$/i, ".webp"),
+    src: (photo.viewerSrc || photo.src).replace(/\.jpg$/i, ".webp"),
     original: photo.originalSrc || photo.src,
     alt: submission.description || `《${submission.title}》· ${author}`,
     title: submission.title,
@@ -57,9 +27,11 @@ const viewerItems = submissions.flatMap((submission) =>
     description: submission.description,
     kicker: "Author Archive · 作者档案",
     issue: submission.monthlyNine
-      ? `每月九图 · ${submission.monthlyNine.issue}`
-      : `${submission.section} · ${submission.date}`,
+      ? `每月九图 · ${submission.monthlyNine.title}`
+      : "",
     issueHref: submission.monthlyNine?.href || "",
+    section: submission.section,
+    date: submission.date,
     categories: submission.categories.map((category) => ({
       label: categoryMeta[category]?.title || category,
       href: `/gallery/${category}`,
@@ -100,24 +72,11 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
                 data-viewer-open={`${viewerGroup}:${viewerIndexById.get(photo.id) ?? 0}`}
                 aria-label={`查看《${submission.title}》${submission.photos.length > 1 ? `第 ${index + 1} 张` : ""}`}
               >
-                {photo.preserveFormat ? (
-                  <img
-                    src={photo.src}
-                    srcset={photo.srcset}
-                    sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 33vw"
-                    alt={submission.description || `《${submission.title}》· ${author}`}
-                    width={photo.width}
-                    height={photo.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : (
-                  <GalleryImage
-                    photo={photo}
-                    sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 33vw"
-                    alt={submission.description || `《${submission.title}》· ${author}`}
-                  />
-                )}
+                <GalleryImage
+                  photo={photo}
+                  sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 33vw"
+                  alt={submission.description || `《${submission.title}》· ${author}`}
+                />
               </a>
             ))}
           </div>
@@ -158,6 +117,8 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
           data-viewer-kicker={item.kicker}
           data-viewer-issue={item.issue}
           data-viewer-issue-href={item.issueHref}
+          data-viewer-section={item.section}
+          data-viewer-date={item.date}
           data-viewer-original-label="查看高清图 ↗"
         ></span>
       ))}

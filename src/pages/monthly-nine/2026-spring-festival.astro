@@ -1,27 +1,28 @@
 ---
 import MonthlyIssuePage from "../../components/MonthlyIssuePage.astro";
-
-const base = "/images/monthly-nine/2026-spring-festival";
+import { galleryPhoto, monthlyNinePhotoIds, viewerPhoto } from "../../lib/monthly-nine";
+const ids=monthlyNinePhotoIds.springFestival2026;
+const newYear=galleryPhoto(ids.leftJun);
+const tokyo=galleryPhoto(ids.azp);
+const fireworks=ids.kaleC.map((id)=>galleryPhoto(id));
 const viewerItems = [
-  { title:"新年", author:"Left-俊", kicker:"单图 · New Spring", src:`${base}/left-jun/new-year-1800.jpg`, original:`${base}/left-jun/new-year-original.jpg`, alt:"《新年》· Left-俊" },
-  { title:"东京迷梦", author:"Azp", kicker:"单图 · New Spring", src:`${base}/azp/tokyo-dream-1800.jpg`, original:`${base}/azp/tokyo-dream-original.jpg`, alt:"《东京迷梦》· Azp" },
-  ...[
-    [6000,4000],[3473,5212],[4000,6000],[2160,3840],[3330,2380]
-  ].map((_, i) => {
+  viewerPhoto(ids.leftJun,{ title:"新年", author:"Left-俊", kicker:"单图 · New Spring", alt:"《新年》· Left-俊" }),
+  viewerPhoto(ids.azp,{ title:"东京迷梦", author:"Azp", kicker:"单图 · New Spring", alt:"《东京迷梦》· Azp" }),
+  ...ids.kaleC.map((id, i) => {
     const no = String(i + 1).padStart(2,"0");
-    return { title:"年味来自醒狮爆竹和烟花", author:"卡乐C", kicker:`组图 · ${no} / 05`, src:`${base}/kale-c/lion-fireworks/${no}-1800.jpg`, original:`${base}/kale-c/lion-fireworks/${no}-original.jpg`, alt:`《年味来自醒狮爆竹和烟花》· ${no} · 卡乐C` };
+    return viewerPhoto(id,{ title:"年味来自醒狮爆竹和烟花", author:"卡乐C", kicker:`组图 · ${no} / 05`, alt:`《年味来自醒狮爆竹和烟花》· ${no} · 卡乐C` });
   }),
 ];
 
 const works = [
-  { no:"01", title:"新年", author:"Left-俊", photoCount:1, viewerIndex:0, browserSrc:`${base}/left-jun/new-year-1800.jpg`, browserSrcset:`${base}/left-jun/new-year-960.jpg 960w, ${base}/left-jun/new-year-1800.jpg 1620w`, originalSrc:`${base}/left-jun/new-year-original.jpg`, width:1620, height:1080 },
-  { no:"02", title:"东京迷梦", author:"Azp", photoCount:1, viewerIndex:1, browserSrc:`${base}/azp/tokyo-dream-1800.jpg`, browserSrcset:`${base}/azp/tokyo-dream-960.jpg 960w, ${base}/azp/tokyo-dream-1800.jpg 1800w`, originalSrc:`${base}/azp/tokyo-dream-original.jpg`, width:3845, height:5768 },
-  { no:"03", title:"年味来自醒狮爆竹和烟花", author:"卡乐C", photoCount:5, viewerIndex:2, browserSrc:`${base}/kale-c/lion-fireworks/01-1800.jpg`, browserSrcset:`${base}/kale-c/lion-fireworks/01-960.jpg 960w, ${base}/kale-c/lion-fireworks/01-1800.jpg 1800w`, originalSrc:`${base}/kale-c/lion-fireworks/01-original.jpg`, width:6000, height:4000, href:"/monthly-nine/2026-spring-festival/lion-fireworks" },
+  { no:"01", title:"新年", author:"Left-俊", photoCount:1, viewerIndex:0, browserSrc:newYear.browserSrc, browserSrcset:newYear.browserSrcset, originalSrc:newYear.original, width:newYear.width, height:newYear.height },
+  { no:"02", title:"东京迷梦", author:"Azp", photoCount:1, viewerIndex:1, browserSrc:tokyo.browserSrc, browserSrcset:tokyo.browserSrcset, originalSrc:tokyo.original, width:tokyo.width, height:tokyo.height },
+  { no:"03", title:"年味来自醒狮爆竹和烟花", author:"卡乐C", photoCount:5, viewerIndex:2, browserSrc:fireworks[0].browserSrc, browserSrcset:fireworks[0].browserSrcset, originalSrc:fireworks[0].original, width:fireworks[0].width, height:fireworks[0].height, href:"/monthly-nine/2026-spring-festival/lion-fireworks" },
 ];
 const nextPreviewItems = [
-  { src:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", alt:"《春日繁花》· 一尾" },
-  { src:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-960.jpg", alt:"《蝴蝶与花》· 01 · 天天快乐" },
-  { src:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/02-960.jpg", alt:"《蝴蝶与花》· 02 · 天天快乐" },
+  { src:galleryPhoto(monthlyNinePhotoIds.blossom2026.yiwei).src, alt:"《春日繁花》· 一尾" },
+  { src:galleryPhoto(monthlyNinePhotoIds.blossom2026.tiantian[0]).src, alt:"《蝴蝶与花》· 01 · 天天快乐" },
+  { src:galleryPhoto(monthlyNinePhotoIds.blossom2026.tiantian[1]).src, alt:"《蝴蝶与花》· 02 · 天天快乐" },
 ];
 const summary = [
   "新春，是时空在日历上轻轻翻页的光痕。过去蜷缩成爆竹的余温，未来在碗筷清脆的碰撞声中悄然铺展。",

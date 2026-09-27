@@ -20,8 +20,17 @@ const fallbackTitles: Record<string, string> = {
 
 export const normalizeText = (value = "") => String(value).replace(/\r\n/g, "\n").trim();
 
+const authorAliases: Record<string, string> = {
+  "宫保鸡丁": "泽",
+};
+
+export function canonicalAuthor(author: string) {
+  const normalized = author.trim();
+  return authorAliases[normalized] || normalized;
+}
+
 export function authorId(author: string) {
-  return createHash("sha1").update(author.trim(), "utf8").digest("hex").slice(0, 12);
+  return createHash("sha1").update(canonicalAuthor(author), "utf8").digest("hex").slice(0, 12);
 }
 
 export function authorHref(author: string) {

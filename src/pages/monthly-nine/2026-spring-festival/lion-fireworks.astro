@@ -1,21 +1,21 @@
 ---
 import MonthlyGroupPage from "../../../components/MonthlyGroupPage.astro";
-const base = "/images/monthly-nine/2026-spring-festival";
-const frameDims = [[6000,4000],[3473,5212],[4000,6000],[2160,3840],[3330,2380]];
-const frames = frameDims.map(([width,height], i) => {
+import { galleryPhoto, monthlyNinePhotoIds, viewerPhoto } from "../../../lib/monthly-nine";
+const ids=monthlyNinePhotoIds.springFestival2026;
+const frames = ids.kaleC.map((id, i) => {
   const no = String(i + 1).padStart(2,"0");
-  const browserWidth = Math.min(width,1800);
-  return { width,height, src:`${base}/kale-c/lion-fireworks/${no}-1800.jpg`, srcset:`${base}/kale-c/lion-fireworks/${no}-960.jpg 960w, ${base}/kale-c/lion-fireworks/${no}-1800.jpg ${browserWidth}w`, original:`${base}/kale-c/lion-fireworks/${no}-original.jpg`, alt:`《年味来自醒狮爆竹和烟花》· ${no} · 卡乐C` };
+  const p=galleryPhoto(id);
+  return { width:p.width,height:p.height, src:p.browserSrc, srcset:p.browserSrcset, original:p.original, alt:`《年味来自醒狮爆竹和烟花》· ${no} · 卡乐C` };
 });
 const viewerItems = [
-  { title:"新年", author:"Left-俊", kicker:"单图 · New Spring", src:`${base}/left-jun/new-year-1800.jpg`, original:`${base}/left-jun/new-year-original.jpg`, alt:"《新年》· Left-俊" },
-  { title:"东京迷梦", author:"Azp", kicker:"单图 · New Spring", src:`${base}/azp/tokyo-dream-1800.jpg`, original:`${base}/azp/tokyo-dream-original.jpg`, alt:"《东京迷梦》· Azp" },
-  ...frames.map((frame,i)=>({ title:"年味来自醒狮爆竹和烟花", author:"卡乐C", kicker:`组图 · ${String(i+1).padStart(2,"0")} / 05`, src:frame.src, original:frame.original, alt:frame.alt }))
+  viewerPhoto(ids.leftJun,{ title:"新年", author:"Left-俊", kicker:"单图 · New Spring", alt:"《新年》· Left-俊" }),
+  viewerPhoto(ids.azp,{ title:"东京迷梦", author:"Azp", kicker:"单图 · New Spring", alt:"《东京迷梦》· Azp" }),
+  ...ids.kaleC.map((id,i)=>viewerPhoto(id,{ title:"年味来自醒狮爆竹和烟花", author:"卡乐C", kicker:`组图 · ${String(i+1).padStart(2,"0")} / 05`, alt:frames[i].alt }))
 ];
 const nextPreviewItems = [
-  { src:"/images/monthly-nine/2026-blossom/yiwei/spring-blossom-960.jpg", alt:"《春日繁花》· 一尾" },
-  { src:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/01-960.jpg", alt:"《蝴蝶与花》· 01 · 天天快乐" },
-  { src:"/images/monthly-nine/2026-blossom/tiantian/butterfly-flower/02-960.jpg", alt:"《蝴蝶与花》· 02 · 天天快乐" },
+  { src:galleryPhoto(monthlyNinePhotoIds.blossom2026.yiwei).src, alt:"《春日繁花》· 一尾" },
+  { src:galleryPhoto(monthlyNinePhotoIds.blossom2026.tiantian[0]).src, alt:"《蝴蝶与花》· 01 · 天天快乐" },
+  { src:galleryPhoto(monthlyNinePhotoIds.blossom2026.tiantian[1]).src, alt:"《蝴蝶与花》· 02 · 天天快乐" },
 ];
 ---
 <MonthlyGroupPage

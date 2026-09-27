@@ -71,12 +71,15 @@ const nav = [
           <div class="photo-viewer-copy">
             <div class="photo-viewer-kicker" id="photo-viewer-kicker"></div>
             <h2 id="photo-viewer-title"></h2>
-            <p id="photo-viewer-author"></p>
+            <div class="photo-viewer-meta-row">
+              <p id="photo-viewer-author"></p>
+              <span id="photo-viewer-issue-inline" hidden></span>
+            </div>
             <p class="photo-viewer-description" id="photo-viewer-description"></p>
           </div>
           <div class="photo-viewer-footer">
             <div>
-              <span id="photo-viewer-issue"></span>
+              <span id="photo-viewer-source"></span>
               <strong id="photo-viewer-count"></strong>
             </div>
             <a id="photo-viewer-original" href="#" target="_blank" rel="noopener">查看原图 ↗</a>
@@ -135,7 +138,8 @@ const nav = [
         const title = document.getElementById("photo-viewer-title");
         const author = document.getElementById("photo-viewer-author");
         const description = document.getElementById("photo-viewer-description");
-        const issue = document.getElementById("photo-viewer-issue");
+        const sourceMeta = document.getElementById("photo-viewer-source");
+        const issueInline = document.getElementById("photo-viewer-issue-inline");
         const count = document.getElementById("photo-viewer-count");
         const original = document.getElementById("photo-viewer-original");
         const nextIssue = document.getElementById("photo-viewer-next-issue");
@@ -258,19 +262,28 @@ const nav = [
             }
           }
           if (description) description.textContent = item.dataset.viewerDescription || "";
-          if (issue) {
-            issue.textContent = "";
-            const issueLabel = item.dataset.viewerIssue || "";
-            const issueHref = item.dataset.viewerIssueHref || "";
-            if (issueLabel && issueHref) {
+          if (issueInline) {
+            issueInline.textContent = "";
+            issueInline.hidden = true;
+          }
+          const issueLabel = item.dataset.viewerIssue || "";
+          const issueHref = item.dataset.viewerIssueHref || "";
+          if (issueLabel && issueInline) {
+            if (issueHref) {
               const link = document.createElement("a");
               link.href = issueHref;
               link.textContent = issueLabel;
               link.className = "photo-viewer-issue-link";
-              issue.append(link);
+              issueInline.append(link);
             } else {
-              issue.textContent = issueLabel;
+              issueInline.textContent = issueLabel;
             }
+            issueInline.hidden = false;
+          }
+          if (sourceMeta) {
+            const section = item.dataset.viewerSection || "";
+            const date = item.dataset.viewerDate || "";
+            sourceMeta.textContent = [section, date].filter(Boolean).join(" · ");
           }
           if (count) count.textContent = `${index + 1} / ${items.length}`;
           if (original) {

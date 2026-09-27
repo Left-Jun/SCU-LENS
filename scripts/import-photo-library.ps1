@@ -18,6 +18,9 @@ $categoryMap = [ordered]@{
 
 $issueMap = @{
   '2025-12' = @{ title = '黄色'; href = '/monthly-nine/2025-yellow' }
+  '2026-01' = @{ title = '新春'; href = '/monthly-nine/2026-spring-festival' }
+  '2026-03' = @{ title = '繁花'; href = '/monthly-nine/2026-blossom' }
+  '2026-05-07' = @{ title = '江安青绿'; href = '/monthly-nine/2026-jiang-an-green' }
 }
 
 if (-not (Test-Path -LiteralPath $metadataPath)) {
