@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { authorHref } from "../lib/gallery-archive";
 const { issueTitle, issueDate, title, author, frames, viewerItems, viewerGroup, viewerOffset = 0, backHref, nextTitle, nextSummary, nextHref, nextPreviewItems = [] } = Astro.props;
@@ -54,16 +54,17 @@ const { issueTitle, issueDate, title, author, frames, viewerItems, viewerGroup, 
   .back-link { display:inline-block; margin-bottom:34px; color:var(--muted); font-size:.82rem; }
   .group-meta { align-self:end; padding-bottom:8px; }
   .group-meta p { margin:8px 0; color:var(--muted); }
-  .series-grid { display:grid; grid-template-columns:repeat(12,1fr); grid-auto-flow:dense; gap:42px 16px; padding:20px 0 84px; align-items:start; }
+  .series-grid { display:grid; grid-template-columns:repeat(12,1fr); grid-auto-flow:dense; gap:22px 12px; padding:20px 0 84px; align-items:start; }
   .series-frame { margin:0; }
   .series-frame.landscape { grid-column:span 7; }
   .series-frame.portrait { grid-column:span 5; }
   .series-photo-link { display:block; cursor:zoom-in; }
   .series-frame img { display:block; width:100%; height:auto; }
-  figcaption { padding-top:9px; color:var(--muted); font-size:.72rem; }
+  figcaption { padding-top:6px; color:var(--muted); font-size:.72rem; }
   @media (max-width:700px) {
     .group-hero { grid-template-columns:1fr; }
-    .series-grid { grid-template-columns:1fr; }
+    .series-grid { grid-template-columns:1fr; gap:42px 0; }
+    figcaption { padding-top:9px; }
     .series-frame,.series-frame.landscape,.series-frame.portrait { grid-column:1; }
   }
 </style>
