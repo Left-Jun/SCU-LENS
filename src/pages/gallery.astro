@@ -1,8 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import GallerySubmissionCard from "../components/GallerySubmissionCard.astro";
 import galleryData from "../data/gallery.generated.json";
-import { authorHref, groupSubmissions } from "../lib/gallery-archive";
 
 const categoryDefs = [
   { slug:"campus", title:"校园", en:"Campus" },
@@ -22,52 +20,18 @@ const categories = categoryDefs.map((category) => {
   };
 });
 
-const allWorks = [...galleryData.items].sort(
-  (a, b) => b.date.localeCompare(a.date) || a.filename.localeCompare(b.filename)
-);
-const submissions = groupSubmissions(allWorks);
-const viewerGroup = "gallery-search";
-const viewerItems = submissions.flatMap((submission) =>
-  submission.photos.map((photo) => ({
-    src: (photo.viewerSrc || photo.src).replace(/\.jpg$/i, ".webp"),
-    original: photo.originalSrc || photo.src,
-    alt: submission.description || `《${submission.title}》· ${submission.author}`,
-    title: submission.title,
-    author: submission.author,
-    description: submission.description,
-    kicker: "Works · Search",
-    issue: submission.monthlyNine ? `每月九图 · ${submission.monthlyNine.title}` : "",
-    issueHref: submission.monthlyNine?.href || "",
-    section: submission.section,
-    date: submission.date,
-    authorHref: authorHref(submission.author),
-    photoId: photo.id,
-  }))
-);
-const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, index]));
 ---
 
 <BaseLayout title="作品 · SCU LENS" active="/gallery">
   <div class="page-shell">
-    <section class="page-hero">
+    <section class="page-hero gallery-overview">
       <div class="page-hero-title">
         <div class="eyebrow">Selected Works</div>
         <h1 class="display">作品</h1>
       </div>
-      <p>从校园、人文、城市、自然、人像与动物六个入口浏览协会影像。当前分类来自人工整理，未归档作品暂不展示。</p>
-    </section>
-
-    <section class="section gallery-search">
-      <div class="gallery-search-head">
-        <div>
-          <div class="eyebrow">Search Archive</div>
-          <h2>搜索作品</h2>
-        </div>
+      <div class="gallery-overview-copy">
+        <p>从校园、人文、城市、自然、人像与动物六个入口浏览协会影像。当前分类来自人工整理，未归档作品暂不展示。</p>
         <a class="view-all-link" href="/gallery/all">查看全部 →</a>
-      </div>
-      <div class="gallery-search-control">
-        <input id="gallery-search-input" type="search" placeholder="作者、作品名、描述、分类、投稿组别、日期…" autocomplete="off" />
-        <span id="gallery-search-count">{submissions.length} 组归档</span>
       </div>
     </section>
 
@@ -89,91 +53,23 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
       </div>
     </section>
 
-    <section class="section gallery-search-results" id="gallery-search-results" hidden aria-label="搜索结果">
-      <div class="gallery-search-results-head">
-        <span class="eyebrow">Search Results</span>
-        <span id="gallery-search-result-label"></span>
-      </div>
-      <div class="search-work-wall">
-        {submissions.map((submission) => (
-          <GallerySubmissionCard submission={submission} viewerGroup={viewerGroup} viewerIndexById={viewerIndexById} searchable />
-        ))}
-      </div>
-      <p id="gallery-search-empty" class="search-empty" hidden>没有找到匹配的作品。</p>
-    </section>
-
     <section class="section gallery-source">
       <div class="eyebrow">Archive Logic</div>
       <p>题材分类只决定作品从哪个入口被浏览；投稿来源与「每月九图」等专题身份作为独立信息保留，不互相替代。</p>
       <a class="text-link" href="/monthly-nine">查看每月九图 <span>→</span></a>
     </section>
-
-    <div class="viewer-registry" hidden>
-      {viewerItems.map((item) => (
-        <span
-          data-viewer-item data-viewer-group={viewerGroup}
-          data-viewer-src={item.src} data-original-src={item.original}
-          data-viewer-alt={item.alt} data-viewer-title={item.title}
-          data-viewer-author={item.author} data-viewer-author-href={item.authorHref}
-          data-viewer-description={item.description} data-viewer-kicker={item.kicker}
-          data-viewer-issue={item.issue} data-viewer-issue-href={item.issueHref}
-          data-viewer-section={item.section} data-viewer-date={item.date}
-          data-viewer-original-label="查看高清图 ↗"
-        ></span>
-      ))}
-    </div>
   </div>
 </BaseLayout>
-
-<script>
-  const input = document.querySelector("#gallery-search-input");
-  const results = document.querySelector("#gallery-search-results");
-  const cards = Array.from(document.querySelectorAll("#gallery-search-results [data-search-card]"));
-  const resultLabel = document.querySelector("#gallery-search-result-label");
-  const count = document.querySelector("#gallery-search-count");
-  const empty = document.querySelector("#gallery-search-empty");
-  const normalize = (value) => String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
-
-  const runSearch = () => {
-    if (!(input instanceof HTMLInputElement) || !(results instanceof HTMLElement)) return;
-    const query = normalize(input.value);
-    const terms = query.split(" ").filter(Boolean);
-    results.hidden = terms.length === 0;
-    let visible = 0;
-    for (const card of cards) {
-      if (!(card instanceof HTMLElement)) continue;
-      const haystack = normalize(card.dataset.searchText);
-      const matched = terms.length > 0 && terms.every((term) => haystack.includes(term));
-      card.hidden = !matched;
-      if (matched) visible++;
-    }
-    if (count) count.textContent = terms.length ? `${visible} 组匹配` : `${cards.length} 组归档`;
-    if (resultLabel) resultLabel.textContent = terms.length ? `${visible} 组` : "";
-    if (empty instanceof HTMLElement) empty.hidden = !terms.length || visible !== 0;
-  };
-  input?.addEventListener("input", runSearch);
-</script>
 
 <style>
   .category-cover { display:block; object-fit:cover; }
   .category-cover-empty { background:var(--panel); }
-  .gallery-search { padding-top:26px; padding-bottom:30px; border-top:1px solid var(--line); }
-  .gallery-search-head { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:20px; }
-  .gallery-search-head h2 { margin:7px 0 0; font:400 clamp(2rem,4vw,3.8rem)/1 var(--font-serif); }
-  .view-all-link { flex:0 0 auto; padding-bottom:4px; border-bottom:1px solid var(--ink); font-size:.82rem; font-weight:700; }
-  .gallery-search-control { display:flex; align-items:center; gap:16px; border-bottom:1px solid var(--ink); }
-  .gallery-search-control input { width:100%; border:0; outline:0; padding:11px 0 13px; background:transparent; color:var(--ink); font:400 clamp(1rem,2.2vw,1.35rem)/1.3 var(--font-sans); }
-  .gallery-search-control input::placeholder { color:var(--muted); }
-  .gallery-search-control span { flex:0 0 auto; color:var(--muted); font-size:.72rem; }
-  .gallery-search-results { padding-top:18px; }
-  .gallery-search-results-head { display:flex; justify-content:space-between; align-items:center; padding-bottom:16px; border-bottom:1px solid var(--line); }
-  .gallery-search-results-head > span:last-child { color:var(--muted); font-size:.72rem; }
-  .search-work-wall { columns:3; column-gap:18px; padding-top:24px; }
-  .search-empty { margin:0; padding:24px 0 30px; color:var(--muted); }
-  @media (max-width:980px) { .search-work-wall { columns:2; } }
+  .gallery-overview-copy { align-self:end; display:flex; flex-direction:column; align-items:flex-end; gap:16px; }
+  .gallery-overview-copy p { width:100%; max-width:620px; margin:0; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  .view-all-link { align-self:flex-end; padding-bottom:3px; border-bottom:1px solid var(--ink); font-size:.78rem; font-weight:700; }
   @media (max-width:700px) {
-    .gallery-search-head { align-items:center; }
-    .gallery-search-head h2 { font-size:2rem; }
-    .search-work-wall { columns:1; column-gap:0; }
+    .gallery-overview-copy { margin-top:14px; gap:12px; }
+    .gallery-overview-copy p { max-width:none; }
+    .view-all-link { font-size:.76rem; }
   }
 </style>

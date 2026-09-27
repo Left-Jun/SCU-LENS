@@ -43,20 +43,11 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
       </div>
     </section>
 
-    <section class="section archive-search-bar">
-      <label for="all-gallery-search">搜索全部作品</label>
-      <div class="archive-search-control">
-        <input id="all-gallery-search" type="search" placeholder="作者、作品名、描述、分类、投稿组别、日期…" autocomplete="off" />
-        <span id="all-gallery-search-count">{submissions.length} 组</span>
-      </div>
-    </section>
-
     <section class="section work-wall" id="all-gallery-results" aria-label="全部归档作品">
       {submissions.map((submission) => (
-        <GallerySubmissionCard submission={submission} viewerGroup={viewerGroup} viewerIndexById={viewerIndexById} searchable />
+        <GallerySubmissionCard submission={submission} viewerGroup={viewerGroup} viewerIndexById={viewerIndexById} />
       ))}
     </section>
-    <p class="search-empty" id="all-gallery-search-empty" hidden>没有找到匹配的作品。</p>
 
     <div class="viewer-registry" hidden>
       {viewerItems.map((item) => (
@@ -75,45 +66,14 @@ const viewerIndexById = new Map(viewerItems.map((item, index) => [item.photoId, 
   </div>
 </BaseLayout>
 
-<script>
-  const input = document.querySelector("#all-gallery-search");
-  const cards = Array.from(document.querySelectorAll("[data-search-card]"));
-  const count = document.querySelector("#all-gallery-search-count");
-  const empty = document.querySelector("#all-gallery-search-empty");
-  const normalize = (value) => String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
-  const runSearch = () => {
-    if (!(input instanceof HTMLInputElement)) return;
-    const terms = normalize(input.value).split(" ").filter(Boolean);
-    let visible = 0;
-    for (const card of cards) {
-      if (!(card instanceof HTMLElement)) continue;
-      const haystack = normalize(card.dataset.searchText);
-      const matched = terms.every((term) => haystack.includes(term));
-      card.hidden = !matched;
-      if (matched) visible++;
-    }
-    if (count) count.textContent = `${visible} 组`;
-    if (empty instanceof HTMLElement) empty.hidden = visible !== 0;
-  };
-  input?.addEventListener("input", runSearch);
-</script>
-
 <style>
   .back-link { display:inline-block; margin-bottom:26px; color:var(--muted); font-size:.82rem; }
   .category-intro { align-self:end; }
   .category-intro p { margin:0; max-width:620px; color:var(--muted); line-height:var(--line-body); }
   .category-intro span { display:block; margin-top:12px; color:var(--muted); font-size:.72rem; letter-spacing:.06em; }
-  .archive-search-bar { padding-top:24px; padding-bottom:20px; border-top:1px solid var(--line); }
-  .archive-search-bar label { display:block; margin-bottom:10px; color:var(--muted); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; }
-  .archive-search-control { display:flex; align-items:center; gap:16px; border-bottom:1px solid var(--ink); }
-  .archive-search-control input { width:100%; border:0; outline:0; padding:10px 0 12px; background:transparent; color:var(--ink); font:400 clamp(1rem,2.2vw,1.35rem)/1.3 var(--font-sans); }
-  .archive-search-control input::placeholder { color:var(--muted); }
-  .archive-search-control span { flex:0 0 auto; color:var(--muted); font-size:.72rem; }
   .work-wall { columns:3; column-gap:18px; padding-top:14px; }
-  .search-empty { margin:0; padding:30px 0 70px; color:var(--muted); }
   @media (max-width:980px) { .work-wall { columns:2; } }
   @media (max-width:700px) {
     .work-wall { columns:1; column-gap:0; }
-    .archive-search-bar { padding-top:18px; }
   }
 </style>
