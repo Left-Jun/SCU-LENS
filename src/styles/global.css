@@ -370,25 +370,22 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
 .photo-viewer-info { min-width:0; padding:clamp(72px,9vh,120px) clamp(30px,4vw,60px) 34px; background:#0b0b0b; display:flex; flex-direction:column; }
 .photo-viewer-kicker { color:rgba(255,255,255,.45); font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
 .photo-viewer-copy h2 { margin:14px 0 10px; font:400 clamp(2rem,3.8vw,4.4rem)/1 var(--font-serif); letter-spacing:-.028em; }
-.photo-viewer-meta-row { display:flex; align-items:baseline; justify-content:space-between; gap:18px; min-width:0; color:rgba(255,255,255,.65); }
-.photo-viewer-meta-row > p { margin:0; min-width:0; }
-.photo-viewer-issue-inline { flex:0 0 auto; color:rgba(255,255,255,.58); font-size:.75rem; white-space:nowrap; }
-.photo-viewer-author-link { color:inherit; border-bottom:1px solid rgba(255,255,255,.34); padding-bottom:1px; }
-.photo-viewer-author-link:hover { color:#fff; border-bottom-color:#fff; }
-.photo-viewer-category-link { color:inherit; border-bottom:1px solid rgba(255,255,255,.34); padding-bottom:1px; }
-.photo-viewer-category-link:hover { color:#fff; border-bottom-color:#fff; }
+.photo-viewer-meta-row { display:flex; align-items:baseline; justify-content:space-between; gap:18px; min-width:0; color:rgba(255,255,255,.65); font-size:.75rem; line-height:1.25; }
+.photo-viewer-meta-row > p { margin:0; min-width:0; font:inherit; color:inherit; }
+.photo-viewer-issue-inline { flex:0 0 auto; color:inherit; font:inherit; line-height:inherit; white-space:nowrap; }
+.photo-viewer-author-link,.photo-viewer-category-link,.photo-viewer-issue-link { color:inherit; font:inherit; line-height:inherit; border-bottom:1px solid rgba(255,255,255,.34); padding-bottom:1px; }
+.photo-viewer-author-link:hover,.photo-viewer-category-link:hover,.photo-viewer-issue-link:hover { color:#fff; border-bottom-color:#fff; }
 .photo-viewer a,.photo-viewer button { touch-action:manipulation; }
 .photo-viewer-info { position:relative; z-index:4; }
 .photo-viewer-close,.photo-viewer-nav { position:fixed; }
 .photo-viewer-description { margin-top:28px !important; line-height:1.8; font-size:.9rem; }
+.photo-viewer-description:empty { display:none; }
 .photo-viewer-footer { margin-top:auto; padding-top:24px; border-top:1px solid rgba(255,255,255,.16); display:flex; justify-content:space-between; gap:24px; align-items:end; }
 .photo-viewer-footer div { display:grid; gap:8px; color:rgba(255,255,255,.52); font-size:.72rem; }
 .photo-viewer-footer strong { color:#fff; font-size:1rem; font-weight:600; }
 .photo-viewer-footer a { padding-bottom:5px; border-bottom:1px solid rgba(255,255,255,.55); font-size:.75rem; }
 .photo-viewer-close { position:fixed; z-index:20; right:22px; top:18px; width:44px; height:44px; border:0; background:transparent; color:#fff; font:300 2.4rem/1 sans-serif; cursor:pointer; pointer-events:auto; }
 .photo-viewer-nav { position:fixed; z-index:10; top:50%; width:44px; height:64px; margin-top:-32px; border:0; background:rgba(0,0,0,.26); color:#fff; font:300 2.4rem/1 sans-serif; cursor:pointer; pointer-events:auto; }
-.photo-viewer-issue-link { color:inherit; border-bottom:1px solid rgba(255,255,255,.34); padding-bottom:1px; }
-.photo-viewer-issue-link:hover { color:#fff; border-bottom-color:#fff; }
 .photo-viewer-nav:disabled { opacity:.16; cursor:default; }
 .photo-viewer-prev { left:6px; }
 .photo-viewer-next { right:calc(28vw + 6px); }
@@ -439,11 +436,11 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
   .photo-viewer-copy { min-height:0; padding-right:2px; }
   .photo-viewer-kicker { font-size:.58rem; }
   .photo-viewer-copy h2 { margin:6px 0 3px; font-size:clamp(1.55rem,6.9vw,2.2rem); line-height:1.02; text-wrap:balance; }
-  .photo-viewer-meta-row { gap:12px; align-items:center; }
-  .photo-viewer-meta-row > p { margin:0; font-size:.78rem; line-height:1.25; }
-  .photo-viewer-issue-inline { font-size:.78rem; line-height:1.25; text-align:right; }
+  .photo-viewer-meta-row { gap:12px; align-items:center; font-size:.78rem; line-height:1.25; }
+  .photo-viewer-meta-row > p,.photo-viewer-issue-inline { font:inherit; line-height:inherit; }
+  .photo-viewer-issue-inline { text-align:right; }
   .photo-viewer-description { margin-top:8px !important; font-size:.81rem; line-height:1.48; }
-  .photo-viewer-footer { margin-top:3px; padding:5px 0 0; min-height:38px; background:#090909; flex:0 0 auto; align-items:end; }
+  .photo-viewer-footer { margin-top:1px; padding:4px 0 0; min-height:36px; background:#090909; flex:0 0 auto; align-items:end; }
   .photo-viewer-footer div { gap:3px; font-size:.62rem; }
   .photo-viewer-footer strong { font-size:.84rem; line-height:1; }
   .photo-viewer-footer a { font-size:.66rem; padding-bottom:3px; }
