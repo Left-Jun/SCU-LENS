@@ -5,6 +5,9 @@ const {
   active = "/",
 } = Astro.props;
 
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const noindex = import.meta.env.SITE_NOINDEX === "1";
+
 const nav = [
   { href: "/", label: "首页" },
   { href: "/monthly-nine", label: "每月九图" },
@@ -21,6 +24,9 @@ const nav = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:url" content={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#0f0f0d" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />

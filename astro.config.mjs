@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://sculens.leftjun.com",
+  site: "https://sculens.com",
   output: "static",
   outDir: "./apps/site/dist",
   integrations: [sitemap()],

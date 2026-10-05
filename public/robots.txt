@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://sculens.com/sitemap-index.xml
