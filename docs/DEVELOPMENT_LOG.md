@@ -322,3 +322,10 @@ QQ 频道：
 - 删除 `.github/workflows/astro-pages.yml` 与 `scripts/prepare-pages-artifact.mjs`，同时移除 `prepare:pages` 脚本及 Pages 专用 base-path 处理。
 - `check:live` 改为仅检查 EdgeOne 与 Vercel；`check:deploy-config` 不再依赖 GitHub Pages workflow。
 - 后续不再以 `left-jun.github.io/SCU-LENS/` 为发布或验收目标，也不再因 GitHub Pages 构建产生 Actions 部署邮件。
+
+
+## 2026-10-21 — 光影川大文案与独立投稿码弹窗
+
+- 合作单位统一为校宣传部，精简征稿、展览与两种投稿方式的说明，同步投稿页摘要。
+- 投稿码从作品查看器中移出，改用独立原生 dialog，支持遮罩/Escape/关闭按钮、焦点回归、滚动锁定和减少动效偏好。
+- 底部操作复制用户提供的腾讯问卷小程序分享口令，并提示在微信粘贴打开；复制不可用时展示手动复制字段。

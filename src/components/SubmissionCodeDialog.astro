@@ -1,0 +1,89 @@
+---
+interface Props { src: string; }
+const { src } = Astro.props;
+const submissionLink = "#小程序://腾讯问卷/aPnq6dWlBu7j8mr";
+---
+<figure class="submission-code">
+  <button type="button" id="submission-code-open" aria-haspopup="dialog" aria-controls="submission-code-dialog" aria-label="放大官方投稿小程序码">
+    <img src={src} alt="光影川大官方投稿小程序码，使用微信扫码" width="748" height="737" loading="lazy" decoding="async" />
+  </button>
+  <figcaption>微信扫码 · 点击放大保存</figcaption>
+</figure>
+<dialog id="submission-code-dialog" aria-labelledby="submission-code-title" aria-describedby="submission-code-help">
+  <div class="code-panel">
+    <header><h2 id="submission-code-title">官方投稿</h2><button type="button" class="code-close" aria-label="关闭官方投稿弹窗" autofocus>×</button></header>
+    <img class="code-image" src={src} alt="光影川大官方投稿小程序码" width="748" height="737" />
+    <p id="submission-code-help">使用微信扫码，或长按保存后在微信中识别。</p>
+    <footer>
+      <p id="submission-copy-status" role="status" aria-live="polite"></p>
+      <button type="button" class="code-copy" data-submission-link={submissionLink}>复制投稿链接</button>
+    </footer>
+    <div id="submission-copy-fallback" hidden>
+      <label for="submission-link-text">请长按下方口令复制，在微信聊天中粘贴并打开。</label>
+      <textarea id="submission-link-text" readonly rows="2">{submissionLink}</textarea>
+    </div>
+  </div>
+</dialog>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>("#submission-code-dialog");
+  const opener = document.querySelector<HTMLButtonElement>("#submission-code-open");
+  const copy = dialog?.querySelector<HTMLButtonElement>(".code-copy");
+  const status = dialog?.querySelector<HTMLElement>("#submission-copy-status");
+  const fallback = dialog?.querySelector<HTMLElement>("#submission-copy-fallback");
+  opener?.addEventListener("click", () => {
+    if (!dialog || dialog.open) return;
+    if (status) status.textContent = "";
+    if (fallback) fallback.hidden = true;
+    dialog.showModal();
+    document.documentElement.classList.add("submission-code-open");
+  });
+  dialog?.querySelector(".code-close")?.addEventListener("click", () => dialog.close());
+  dialog?.addEventListener("click", (event) => {
+    if (event.target !== dialog) return;
+    const bounds = dialog.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+  });
+  dialog?.addEventListener("close", () => {
+    document.documentElement.classList.remove("submission-code-open");
+    opener?.focus({ preventScroll: true });
+  });
+  copy?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(copy.dataset.submissionLink!);
+      if (status) status.textContent = "已复制，请在微信聊天中粘贴并打开。";
+      if (fallback) fallback.hidden = true;
+    } catch {
+      if (status) status.textContent = "请手动复制下方口令。";
+      if (fallback) fallback.hidden = false;
+      const text = dialog?.querySelector<HTMLTextAreaElement>("#submission-link-text");
+      text?.focus();
+      text?.select();
+    }
+  });
+</script>
+<style>
+  .submission-code { margin:20px 0 0; max-width:180px; width:100%; }
+  .submission-code > button { display:block; width:100%; background:white; padding:14px; border:1px solid var(--line); cursor:zoom-in; }
+  .submission-code img { display:block; width:100%; height:auto; }
+  figcaption { margin-top:12px; color:var(--muted); font-size:.72rem; }
+  dialog { width:min(460px,calc(100vw - 32px)); max-width:none; max-height:calc(100dvh - 32px); margin:auto; padding:0; border:1px solid var(--line); background:var(--paper,#f5f1e8); color:var(--ink); overflow:auto; }
+  dialog::backdrop { background:rgb(0 0 0 / .45); }
+  dialog[open] { animation:code-reveal 180ms ease-out; }
+  .code-panel { padding:clamp(18px,4vw,28px); }
+  header { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:16px; }
+  h2 { margin:0; font:400 1.7rem/1.2 var(--font-serif); }
+  button { color:inherit; font:inherit; }
+  button:focus-visible,textarea:focus-visible { outline:2px solid var(--ink); outline-offset:4px; }
+  .code-close { width:44px; height:44px; padding:0; border:0; background:transparent; font-size:2rem; cursor:pointer; }
+  .code-image { display:block; width:100%; height:auto; max-height:52dvh; object-fit:contain; background:white; }
+  #submission-code-help { color:var(--muted); font-size:.85rem; margin:16px 0; }
+  footer { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:12px; border-top:1px solid var(--line); padding-top:16px; }
+  #submission-copy-status { flex:1 1 180px; margin:0; color:var(--muted); font-size:.8rem; }
+  #submission-copy-status:empty { display:none; }
+  .code-copy { min-height:44px; padding:8px 0; border:0; border-bottom:1px solid var(--ink); background:transparent; cursor:pointer; }
+  #submission-copy-fallback { margin-top:16px; font-size:.8rem; }
+  textarea { display:block; box-sizing:border-box; width:100%; margin-top:8px; padding:8px; background:transparent; color:var(--ink); border:1px solid var(--line); font:inherit; resize:none; }
+  :global(html.submission-code-open),:global(html.submission-code-open body) { overflow:hidden; }
+  @keyframes code-reveal { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  @media (prefers-reduced-motion:reduce) { dialog[open] { animation:none; } }
+</style>
