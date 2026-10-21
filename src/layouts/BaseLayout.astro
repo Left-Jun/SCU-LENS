@@ -67,17 +67,62 @@ const secondaryActive = secondaryNav.some((item) => item.href === active);
       (() => {
         const menu = document.querySelector(".mobile-menu");
         if (!(menu instanceof HTMLDetailsElement)) return;
+        const summary = menu.querySelector("summary");
+        const panel = menu.querySelector(".mobile-menu-panel");
+        if (!(summary instanceof HTMLElement) || !(panel instanceof HTMLElement)) return;
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        let expanded = menu.open;
+        let animation = null;
+        menu.dataset.enhanced = "true";
+        menu.dataset.expanded = String(expanded);
+        summary.setAttribute("aria-expanded", String(expanded));
+        panel.inert = !expanded;
+
+        const setExpanded = (next, immediate = false) => {
+          if (expanded === next && !immediate) return;
+          const style = getComputedStyle(panel);
+          const from = menu.open
+            ? { opacity: style.opacity, transform: style.transform }
+            : { opacity: "0", transform: "translateY(-6px)" };
+          animation?.cancel();
+          animation = null;
+          expanded = next;
+          menu.dataset.expanded = String(next);
+          summary.setAttribute("aria-expanded", String(next));
+          panel.inert = !next;
+          if (immediate || reducedMotion.matches || typeof panel.animate !== "function") {
+            menu.open = next;
+            return;
+          }
+          menu.open = true;
+          const current = panel.animate([
+            from,
+            { opacity: next ? "1" : "0", transform: next ? "translateY(0)" : "translateY(-6px)" },
+          ], { duration: 200, easing: "cubic-bezier(.2,.7,.2,1)", fill: "both" });
+          animation = current;
+          current.finished.then(() => {
+            if (animation !== current) return;
+            if (!expanded) menu.open = false;
+            current.cancel();
+            animation = null;
+          }, () => {});
+        };
+        summary.addEventListener("click", (event) => {
+          event.preventDefault();
+          setExpanded(!expanded);
+        });
         document.addEventListener("click", (event) => {
           if (!(event.target instanceof Node)) return;
-          if (!menu.contains(event.target) || (event.target instanceof Element && event.target.closest("a"))) menu.open = false;
+          if (!menu.contains(event.target) || (event.target instanceof Element && event.target.closest("a"))) setExpanded(false);
         });
         document.addEventListener("keydown", (event) => {
           if (event.key === "Escape" && menu.open) {
-            menu.open = false;
-            menu.querySelector("summary")?.focus();
+            setExpanded(false);
+            summary.focus();
           }
         });
-        window.matchMedia("(max-width:700px)").addEventListener("change", () => { menu.open = false; });
+        window.matchMedia("(max-width:700px)").addEventListener("change", () => setExpanded(false, true));
+        reducedMotion.addEventListener("change", () => setExpanded(expanded, true));
       })();
     </script>
     <main><slot /></main>
