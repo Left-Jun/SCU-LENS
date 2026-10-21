@@ -1,0 +1,56 @@
+---
+import GalleryImage from "./GalleryImage.astro";
+import type { collections } from "../lib/guangying-chuanda";
+interface Props { collection: (typeof collections)[number]; priority?: boolean; }
+const { collection, priority = false }: Props = Astro.props;
+---
+{collection.works.map((work, workIndex) => {
+  const viewerGroup = `guangying-${collection.id}-${workIndex}`;
+  return (
+    <article class="guangying-work">
+      <div class:list={["work-photo", { portrait: work.photos[0].height > work.photos[0].width }]}>
+        <a href={work.photos[0].originalSrc} data-viewer-open={`${viewerGroup}:0`} aria-label={`打开看图：${work.title}`}>
+          <GalleryImage photo={work.photos[0]} alt={[work.title, work.author].filter(Boolean).join(" · ")} sizes="(max-width:700px) calc(100vw - 40px), 1180px" priority={priority && workIndex === 0} />
+        </a>
+      </div>
+      <div class="work-caption">
+        <div>
+          <span>{work.photos.length > 1 ? `${work.photos.length} 张组图` : "单图"}{work.date && ` · ${work.date}`}</span>
+          <h3>{work.title}</h3>
+          {work.author && <p>摄影 / {work.author}</p>}
+          {work.description && <p class="work-description">{work.description}</p>}
+        </div>
+        {work.photos.length > 1 && <a class="text-link" href={work.photos[0].originalSrc} data-viewer-open={`${viewerGroup}:0`}>查看完整组图 →</a>}
+      </div>
+      <div class="viewer-registry" hidden>
+        {work.photos.map((photo) => (
+          <span data-viewer-item data-viewer-group={viewerGroup}
+            data-viewer-src={photo.viewerSrc} data-original-src={photo.originalSrc}
+            data-viewer-alt={[work.title, work.author, photo.caption].filter(Boolean).join(" · ")}
+            data-viewer-title={work.title} data-viewer-author={work.author}
+            data-viewer-description={[work.description, photo.caption].filter(Boolean).join("\n")}
+            data-viewer-kicker="光影川大" data-viewer-issue={`光影川大 · ${collection.title}`}
+            data-viewer-issue-href={`/guangying-chuanda#${collection.id}`}
+            data-viewer-section={photo.section} data-viewer-date={photo.date}
+            data-viewer-original-label="查看高清图 ↗" />
+        ))}
+      </div>
+    </article>
+  );
+})}
+<style>
+  .guangying-work { padding:42px 0; border-top:1px solid var(--line); }
+  .guangying-work:last-child { padding-bottom:0; }
+  .work-photo { width:100%; }
+  .work-photo.portrait { max-width:720px; margin-inline:auto; }
+  .work-photo a { display:block; cursor:zoom-in; }
+  .work-caption { display:flex; justify-content:space-between; gap:30px; padding-top:18px; align-items:end; }
+  .work-caption span { color:var(--muted); font-size:.72rem; }
+  .work-caption h3 { margin:8px 0 4px; font:400 clamp(2.1rem,4vw,4.4rem)/1.1 var(--font-serif); overflow-wrap:anywhere; }
+  .work-caption p { margin:0; color:var(--muted); }
+  .work-caption .work-description { margin-top:14px; max-width:700px; white-space:pre-line; }
+  @media (max-width:700px) {
+    .guangying-work { padding:28px 0; }
+    .work-caption { flex-direction:column; align-items:flex-start; gap:16px; }
+  }
+</style>
