@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GalleryImage from "../components/GalleryImage.astro";
+import { collections } from "../lib/guangying-chuanda";
+const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
+---
+
+<BaseLayout title="光影川大 · SCU LENS" description="用镜头记录四川大学，回看光影川大往期获奖作品，分享当下的校园影像。" active="/guangying-chuanda">
+  <div class="page-shell">
+    <section class="page-hero">
+      <div class="page-hero-title">
+        <div class="eyebrow">Light &amp; Life at SCU</div>
+        <h1 class="display">光影川大</h1>
+      </div>
+      <p>以镜头记录川大的风景与日常，让校园里的光影与记忆，在一幅幅作品中留存。</p>
+    </section>
+
+    <section class="section guangying-intro" aria-labelledby="intro-title">
+      <div class="intro-copy">
+        <div class="eyebrow">Campus Photography · 校园影像征集</div>
+        <h2 id="intro-title">看见川大，<br />留下此刻。</h2>
+        <p>「光影川大」持续征集与四川大学有关的摄影作品。无论是熟悉的校园风景、独特的川大符号，还是日常生活里的动人片刻，都可以成为镜头中的主角。</p>
+        <p>我们期待内容积极、画面优美、能展现川大风貌的影像。优秀作品有机会入选每年春季的线下展览，让校园记忆走进教学楼、实验室与图书馆。</p>
+        <div class="collection-links">
+          <a class="text-link" href="#awards">往期获奖作品 ↓</a>
+          <a class="text-link" href="#submissions">当前投稿作品 ↓</a>
+        </div>
+      </div>
+      <figure class="submission-code">
+        <a href={qrSrc} data-viewer-open="guangying-code:0" aria-label="放大光影川大投稿小程序码">
+          <img src={qrSrc} alt="光影川大投稿小程序码，使用微信扫码投稿" width="748" height="737" decoding="async" />
+        </a>
+        <figcaption><strong>扫码参与光影川大</strong><span>微信扫码投稿 · 点击放大保存</span></figcaption>
+      </figure>
+    </section>
+
+    {collections.map((collection) => (
+      <section class="section collection-section" id={collection.id} aria-labelledby={`${collection.id}-title`}>
+        <div class="section-kicker-row">
+          <div>
+            <div class="eyebrow">{collection.en}</div>
+            <h2 class="section-display" id={`${collection.id}-title`}>{collection.title}</h2>
+          </div>
+          <p>{collection.description}{collection.photoCount > 0 && <span class="collection-count">{collection.works.length} 组作品 · {collection.photoCount} 张照片</span>}</p>
+        </div>
+        {collection.works.length === 0 ? (
+          <p class="collection-empty">{collection.empty}</p>
+        ) : collection.works.map((work, workIndex) => {
+          const viewerGroup = `guangying-${collection.id}-${workIndex}`;
+          return (
+            <article class="guangying-work">
+              <div class:list={["work-photo", { portrait: work.photos[0].height > work.photos[0].width }]}>
+                <a href={work.photos[0].originalSrc} data-viewer-open={`${viewerGroup}:0`} aria-label={`打开看图：${work.title}`}>
+                  <GalleryImage photo={work.photos[0]} alt={[work.title, work.author].filter(Boolean).join(" · ")} sizes="(max-width:700px) calc(100vw - 40px), 1180px" priority={workIndex === 0 && collection.id === "awards"} />
+                </a>
+              </div>
+              <div class="work-caption">
+                <div>
+                  <span>{work.photos.length > 1 ? `${work.photos.length} 张组图` : "单图"}{work.date && ` · ${work.date}`}</span>
+                  <h3>{work.title}</h3>
+                  {work.author && <p>摄影 / {work.author}</p>}
+                  {work.description && <p class="work-description">{work.description}</p>}
+                </div>
+                {work.photos.length > 1 && <a class="text-link" href={work.photos[0].originalSrc} data-viewer-open={`${viewerGroup}:0`}>查看完整组图 →</a>}
+              </div>
+              <div class="viewer-registry" hidden>
+                {work.photos.map((photo) => (
+                  <span data-viewer-item data-viewer-group={viewerGroup}
+                    data-viewer-src={photo.viewerSrc} data-original-src={photo.originalSrc}
+                    data-viewer-alt={[work.title, work.author, photo.caption].filter(Boolean).join(" · ")}
+                    data-viewer-title={work.title} data-viewer-author={work.author}
+                    data-viewer-description={[work.description, photo.caption].filter(Boolean).join("\n")}
+                    data-viewer-kicker="光影川大" data-viewer-issue={`光影川大 · ${collection.title}`}
+                    data-viewer-issue-href={`/guangying-chuanda#${collection.id}`}
+                    data-viewer-section={photo.section} data-viewer-date={photo.date}
+                    data-viewer-original-label="查看高清图 ↗" />
+                ))}
+              </div>
+            </article>
+          );
+        })}
+      </section>
+    ))}
+    <div class="viewer-registry" hidden>
+      <span data-viewer-item data-viewer-group="guangying-code" data-viewer-src={qrSrc} data-original-src={qrSrc}
+        data-viewer-alt="光影川大投稿小程序码" data-viewer-title="扫码参与光影川大"
+        data-viewer-description="使用微信扫一扫，或保存小程序码后在微信中识别。"
+        data-viewer-kicker="光影川大 · 投稿" data-viewer-original-label="打开小程序码 ↗" />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .guangying-intro { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.42fr); gap:clamp(38px,7vw,110px); align-items:center; }
+  .intro-copy h2 { margin:18px 0 24px; font:400 clamp(2.6rem,4.5vw,4.6rem)/1.14 var(--font-serif); letter-spacing:-.03em; }
+  .intro-copy p { margin:0 0 16px; max-width:650px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  .collection-links { display:flex; gap:24px; flex-wrap:wrap; margin-top:26px; }
+  .submission-code { margin:0; max-width:300px; width:100%; justify-self:end; }
+  .submission-code a { display:block; background:white; padding:14px; border:1px solid var(--line); cursor:zoom-in; }
+  .submission-code img { width:100%; height:auto; }
+  .submission-code figcaption { display:grid; gap:4px; margin-top:14px; }
+  .submission-code strong { font-size:.86rem; font-weight:600; }
+  .submission-code figcaption span { color:var(--muted); font-size:.72rem; }
+  .collection-section { scroll-margin-top:110px; }
+  .collection-count { display:block; margin-top:8px; font-size:.72rem; }
+  .collection-empty { margin:0; padding:28px 0 12px; color:var(--muted); font-size:var(--font-body); }
+  .guangying-work { padding:42px 0; border-top:1px solid var(--line); }
+  .guangying-work:last-child { padding-bottom:0; }
+  .work-photo { width:100%; }
+  .work-photo.portrait { max-width:720px; margin-inline:auto; }
+  .work-photo a { display:block; cursor:zoom-in; }
+  .work-caption { display:flex; justify-content:space-between; gap:30px; padding-top:18px; align-items:end; }
+  .work-caption span { color:var(--muted); font-size:.72rem; }
+  .work-caption h3 { margin:8px 0 4px; font:400 clamp(2.1rem,4vw,4.4rem)/1.1 var(--font-serif); overflow-wrap:anywhere; }
+  .work-caption p { margin:0; color:var(--muted); }
+  .work-caption .work-description { margin-top:14px; max-width:700px; white-space:pre-line; }
+  @media (max-width:700px) {
+    .guangying-intro { grid-template-columns:1fr; gap:28px; }
+    .submission-code { justify-self:start; max-width:240px; }
+    .intro-copy h2 { margin-top:14px; }
+    .collection-links { gap:18px; }
+    .collection-links a { font-size:.8rem; }
+    .guangying-work { padding:28px 0; }
+    .work-caption { flex-direction:column; align-items:flex-start; gap:16px; }
+  }
+</style>
