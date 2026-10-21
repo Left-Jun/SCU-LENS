@@ -1,5 +1,5 @@
 const sites = [
-  { name: "EdgeOne production", base: "https://sculens.leftjun.com", prefix: "" },
+  { name: "EdgeOne production", base: "https://sculens.com", prefix: "" },
   { name: "Vercel mirror", base: "https://scu-lens.vercel.app", prefix: "" }
 ];
 

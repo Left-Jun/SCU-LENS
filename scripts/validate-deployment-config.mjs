@@ -22,7 +22,7 @@ expectEqual(vercel.installCommand, "npm ci", "vercel installCommand");
 expectEqual(vercel.buildCommand, "npm run build:site", "vercel buildCommand");
 expectEqual(vercel.outputDirectory, "apps/site/dist", "vercel outputDirectory");
 for (const [needle, label] of [
-  ['site: "https://sculens.leftjun.com"', "Astro canonical site"],
+  ['site: "https://sculens.com"', "Astro canonical site"],
   ['output: "static"', "Astro static output"],
   ['outDir: "./apps/site/dist"', "Astro outDir"]
 ]) expectIncludes(astroConfig, needle, label);

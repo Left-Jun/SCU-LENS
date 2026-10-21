@@ -1,15 +1,16 @@
 # SCU LENS Deployment Topology
 
-Updated on 2026-09-28 for the current SCU LENS deployment projects.
+Updated on 2026-10-21; canonical domain follows the 2026-10-05 production configuration.
 
 ## Publishing topology
 
 A push to GitHub `main` fans out into two independent static-site deployments:
 
-1. **EdgeOne Makers / Pages** -> `sculens.leftjun.com`
+1. **EdgeOne Makers / Pages** -> `sculens.com`
 2. **Vercel** -> `scu-lens.vercel.app`
 
 The custom domain currently resolves directly to the EdgeOne Pages/Makers domain. Any separate H1 / acceleration layer is treated only as an acceleration layer, not as the source publishing platform.
+`sculens.cn` and `www.sculens.cn` redirect to `sculens.com` through the existing middleware.
 GitHub remains the source repository and automatic deployment trigger source. GitHub Pages is intentionally not part of the active publishing topology.
 
 ## EdgeOne parity with the personal site
