@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const mailSubject = encodeURIComponent("【川大摄协申请】姓名 - 学院 - 年级");
-const mailBody = encodeURIComponent(["姓名：","学院：","年级：","意向部门（技术部 / 活动部 / 宣传部）：","联系方式：","","请在邮件中附上个人简历；技术部或摄影相关方向可附作品集或作品链接。"].join("\n"));
+const mailBody = encodeURIComponent(["姓名：","学院：","年级：","意向部门（技术部 / 活动部 / 宣传部）：","联系方式：","","请在邮件中附上填写好的干事申请表；技术部或摄影相关方向可附作品集或作品链接。"].join("\n"));
 const presidentMail = "1508017864@qq.com";
 const mailto = "mailto:" + presidentMail + "?subject=" + mailSubject + "&body=" + mailBody;
 ---
@@ -67,7 +67,7 @@ const mailto = "mailto:" + presidentMail + "?subject=" + mailSubject + "&body=" 
       <div class="apply-row-copy">
         <div class="eyebrow">Application</div>
         <h2>申请加入摄协</h2>
-        <p>选择意向部门后，把简历发给我们；技术部或摄影相关方向可附作品集。收到材料后我们会再联系你，正式招新安排也会同步发布。</p>
+        <p>下载并填写干事申请表，选择意向部门后通过邮件发给我们；技术部或摄影相关方向可附作品集。收到材料后我们会再联系你，正式招新安排也会同步发布。</p>
       </div>
       <a class="mail-button" href={mailto}>发送申请邮件 <span>↗</span></a>
     </section>
@@ -78,8 +78,8 @@ const mailto = "mailto:" + presidentMail + "?subject=" + mailSubject + "&body=" 
         <h2>会长信箱</h2>
       </div>
       <a class="join-contact-mail" href={"mailto:" + presidentMail}>{presidentMail} ↗</a>
-      <a class="join-resume-download" href="/downloads/scu-photography-association-resume-template.docx" download>
-        下载简历模板 <span>DOCX ↓</span>
+      <a class="join-resume-download" href="/downloads/scu-photography-association-resume-template.docx?v=2026-10-21" download="四川大学摄影协会干事申请表（2026版）.docx">
+        下载干事申请表（2026版） <span>DOCX ↓</span>
       </a>
     </section>
 

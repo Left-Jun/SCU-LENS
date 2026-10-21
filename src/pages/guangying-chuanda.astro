@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import GalleryImage from "../components/GalleryImage.astro";
 import { collections } from "../lib/guangying-chuanda";
 const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
+const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 ---
 
 <BaseLayout title="光影川大 · SCU LENS" description="用镜头记录四川大学，回看光影川大往期获奖作品，分享当下的校园影像。" active="/guangying-chuanda">
@@ -21,16 +22,32 @@ const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
         <h2 id="intro-title">看见川大，<br />留下此刻。</h2>
         <p>「光影川大」持续征集与四川大学有关的摄影作品。无论是熟悉的校园风景、独特的川大符号，还是日常生活里的动人片刻，都可以成为镜头中的主角。</p>
         <p>我们期待内容积极、画面优美、能展现川大风貌的影像。优秀作品有机会入选每年春季的线下展览，让校园记忆走进教学楼、实验室与图书馆。</p>
+        <div class="association-contribute" aria-labelledby="association-title">
+          <div class="eyebrow">Contribute with SCU LENS · 协会合作征集</div>
+          <h3 id="association-title">参加协会征集</h3>
+          <p>通过四川大学摄影协会 QQ 频道参与合作征集，协会收集、筛选作品后，统一向光影川大老师推荐。</p>
+          <p class="contribution-flow">频道提交 → 协会筛选 → 统一向老师推荐</p>
+          <a class="text-link association-link" href={channelUrl} target="_blank" rel="noreferrer">进入频道查看征集安排 ↗</a>
+        </div>
         <div class="collection-links">
           <a class="text-link" href="#awards">往期获奖作品 ↓</a>
           <a class="text-link" href="#submissions">当前投稿作品 ↓</a>
         </div>
       </div>
+    </section>
+
+    <section class="section direct-submit" aria-labelledby="direct-submit-title">
+      <div class="direct-submit-copy">
+        <div class="eyebrow">Submit Directly · 主办方直投</div>
+        <h2 id="direct-submit-title">直接向主办方投稿</h2>
+        <p>也可以通过光影川大小程序自行提交作品，由主办方直接接收。</p>
+        <p>两种方式任选其一，无需重复提交同一作品；两个渠道不会自动同步。</p>
+      </div>
       <figure class="submission-code">
-        <a href={qrSrc} data-viewer-open="guangying-code:0" aria-label="放大光影川大投稿小程序码">
-          <img src={qrSrc} alt="光影川大投稿小程序码，使用微信扫码投稿" width="748" height="737" decoding="async" />
+        <a href={qrSrc} data-viewer-open="guangying-code:0" aria-label="放大主办方直投小程序码">
+          <img src={qrSrc} alt="光影川大主办方直投小程序码，使用微信扫码" width="748" height="737" loading="lazy" decoding="async" />
         </a>
-        <figcaption><strong>扫码参与光影川大</strong><span>微信扫码投稿 · 点击放大保存</span></figcaption>
+        <figcaption><strong>主办方直接投稿</strong><span>微信扫码 · 点击放大保存</span></figcaption>
       </figure>
     </section>
 
@@ -83,19 +100,26 @@ const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
     ))}
     <div class="viewer-registry" hidden>
       <span data-viewer-item data-viewer-group="guangying-code" data-viewer-src={qrSrc} data-original-src={qrSrc}
-        data-viewer-alt="光影川大投稿小程序码" data-viewer-title="扫码参与光影川大"
-        data-viewer-description="使用微信扫一扫，或保存小程序码后在微信中识别。"
-        data-viewer-kicker="光影川大 · 投稿" data-viewer-original-label="打开小程序码 ↗" />
+        data-viewer-alt="光影川大主办方直投小程序码" data-viewer-title="直接向主办方投稿"
+        data-viewer-description="使用微信扫一扫，或保存小程序码后在微信中识别，由主办方直接接收。与协会 QQ 频道征集任选其一，无需重复提交；两个渠道不会自动同步。"
+        data-viewer-kicker="光影川大 · 主办方直投" data-viewer-original-label="打开小程序码 ↗" />
     </div>
   </div>
 </BaseLayout>
 
 <style>
-  .guangying-intro { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.42fr); gap:clamp(38px,7vw,110px); align-items:center; }
+  .intro-copy { max-width:780px; }
   .intro-copy h2 { margin:18px 0 24px; font:400 clamp(2.6rem,4.5vw,4.6rem)/1.14 var(--font-serif); letter-spacing:-.03em; }
   .intro-copy p { margin:0 0 16px; max-width:650px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
+  .association-contribute { margin-top:26px; padding-top:26px; border-top:1px solid var(--line); }
+  .association-contribute h3 { margin:12px 0 16px; font:400 clamp(2rem,3.5vw,3rem)/1.15 var(--font-serif); }
+  .association-contribute .contribution-flow { color:var(--ink); font-size:.85rem; }
+  .association-link { display:inline-block; margin-top:4px; font-size:1rem; }
+  .direct-submit { display:grid; grid-template-columns:minmax(0,1fr) 180px; gap:32px; align-items:center; }
+  .direct-submit-copy h2 { margin:12px 0 16px; font:400 1.8rem/1.2 var(--font-serif); }
+  .direct-submit-copy p { margin:0 0 12px; max-width:650px; color:var(--muted); font-size:var(--font-body); line-height:var(--line-body); }
   .collection-links { display:flex; gap:24px; flex-wrap:wrap; margin-top:26px; }
-  .submission-code { margin:0; max-width:300px; width:100%; justify-self:end; }
+  .submission-code { margin:0; max-width:180px; width:100%; justify-self:end; }
   .submission-code a { display:block; background:white; padding:14px; border:1px solid var(--line); cursor:zoom-in; }
   .submission-code img { width:100%; height:auto; }
   .submission-code figcaption { display:grid; gap:4px; margin-top:14px; }
@@ -115,8 +139,8 @@ const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
   .work-caption p { margin:0; color:var(--muted); }
   .work-caption .work-description { margin-top:14px; max-width:700px; white-space:pre-line; }
   @media (max-width:700px) {
-    .guangying-intro { grid-template-columns:1fr; gap:28px; }
-    .submission-code { justify-self:start; max-width:240px; }
+    .direct-submit { grid-template-columns:1fr; gap:18px; }
+    .submission-code { justify-self:start; }
     .intro-copy h2 { margin-top:14px; }
     .collection-links { gap:18px; }
     .collection-links a { font-size:.8rem; }

@@ -21,7 +21,7 @@ interface Photo {
 
 export const collections = [
   { id: "awards", title: "往期获奖作品", en: "Awarded Works", description: "回看往届获奖影像，收藏镜头里的川大记忆。", empty: "往期获奖作品待展。" },
-  { id: "submissions", title: "当前投稿作品", en: "Current Submissions", description: "来自本轮征集的校园影像，记录你眼中的川大。", empty: "期待你的川大影像。" },
+  { id: "submissions", title: "当前投稿作品", en: "Current Submissions", description: "这里展示本轮协会合作征集的作品，记录你眼中的川大。", empty: "期待你的川大影像。" },
 ].map((collection) => {
   const photos = (data.items as Photo[]).filter((photo) => photo.collection === collection.id);
   const groups = new Map<string, { key: string; title: string; author: string; date: string; description: string; photos: Photo[] }>();
