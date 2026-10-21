@@ -447,7 +447,7 @@ html.viewer-open,html.viewer-open body { overflow:hidden; }
     --font-small: .68rem;
     --line-body: 1.68;
   }
-  .site-header { position:relative; display:grid; grid-template-columns:minmax(0,1fr) 44px; align-items:center; gap:10px 12px; }
+  .site-header { position:relative; display:grid; grid-template-columns:minmax(0,1fr) 44px; align-items:center; gap:10px 12px; padding-bottom:8px; }
   .site-header > .brand { grid-column:1 / -1; grid-row:1; justify-self:start; }
   .primary-nav { grid-column:1; grid-row:2; width:100%; justify-content:flex-start; gap:14px; flex-wrap:nowrap; padding-bottom:2px; }
   .primary-nav .mobile-secondary-link { display:none; }
