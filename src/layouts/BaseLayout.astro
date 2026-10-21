@@ -18,6 +18,8 @@ const nav = [
   { href: "/join", label: "加入我们" },
   { href: "/about", label: "关于" },
 ];
+const secondaryNav = nav.slice(5);
+const secondaryActive = secondaryNav.some((item) => item.href === active);
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -45,12 +47,39 @@ const nav = [
         <span class="brand-word">LENS</span>
         <img class="brand-icon" src="/images/brand/scu-lens-logo-simple.png" alt="" />
       </a>
-      <nav aria-label="主导航">
-        {nav.map((item) => (
-          <a href={item.href} class:list={["nav-link", { active: active === item.href }]}>{item.label}</a>
+      <nav class="primary-nav" aria-label="主导航">
+        {nav.map((item, index) => (
+          <a href={item.href} aria-current={active === item.href ? "page" : undefined} class:list={["nav-link", { active: active === item.href, "mobile-secondary-link": index >= 5 }]}>{item.label}</a>
         ))}
       </nav>
+      <details class:list={["mobile-menu", { "has-active": secondaryActive }]}>
+        <summary aria-label="更多栏目" title="更多栏目">
+          <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        </summary>
+        <nav class="mobile-menu-panel" aria-label="更多栏目">
+          {secondaryNav.map((item) => (
+            <a href={item.href} aria-current={active === item.href ? "page" : undefined} class:list={["nav-link", { active: active === item.href }]}>{item.label}</a>
+          ))}
+        </nav>
+      </details>
     </header>
+    <script is:inline>
+      (() => {
+        const menu = document.querySelector(".mobile-menu");
+        if (!(menu instanceof HTMLDetailsElement)) return;
+        document.addEventListener("click", (event) => {
+          if (!(event.target instanceof Node)) return;
+          if (!menu.contains(event.target) || (event.target instanceof Element && event.target.closest("a"))) menu.open = false;
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && menu.open) {
+            menu.open = false;
+            menu.querySelector("summary")?.focus();
+          }
+        });
+        window.matchMedia("(max-width:700px)").addEventListener("change", () => { menu.open = false; });
+      })();
+    </script>
     <main><slot /></main>
     <footer class="site-footer">
       <div class="footer-brand">
