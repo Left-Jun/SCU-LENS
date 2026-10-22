@@ -1,7 +1,14 @@
 import manifest from "../data/guangying-exhibitions.json";
 import data from "../data/guangying-chuanda.generated.json";
+import presentation from "../data/guangying-photo-presentation.json";
 
-const photos = new Map(data.items.map(photo => [photo.id, photo]));
+const embeddedCaptions = new Set(presentation.captionInImageIds);
+const photos = new Map(data.items.map(photo => [photo.id, {
+  ...photo,
+  captionInImage: embeddedCaptions.has(photo.id),
+  title: embeddedCaptions.has(photo.id) || / · \d+$/.test(photo.title) ? "" : photo.title,
+  author: embeddedCaptions.has(photo.id) ? "" : photo.author,
+}]));
 const resolve = (id: string) => {
   const photo = photos.get(id);
   if (!photo) throw new Error(`展览引用的照片不存在：${id}`);

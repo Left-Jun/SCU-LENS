@@ -23,6 +23,8 @@ const {
   countLabel,
   contributeHref,
   linkAuthors = true,
+  showPhotoNumbers = true,
+  showWorkType = true,
 } = Astro.props;
 ---
 
@@ -54,12 +56,12 @@ const {
       {works.map((work) => (
         <article class="issue-work">
           <div class:list={["issue-photo", work.height > work.width ? "portrait" : "landscape"]}>
-            <a class="photo-open-link" href={work.originalSrc} data-viewer-open={`${viewerGroup}:${work.viewerIndex}`} aria-label={`打开看图：《${work.title}》· ${work.author}`}>
+            <a class="photo-open-link" href={work.originalSrc} data-viewer-open={`${viewerGroup}:${work.viewerIndex}`} aria-label={`打开看图：${work.alt ?? `《${work.title}》· ${work.author}`}`}>
               <img
                 src={work.browserSrc}
                 srcset={work.browserSrcset}
                 sizes="(max-width: 900px) 100vw, 920px"
-                alt={`《${work.title}》· ${work.author}`}
+                alt={work.alt ?? `《${work.title}》· ${work.author}`}
                 width={work.width}
                 height={work.height}
                 loading={work.no === "01" ? "eager" : "lazy"}
@@ -67,17 +69,17 @@ const {
                 decoding="async"
               />
             </a>
-            <span>{work.no}</span>
+            {showPhotoNumbers && <span>{work.no}</span>}
             {work.photoCount > 1 && <b>+ {work.photoCount}</b>}
           </div>
-          <div class="issue-work-caption">
+          {!work.hideCaption && <div class="issue-work-caption">
             <div>
-              <span>{work.photoCount > 1 ? `${work.photoCount} 张组图` : "单图"}</span>
-              <h2>《{work.title}》</h2>
+              {showWorkType && <span>{work.photoCount > 1 ? `${work.photoCount} 张组图` : "单图"}</span>}
+              {work.title && <h2>《{work.title}》</h2>}
               {work.author && <p>摄影 / {work.author}</p>}
             </div>
             {work.href ? <a href={work.href}>查看完整组图 →</a> : null}
-          </div>
+          </div>}
         </article>
       ))}
     </section>

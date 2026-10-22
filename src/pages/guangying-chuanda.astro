@@ -18,17 +18,24 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
       </div>
     </section>
     <section class="section current-call" aria-labelledby="current-call-title">
-      <div class="section-kicker-row">
-        <div>
-          <div class="eyebrow">Current Call · Campus Photography</div>
-          <h2 class="section-display" id="current-call-title">本期征稿</h2>
+      <div class="current-feature">
+        <div class="current-poster">
+          <div class="eyebrow">Current Call · 本期征集</div>
+          <h2 id="current-call-title">校园影像<br />持续征集</h2>
+          <p>风景 · 人物 · 校园日常</p>
+          <span class="poster-foot">光影川大 · 与你一起记录校园</span>
         </div>
-        <p><span class="call-status">常态征集</span></p>
-      </div>
-      <div class="call-copy">
-        <p>欢迎记录川大的风景与日常。作品应与四川大学有关，能辨识出川大场景或相关符号，内容积极、画面美观。</p>
-        <p>优秀作品有机会在春季线下展览中展出，或用于川大官方文创制作。</p>
-        <a class="text-link" href="#contribute">查看投稿方式 ↓</a>
+        <div class="current-copy">
+          <span class="call-status">正在征集 · 长期开放</span>
+          <h3>记录你眼中的川大。</h3>
+          <p>一处熟悉的校园风景，一段鲜活的师生日常，都值得被镜头留下。</p>
+          <dl>
+            <div><dt>征集内容</dt><dd>与四川大学有关，能辨识出川大场景或相关符号的摄影作品。</dd></div>
+            <div><dt>作品要求</dt><dd>内容积极，画面美观，保留真实的校园记忆。</dd></div>
+            <div><dt>展示机会</dt><dd>优秀作品有机会入选线下展览，或用于川大官方文创制作。</dd></div>
+          </dl>
+          <div class="current-actions"><a class="current-submit" href="#contribute">参与本期征集 →</a><a class="text-link" href="#awards">回看往期主题 ↓</a></div>
+        </div>
       </div>
       <div class="current-submissions" id="submissions">
         {submissions.photoCount > 0 ? (
@@ -36,7 +43,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
             <p class="collection-count">本期协会投稿 · {submissions.works.length} 组作品 · {submissions.photoCount} 张照片</p>
             <GuangyingWorkList collection={submissions} priority />
           </>
-        ) : <p class="collection-empty">期待你的川大影像。</p>}
+        ) : null}
       </div>
     </section>
     <section class="section collection-section" id="awards" aria-labelledby="awards-title">
@@ -89,6 +96,22 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   </div>
 </BaseLayout>
 <style>
+  .current-feature { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(28px,5vw,64px); align-items:stretch; }
+  .current-poster { display:flex; flex-direction:column; justify-content:space-between; min-height:420px; padding:30px; background:#e5e2d6; }
+  .current-poster h2 { margin:34px 0 20px; font:400 clamp(3rem,5vw,5rem)/1.12 var(--font-serif); letter-spacing:-.025em; }
+  .current-poster > p { margin:0 0 40px; font-size:.82rem; color:var(--muted); }
+  .poster-foot { padding-top:18px; border-top:1px solid var(--line); font-size:.7rem; color:var(--muted); }
+  .current-copy { padding:4px 0; display:flex; flex-direction:column; align-items:flex-start; }
+  .current-copy h3 { margin:24px 0 16px; font:400 clamp(1.8rem,3vw,3rem)/1.25 var(--font-serif); }
+  .current-copy > p { margin:0 0 24px; color:var(--muted); font-size:var(--font-body); }
+  .current-copy dl { margin:0 0 28px; width:100%; }
+  .current-copy dl > div { display:grid; grid-template-columns:76px minmax(0,1fr); gap:16px; padding:13px 0; border-top:1px solid var(--line); }
+  .current-copy dt { font-size:.78rem; }
+  .current-copy dd { margin:0; color:var(--muted); font-size:.85rem; }
+  .current-actions { display:flex; align-items:center; flex-wrap:wrap; gap:20px; margin-top:auto; }
+  .current-submit { background:var(--ink); color:var(--paper); padding:14px 20px; font-size:.82rem; font-weight:700; }
+  @media(max-width:700px) { .current-feature { grid-template-columns:1fr; gap:26px; } .current-poster { min-height:0; padding:24px; } .current-poster h2 { margin:30px 0 18px; font-size:3.5rem; } .current-poster > p { margin-bottom:28px; } .current-copy h3 { margin-top:20px; } }
+
   .theme-issue-list { display:grid; gap:32px; }
   .theme-issue-card { display:grid; grid-template-columns:42px minmax(0,1fr); gap:14px; }
   .theme-issue-index { padding-top:10px; font-size:.72rem; color:var(--muted); letter-spacing:.12em; }

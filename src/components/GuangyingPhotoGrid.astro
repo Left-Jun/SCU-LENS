@@ -15,7 +15,7 @@ const group = `exhibition-${exhibition.slug}-${section.id}`;
       <a href={photo.originalSrc} data-viewer-open={`${group}:${index}`} aria-label={`打开看图：${photo.title}`}>
         <GalleryImage photo={photo} alt={[photo.title, photo.author].filter(Boolean).join(" · ")} sizes="(max-width:1000px) calc((100vw - 56px) / 2), 380px" priority={priority && index === 0} />
       </a>
-      <figcaption><h3>{photo.title}</h3>{photo.author && <p>摄影 / {photo.author}</p>}</figcaption>
+      {!photo.captionInImage && (photo.title || photo.author) && <figcaption>{photo.title && <h3>{photo.title}</h3>}{photo.author && <p>摄影 / {photo.author}</p>}</figcaption>}
     </figure>
   ))}
 </div>
