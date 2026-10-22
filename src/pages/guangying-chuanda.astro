@@ -4,7 +4,7 @@ import SubmissionCodeDialog from "../components/SubmissionCodeDialog.astro";
 import GuangyingWorkList from "../components/GuangyingWorkList.astro";
 import { collections } from "../lib/guangying-chuanda";
 import GalleryImage from "../components/GalleryImage.astro";
-import { exhibitions } from "../lib/guangying-exhibitions";
+import { themeIssues } from "../lib/guangying-exhibitions";
 const submissions = collections.find((collection) => collection.id === "submissions")!;
 const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
@@ -45,14 +45,21 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
           <div class="eyebrow">Archive · Earlier Exhibitions</div>
           <h2 class="section-display" id="awards-title">往期展览</h2>
         </div>
-        <p>从画册到台历，回看镜头中的川大。</p>
+        <p>按主题回看川大影像，打开每一期，慢慢看。</p>
       </div>
-      <div class="exhibition-covers">
-        {exhibitions.map((exhibition, index) => (
-          <a class="exhibition-cover" href={exhibition.href}>
-            <div class="cover-image"><GalleryImage photo={exhibition.cover} alt={exhibition.cover.title} sizes="(max-width:700px) calc(100vw - 40px), 580px" priority={index === 0} /></div>
-            <div class="cover-caption"><div><h3>{exhibition.title}</h3><p>{exhibition.count} 张照片</p></div><span>进入展览 →</span></div>
-          </a>
+      <div class="theme-issue-list">
+        {themeIssues.map((issue, index) => (
+          <article class="theme-issue-card">
+            <span class="theme-issue-index">{String(index + 1).padStart(2, "0")}</span>
+            <a class="theme-issue-visual" href={issue.href}>
+              <GalleryImage photo={issue.cover} alt={issue.cover.title} sizes="(max-width:700px) calc(100vw - 40px), 1180px" priority={index === 0} />
+              <div class="theme-issue-overlay"></div>
+              <div class="theme-issue-content">
+                <div class="theme-issue-meta"><span>{issue.source}</span><span>{issue.photos.length} 张照片</span></div>
+                <div><p>{issue.en}</p><h3>{issue.title}</h3><span class="theme-open">查看本期 →</span></div>
+              </div>
+            </a>
+          </article>
         ))}
       </div>
     </section>
@@ -82,13 +89,20 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   </div>
 </BaseLayout>
 <style>
-  .exhibition-covers { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px; }
-  .cover-image { aspect-ratio:3/2; overflow:hidden; }
-  .cover-image :global(picture),.cover-image :global(img) { width:100%; height:100%; object-fit:cover; }
-  .cover-caption { display:flex; align-items:end; justify-content:space-between; gap:16px; padding-top:16px; }
-  .cover-caption h3 { margin:0; font:400 clamp(1.6rem,3vw,2.5rem)/1.25 var(--font-serif); }
-  .cover-caption p { margin:8px 0 0; color:var(--muted); font-size:.75rem; }
-  .cover-caption > span { font-size:.78rem; white-space:nowrap; }
+  .theme-issue-list { display:grid; gap:32px; }
+  .theme-issue-card { display:grid; grid-template-columns:42px minmax(0,1fr); gap:14px; }
+  .theme-issue-index { padding-top:10px; font-size:.72rem; color:var(--muted); letter-spacing:.12em; }
+  .theme-issue-visual { position:relative; display:block; aspect-ratio:16/7; color:white; overflow:hidden; }
+  .theme-issue-visual :global(picture),.theme-issue-visual :global(img) { width:100%; height:100%; object-fit:cover; }
+  .theme-issue-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(13,13,11,.70),rgba(13,13,11,.08)),linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.36)); }
+  .theme-issue-content { position:absolute; inset:0; padding:22px 24px; display:flex; flex-direction:column; justify-content:space-between; }
+  .theme-issue-meta { display:flex; justify-content:space-between; gap:16px; font-size:.68rem; color:rgba(255,255,255,.8); }
+  .theme-issue-content p { margin:0 0 8px; font-size:.66rem; letter-spacing:.16em; opacity:.75; }
+  .theme-issue-content h3 { margin:0 0 18px; font:400 clamp(2.35rem,4.2vw,4.2rem)/1.05 var(--font-serif); }
+  .theme-open { font-size:.78rem; font-weight:700; border-bottom:1px solid currentColor; padding-bottom:4px; }
+  .theme-issue-visual:focus-visible { outline:2px solid var(--ink); outline-offset:4px; }
+  @media(max-width:700px) { .theme-issue-card { grid-template-columns:1fr; gap:8px; } .theme-issue-index { padding:0; } .theme-issue-visual { aspect-ratio:4/3; } .theme-issue-content { padding:18px; } }
+
   .current-call { padding-block:28px; }
   .current-call .section-kicker-row { margin-bottom:16px; }
   .current-call .section-display { font-size:clamp(1.8rem,3vw,2.8rem); }
@@ -111,8 +125,6 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .official-contribute h3 { margin-top:0; font-size:1.8rem; }
   .contribute-note { margin:26px 0 0; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.8rem; }
   @media (max-width:700px) {
-    .exhibition-covers { grid-template-columns:1fr; gap:30px; }
-    .cover-caption h3 { font-size:1.6rem; }
     .contribute-grid { grid-template-columns:1fr; gap:26px; }
     .channel-contribute { padding-right:0; }
     .official-contribute { padding:24px 0 0; border-left:0; border-top:1px solid var(--line); }

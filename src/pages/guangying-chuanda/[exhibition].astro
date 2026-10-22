@@ -1,14 +1,15 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import GuangyingPhotoGrid from "../../components/GuangyingPhotoGrid.astro";
-import { exhibitions } from "../../lib/guangying-exhibitions";
+import GuangyingIssuePage from "../../components/GuangyingIssuePage.astro";
+import { themeIssues, exhibitions } from "../../lib/guangying-exhibitions";
 export function getStaticPaths() {
-  return exhibitions.map(exhibition => ({ params: { exhibition: exhibition.slug }, props: { exhibition } }));
+  return [{ params: { exhibition: "album" }, props: { exhibition: exhibitions[0] } }, ...themeIssues.map(issue => ({ params: { exhibition: issue.slug }, props: { exhibition: exhibitions[0], issue } }))];
 }
-interface Props { exhibition: (typeof exhibitions)[number]; }
-const { exhibition }: Props = Astro.props;
+interface Props { exhibition: (typeof exhibitions)[number]; issue?: (typeof themeIssues)[number]; }
+const { exhibition, issue }: Props = Astro.props;
 ---
-<BaseLayout title={`${exhibition.title} · 光影川大 · SCU LENS`} description={exhibition.description} active="/guangying-chuanda">
+{issue ? <GuangyingIssuePage issue={issue} /> : <BaseLayout title={`${exhibition.title} · 光影川大 · SCU LENS`} description={exhibition.description} active="/guangying-chuanda">
   <div class="page-shell exhibition-page">
     <a class="back-link text-link" href="/guangying-chuanda#awards">← 返回展览目录</a>
     <header class="exhibition-heading">
@@ -17,6 +18,7 @@ const { exhibition }: Props = Astro.props;
       <p class="exhibition-count">{exhibition.count} 张照片</p>
       <p>{exhibition.description}</p>
     </header>
+    <p class="collection-call">光影川大持续征集校园影像，欢迎记录川大的风景与日常。<a class="text-link" href="/guangying-chuanda#contribute">查看投稿方式 →</a></p>
     {exhibition.sections.length > 1 && <nav class="chapter-links" aria-label="展览主题">{exhibition.sections.map(section => <a href={`#${section.id}`}>{section.title}<span>{section.photos.length}</span></a>)}</nav>}
     {exhibition.sections.map((section, index) => (
       <section class="exhibition-chapter" id={section.id} aria-labelledby={`${section.id}-title`}>
@@ -26,7 +28,7 @@ const { exhibition }: Props = Astro.props;
     ))}
     <a class="text-link" href="/guangying-chuanda#awards">← 返回展览目录</a>
   </div>
-</BaseLayout>
+</BaseLayout>}
 <style>
   .back-link { display:inline-block; margin-bottom:32px; font-size:.8rem; }
   .exhibition-heading { max-width:760px; margin-bottom:32px; }

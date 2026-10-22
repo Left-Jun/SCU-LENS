@@ -16,29 +16,37 @@ const {
   nextHref,
   nextPreviewItems = [],
   backHref = "/monthly-nine",
+  collectionName = "每月九图",
+  active = "/monthly-nine",
+  backLabel = "返回每月九图",
+  eyebrow = `Monthly Nine · ${date}`,
+  countLabel,
+  contributeHref,
+  linkAuthors = true,
 } = Astro.props;
 ---
 
-<BaseLayout title={`${title} · 每月九图 · SCU LENS`} active="/monthly-nine">
+<BaseLayout title={`${title} · ${collectionName} · SCU LENS`} active={active}>
   <div class="page-shell">
     <section class="page-hero issue-detail-hero">
       <div>
-        <a class="back-link" href={backHref}>← 返回每月九图</a>
-        <div class="eyebrow">Monthly Nine · {date}</div>
+        <a class="back-link" href={backHref}>← {backLabel}</a>
+        <div class="eyebrow">{eyebrow}</div>
         <h1 class="display">{title}</h1>
       </div>
     </section>
 
     <section class="section issue-detail-meta">
       <span>本期主题 · {en}</span>
-      <span>征集时间 · {collectionPeriod}</span>
-      <span>{works.length} 组入选作品 · {viewerItems.length} 张照片</span>
+      {collectionPeriod && <span>征集时间 · {collectionPeriod}</span>}
+      <span>{countLabel ?? `${works.length} 组入选作品 · ${viewerItems.length} 张照片`}</span>
     </section>
 
     <section class="section issue-statement">
       <div><div class="eyebrow">Theme Archive · 主题档案</div></div>
       <div class="issue-statement-copy">
         {(Array.isArray(summary) ? summary : [summary]).map((paragraph) => <p>{paragraph}</p>)}
+        {contributeHref && <a class="text-link" href={contributeHref}>查看征集与投稿方式 →</a>}
       </div>
     </section>
 
@@ -66,7 +74,7 @@ const {
             <div>
               <span>{work.photoCount > 1 ? `${work.photoCount} 张组图` : "单图"}</span>
               <h2>《{work.title}》</h2>
-              <p>摄影 / {work.author}</p>
+              {work.author && <p>摄影 / {work.author}</p>}
             </div>
             {work.href ? <a href={work.href}>查看完整组图 →</a> : null}
           </div>
@@ -90,9 +98,9 @@ const {
           data-viewer-alt={item.alt}
           data-viewer-title={item.title}
           data-viewer-author={item.author}
-          data-viewer-author-href={authorHref(item.author)}
+          data-viewer-author-href={linkAuthors ? authorHref(item.author) : undefined}
           data-viewer-kicker={item.kicker}
-          data-viewer-issue={`每月九图 · ${title}`}
+          data-viewer-issue={`${collectionName} · ${title}`}
           data-viewer-issue-href={Astro.url.pathname}
           data-viewer-section={item.section}
           data-viewer-date={item.date}
