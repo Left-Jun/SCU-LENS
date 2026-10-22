@@ -20,7 +20,7 @@ interface Photo {
 }
 
 export const collections = [
-  { id: "awards", title: "往期获奖作品", en: "Awarded Works", description: "回看往期优秀作品，重温镜头中的川大时光。", empty: "暂无往期作品展示。" },
+  { id: "awards", title: "往期展览", en: "Awarded Works", description: "回看往期优秀作品，重温镜头中的川大时光。", empty: "暂无往期作品展示。" },
   { id: "submissions", title: "当前投稿作品", en: "Current Submissions", description: "这里展示本轮协会合作征集的作品，记录你眼中的川大。", empty: "期待你的川大影像。" },
 ].map((collection) => {
   const photos = (data.items as Photo[]).filter((photo) => photo.collection === collection.id);
