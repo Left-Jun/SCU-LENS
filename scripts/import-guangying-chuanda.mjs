@@ -105,6 +105,18 @@ export async function importGuangying({ projectRoot, libraryRoot = path.join(pro
     } else groups.set(key, { ...item });
   }
   const payload = { total: items.length, items };
+  // Exhibition membership is curated independently; never silently discard it on reimport.
+  const exhibitionPath = path.join(projectRoot, "src/data/guangying-exhibitions.json");
+  const exhibitions = await fs.readFile(exhibitionPath, "utf8").then(JSON.parse).catch(error => {
+    if (error.code === "ENOENT") return [];
+    throw error;
+  });
+  const importedIds = new Set(items.map(item => item.id));
+  for (const exhibition of exhibitions) {
+    for (const id of [exhibition.coverId, ...exhibition.sections.flatMap(section => section.photoIds)]) {
+      if (!importedIds.has(id)) throw new Error(`展览 ${exhibition.title} 引用了已移除的照片 ${id}；请同步更新展览清单。`);
+    }
+  }
   const destination = path.join(projectRoot, "src/data/guangying-chuanda.generated.json");
   await fs.mkdir(path.dirname(destination), { recursive: true });
   await fs.writeFile(destination, `${JSON.stringify(payload, null, 2)}\n`);

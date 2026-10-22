@@ -44,6 +44,14 @@ test("imports both collections, preserves groups and proportions, keeps stable d
     }
   }
   assert.deepEqual((await importGuangying({ projectRoot })).items, first.items);
+  const exhibitionFile = path.join(projectRoot, "src/data/guangying-exhibitions.json");
+  const exhibition = { title: "测试展览", coverId: first.items[0].id, sections: [{ photoIds: [first.items[0].id, first.items[1].id] }] };
+  await fs.writeFile(exhibitionFile, JSON.stringify([exhibition]));
+  assert.deepEqual((await importGuangying({ projectRoot })).items, first.items);
+  assert.deepEqual(JSON.parse(await fs.readFile(exhibitionFile, "utf8")), [exhibition], "reimport preserves curated exhibition membership");
+  await fs.writeFile(exhibitionFile, JSON.stringify([{ ...exhibition, sections: [{ photoIds: ["missing-photo"] }] }]));
+  await assert.rejects(importGuangying({ projectRoot }), /引用了已移除的照片/);
+  assert.deepEqual(JSON.parse(await fs.readFile(path.join(projectRoot, "src/data/guangying-chuanda.generated.json"), "utf8")), first);
   await fs.writeFile(path.join(libraryRoot, "metadata.csv"), "filename\n往期获奖作品/01.jpg\n往期获奖作品/01.jpg\n");
   await assert.rejects(importGuangying({ projectRoot }), /重复路径/);
   const saved = JSON.parse(await fs.readFile(path.join(projectRoot, "src/data/guangying-chuanda.generated.json"), "utf8"));

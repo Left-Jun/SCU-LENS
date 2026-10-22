@@ -3,7 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SubmissionCodeDialog from "../components/SubmissionCodeDialog.astro";
 import GuangyingWorkList from "../components/GuangyingWorkList.astro";
 import { collections } from "../lib/guangying-chuanda";
-const awards = collections.find((collection) => collection.id === "awards")!;
+import GalleryImage from "../components/GalleryImage.astro";
+import { exhibitions } from "../lib/guangying-exhibitions";
 const submissions = collections.find((collection) => collection.id === "submissions")!;
 const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
@@ -44,9 +45,16 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
           <div class="eyebrow">Archive · Earlier Exhibitions</div>
           <h2 class="section-display" id="awards-title">往期展览</h2>
         </div>
-        <p>{awards.description}{awards.photoCount > 0 && <span class="collection-count">{awards.works.length} 组作品 · {awards.photoCount} 张照片</span>}</p>
+        <p>从画册到台历，回看镜头中的川大。</p>
       </div>
-      {awards.works.length === 0 ? <p class="collection-empty">{awards.empty}</p> : <GuangyingWorkList collection={awards} priority={submissions.photoCount === 0} />}
+      <div class="exhibition-covers">
+        {exhibitions.map((exhibition, index) => (
+          <a class="exhibition-cover" href={exhibition.href}>
+            <div class="cover-image"><GalleryImage photo={exhibition.cover} alt={exhibition.cover.title} sizes="(max-width:700px) calc(100vw - 40px), 580px" priority={index === 0} /></div>
+            <div class="cover-caption"><div><h3>{exhibition.title}</h3><p>{exhibition.count} 张照片</p></div><span>进入展览 →</span></div>
+          </a>
+        ))}
+      </div>
     </section>
     <section class="section contribute-section" id="contribute" aria-labelledby="contribute-title">
       <div class="section-kicker-row">
@@ -74,6 +82,16 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   </div>
 </BaseLayout>
 <style>
+  .exhibition-covers { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px; }
+  .cover-image { aspect-ratio:3/2; overflow:hidden; }
+  .cover-image :global(picture),.cover-image :global(img) { width:100%; height:100%; object-fit:cover; }
+  .cover-caption { display:flex; align-items:end; justify-content:space-between; gap:16px; padding-top:16px; }
+  .cover-caption h3 { margin:0; font:400 clamp(1.6rem,3vw,2.5rem)/1.25 var(--font-serif); }
+  .cover-caption p { margin:8px 0 0; color:var(--muted); font-size:.75rem; }
+  .cover-caption > span { font-size:.78rem; white-space:nowrap; }
+  .current-call { padding-block:28px; }
+  .current-call .section-kicker-row { margin-bottom:16px; }
+  .current-call .section-display { font-size:clamp(1.8rem,3vw,2.8rem); }
   .current-call > .section-kicker-row { grid-template-columns:minmax(0,1fr) auto; gap:14px; }
   .call-status { display:inline-block; padding:7px 10px; border:1px solid var(--ink); color:var(--ink); font-size:.72rem; font-weight:700; }
   .call-copy { max-width:780px; }
@@ -93,6 +111,8 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .official-contribute h3 { margin-top:0; font-size:1.8rem; }
   .contribute-note { margin:26px 0 0; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.8rem; }
   @media (max-width:700px) {
+    .exhibition-covers { grid-template-columns:1fr; gap:30px; }
+    .cover-caption h3 { font-size:1.6rem; }
     .contribute-grid { grid-template-columns:1fr; gap:26px; }
     .channel-contribute { padding-right:0; }
     .official-contribute { padding:24px 0 0; border-left:0; border-top:1px solid var(--line); }
