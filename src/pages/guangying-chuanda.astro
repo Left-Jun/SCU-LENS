@@ -14,7 +14,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     <section class="page-hero">
       <div class="page-hero-title">
         <div class="eyebrow">Light &amp; Life at SCU</div>
-        <h1 class="display">光影川大</h1>
+        <h1 class="guangying-heading"><img class="guangying-logo" src="/images/guangying-chuanda/logo.svg" alt="光影川大" width="160" height="193" fetchpriority="high" /></h1>
       </div>
     </section>
     <section class="section current-call" aria-labelledby="current-call-title">
@@ -96,6 +96,10 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   </div>
 </BaseLayout>
 <style>
+  .page-hero { display:block; }
+  .page-hero-title .eyebrow { margin-bottom:16px; }
+  .guangying-heading { margin:0; }
+  .guangying-logo { display:block; width:auto; height:clamp(120px,12vw,164px); max-width:100%; object-fit:contain; }
   .current-feature { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(28px,5vw,64px); align-items:stretch; }
   .current-poster { display:flex; flex-direction:column; justify-content:space-between; min-height:420px; padding:30px; background:#e5e2d6; }
   .current-poster h2 { margin:34px 0 20px; font:400 clamp(3rem,5vw,5rem)/1.12 var(--font-serif); letter-spacing:-.025em; }
