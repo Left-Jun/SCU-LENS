@@ -48,16 +48,23 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
       </div>
       <div class="theme-issue-list">
         {themeIssues.map((issue, index) => (
-          <article class:list={["theme-issue-card", { "theme-feature": index === 0 || index === themeIssues.length - 1, "theme-finale": index === themeIssues.length - 1 }]}>
+          <article class:list={["theme-issue-card", { "theme-feature": index === 0 || index === themeIssues.length - 1, "theme-finale": index === themeIssues.length - 1, "theme-masked": index > 0 && index < themeIssues.length - 1 }]}>
             <a class="theme-issue-link" href={issue.href}>
               <div class="theme-issue-visual">
                 <GalleryImage photo={issue.cover} alt={issue.cover.title || issue.title} sizes={index === 0 || index === themeIssues.length - 1 ? "(max-width:700px) calc(100vw - 40px), 65vw" : "(max-width:700px) calc(100vw - 40px), 46vw"} />
               </div>
-              <div class="theme-issue-content">
+              {index > 0 && index < themeIssues.length - 1 ? (
+                <div class="theme-mask-copy">
+                  <div class="theme-mask-meta"><span>{String(index + 1).padStart(2, "0")}</span><span>{issue.photos.length} 张照片</span></div>
+                  <h3 class="theme-mask-title">{issue.title}</h3>
+                  <p class="theme-mask-en">{issue.en}</p>
+                  <span class="theme-mask-action">查看本期 <span class="theme-mask-arrow" aria-hidden="true">→</span></span>
+                </div>
+              ) : <div class="theme-issue-content">
                 <div class="theme-issue-heading"><span class="theme-issue-index">{String(index + 1).padStart(2, "0")}</span><h3>{issue.title}</h3><span class="theme-open" aria-hidden="true">↗</span></div>
                 <div class="theme-issue-meta"><span>{issue.en}</span><span>{issue.photos.length} 张照片</span></div>
                 <span class="theme-read">翻开这一辑 →</span>
-              </div>
+              </div>}
             </a>
           </article>
         ))}
@@ -218,4 +225,20 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .contribute-grid p { font-size:14px; }
     .official-contribute { padding-top:24px; }
   }
+  .theme-masked .theme-issue-link { position:relative; color:#fff; }
+  .theme-masked .theme-issue-visual { position:relative; }
+  .theme-masked .theme-issue-visual::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(13,13,11,.68) 0%,rgba(13,13,11,.52) 48%,rgba(13,13,11,0) 78%); pointer-events:none; }
+  .theme-mask-copy { position:absolute; inset:24px; z-index:1; display:flex; flex-direction:column; align-items:flex-start; pointer-events:none; }
+  .theme-mask-meta { display:flex; justify-content:space-between; gap:12px; width:100%; font-size:11px; line-height:1.4; letter-spacing:.06em; }
+  .theme-mask-title { margin:14px 0 6px; font:400 26px/1.3 var(--font-serif); }
+  .theme-mask-en { margin:0; font-size:11px; line-height:1.3; letter-spacing:.08em; color:rgba(255,255,255,.85); }
+  .theme-mask-action { display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-size:13px; line-height:1.5; }
+  .theme-mask-arrow { display:inline-block; transition:transform .2s ease; }
+  .theme-masked .theme-issue-link:hover .theme-mask-arrow { transform:translateX(3px); }
+  @media(max-width:700px) {
+    .theme-mask-copy { inset:16px; }
+    .theme-mask-title { margin:10px 0 4px; font-size:22px; }
+    .theme-mask-action { margin-top:10px; }
+  }
+  @media(prefers-reduced-motion:reduce) { .theme-mask-arrow { transition:none; } }
 </style>
