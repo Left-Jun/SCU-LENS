@@ -25,15 +25,16 @@ const {
   linkAuthors = true,
   showPhotoNumbers = true,
   showWorkType = true,
+  variant = "default",
 } = Astro.props;
 ---
 
 <BaseLayout title={`${title} · ${collectionName} · SCU LENS`} active={active}>
-  <div class="page-shell">
+  <div class:list={["page-shell", { "guangying-issue": variant === "guangying" }]}>
     <section class="page-hero issue-detail-hero">
       <div>
         <a class="back-link" href={backHref}>← {backLabel}</a>
-        <div class="eyebrow">{eyebrow}</div>
+        {variant !== "guangying" && <div class="eyebrow">{eyebrow}</div>}
         <h1 class="display">{title}</h1>
       </div>
     </section>
@@ -45,7 +46,7 @@ const {
     </section>
 
     <section class="section issue-statement">
-      <div><div class="eyebrow">Theme Archive · 主题档案</div></div>
+      {variant !== "guangying" && <div><div class="eyebrow">Theme Archive · 主题档案</div></div>}
       <div class="issue-statement-copy">
         {(Array.isArray(summary) ? summary : [summary]).map((paragraph) => <p>{paragraph}</p>)}
         {contributeHref && <a class="text-link" href={contributeHref}>查看征集与投稿方式 →</a>}
@@ -60,7 +61,7 @@ const {
               <img
                 src={work.browserSrc}
                 srcset={work.browserSrcset}
-                sizes="(max-width: 900px) 100vw, 920px"
+                sizes={variant === "guangying" ? "(max-width:1220px) calc(100vw - 40px), 1180px" : "(max-width: 900px) 100vw, 920px"}
                 alt={work.alt ?? `《${work.title}》· ${work.author}`}
                 width={work.width}
                 height={work.height}
@@ -150,5 +151,30 @@ const {
     .issue-photo.portrait { max-width:100%; }
     .issue-work-caption { flex-direction:column; align-items:flex-start; }
     .issue-next { grid-template-columns:1fr; }
+  }
+  .guangying-issue .issue-detail-hero { padding-bottom:24px; }
+  .guangying-issue .back-link { display:inline-flex; align-items:center; min-height:44px; margin-bottom:12px; }
+  .guangying-issue .issue-detail-hero h1 { margin-top:0; font-size:clamp(44px,6vw,72px); line-height:1.15; }
+  .guangying-issue .issue-detail-meta { flex-wrap:wrap; gap:8px 24px; padding-block:16px; font-size:12px; }
+  .guangying-issue .issue-statement { display:block; padding-block:24px; }
+  .guangying-issue .issue-statement-copy { gap:8px; }
+  .guangying-issue .issue-statement-copy > p { font-size:14px; line-height:1.85; }
+  .guangying-issue .issue-statement-copy > a { display:inline-flex; align-items:center; justify-self:start; min-height:44px; font-size:13px; }
+  .guangying-issue .issue-work-list { display:grid; gap:40px; padding-bottom:48px; }
+  .guangying-issue .issue-work { padding:0; border:0; }
+  .guangying-issue .issue-photo { background:none; }
+  .guangying-issue .issue-work-caption { padding-top:8px; gap:8px; }
+  .guangying-issue .issue-work-caption h2 { margin:0 0 4px; font-size:18px; line-height:1.5; }
+  .guangying-issue .issue-work-caption p { font-size:12px; line-height:1.7; }
+  .guangying-issue .issue-next { padding-block:48px; }
+  .guangying-issue .issue-next h2 { font-size:clamp(24px,3vw,36px); line-height:1.3; }
+  .guangying-issue .issue-next a { display:inline-flex; align-items:center; min-height:44px; }
+  @media(max-width:700px) {
+    .guangying-issue .issue-detail-hero { padding-top:24px; padding-bottom:20px; }
+    .guangying-issue .issue-detail-hero h1 { font-size:44px; }
+    .guangying-issue .issue-statement { padding-block:20px; }
+    .guangying-issue .issue-work-list { gap:24px; padding-bottom:32px; }
+    .guangying-issue .issue-work-caption h2 { font-size:16px; }
+    .guangying-issue .issue-next { padding-block:32px; gap:12px; }
   }
 </style>

@@ -13,12 +13,10 @@ const { exhibition, issue }: Props = Astro.props;
   <div class="page-shell exhibition-page">
     <a class="back-link text-link" href="/guangying-chuanda#awards">← 返回展览目录</a>
     <header class="exhibition-heading">
-      <div class="eyebrow">Light &amp; Life at SCU · Exhibition</div>
       <h1>{exhibition.title}</h1>
-      <p class="exhibition-count">{exhibition.count} 张照片</p>
-      <p>{exhibition.description}</p>
+      <p class="exhibition-count">{exhibition.count} 张照片 · 往期画册</p>
     </header>
-    <p class="collection-call">光影川大持续征集校园影像，欢迎记录川大的风景与日常。<a class="text-link" href="/guangying-chuanda#contribute">查看投稿方式 →</a></p>
+    <div class="collection-call"><p>光影川大持续征集校园影像，欢迎记录川大的风景与日常。</p><a class="text-link" href="/guangying-chuanda#contribute">查看投稿方式 →</a></div>
     {exhibition.sections.length > 1 && <nav class="chapter-links" aria-label="展览主题">{exhibition.sections.map(section => <a href={`#${section.id}`}>{section.title}<span>{section.photos.length}</span></a>)}</nav>}
     {exhibition.sections.map((section, index) => (
       <section class="exhibition-chapter" id={section.id} aria-labelledby={`${section.id}-title`}>
@@ -26,20 +24,24 @@ const { exhibition, issue }: Props = Astro.props;
         <GuangyingPhotoGrid exhibition={exhibition} section={section} priority={index === 0} />
       </section>
     ))}
-    <a class="text-link" href="/guangying-chuanda#awards">← 返回展览目录</a>
+    <a class="back-link text-link" href="/guangying-chuanda#awards">← 返回展览目录</a>
   </div>
 </BaseLayout>}
 <style>
-  .back-link { display:inline-block; margin-bottom:32px; font-size:.8rem; }
-  .exhibition-heading { max-width:760px; margin-bottom:32px; }
-  h1 { margin:12px 0 14px; font:400 clamp(2.4rem,6vw,5rem)/1.15 var(--font-serif); }
+  .exhibition-page { padding-top:var(--space-page-top); }
+  .back-link { display:inline-flex; align-items:center; min-height:44px; margin-bottom:12px; font-size:.8rem; }
+  .exhibition-heading { margin-bottom:0; }
+  h1 { margin:0; padding-bottom:24px; font:400 clamp(44px,6vw,72px)/1.15 var(--font-serif); }
   .exhibition-heading p { color:var(--muted); font-size:.9rem; margin:10px 0 0; }
-  .exhibition-heading .exhibition-count { color:var(--ink); font-size:.78rem; }
-  .chapter-links { display:flex; flex-wrap:wrap; gap:12px 26px; padding:18px 0; border-block:1px solid var(--line); margin-bottom:36px; }
-  .chapter-links a { font-size:.85rem; } .chapter-links span { margin-left:8px; color:var(--muted); font-size:.68rem; }
+  .exhibition-heading .exhibition-count { color:var(--muted); font-size:12px; margin:0; padding-block:16px; border-top:1px solid var(--line); }
+  .collection-call { padding-block:24px; border-top:1px solid var(--line); }
+  .collection-call p { margin:0 0 8px; font-size:14px; line-height:1.85; color:var(--muted); }
+  .collection-call a { display:inline-flex; align-items:center; min-height:44px; font-size:13px; }
+  .chapter-links { display:flex; flex-wrap:wrap; gap:4px 26px; padding:12px 0; border-block:1px solid var(--line); margin-bottom:24px; }
+  .chapter-links a { display:inline-flex; align-items:center; min-height:44px; font-size:.85rem; } .chapter-links span { margin-left:8px; color:var(--muted); font-size:.68rem; }
   .exhibition-chapter { scroll-margin-top:110px; margin-bottom:48px; }
   .chapter-heading { display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:18px 0; border-top:1px solid var(--line); }
   h2 { margin:0; font:400 clamp(1.5rem,3vw,2.2rem)/1.3 var(--font-serif); }
   .chapter-heading > span { font-size:.72rem; color:var(--muted); }
-  @media(max-width:700px) { .back-link { margin-bottom:24px; } .chapter-links { gap:12px 20px; } .exhibition-chapter { margin-bottom:30px; } }
+  @media(max-width:700px) { .exhibition-page { padding-top:24px; } h1 { padding-bottom:20px; font-size:44px; } .collection-call { padding-block:20px; } .chapter-links { gap:4px 20px; } .exhibition-chapter { margin-bottom:32px; } }
 </style>

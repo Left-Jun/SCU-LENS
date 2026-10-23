@@ -15,9 +15,9 @@ const viewerItems = issue.photos.map(photo => ({ src: photo.viewerSrc, original:
   title: photo.title, author: photo.author, alt: [photo.title, photo.author].filter(Boolean).join(" · ") || "光影川大校园影像", kicker: issue.title,
   section: photo.section, date: photo.date }));
 ---
-<MonthlyIssuePage title={issue.title} en={issue.en} collectionName="光影川大" active="/guangying-chuanda"
+<MonthlyIssuePage variant="guangying" title={issue.title} en={issue.en} collectionName="光影川大" active="/guangying-chuanda"
   eyebrow={`Light & Life at SCU · ${issue.en}`} backLabel="返回光影川大" backHref="/guangying-chuanda#awards"
   countLabel={`${issue.photos.length} 张照片 · ${issue.source}`}
-  summary={[`本主题收录${issue.source}中的 ${issue.photos.length} 张校园影像。`, "光影川大持续征集与四川大学有关的摄影作品，欢迎记录校园风景与日常。优秀作品有机会参与线下展览及官方文创制作。"]}
+  summary="光影川大持续征集校园影像，欢迎用镜头记录川大的风景与日常。"
   contributeHref="/guangying-chuanda#contribute" linkAuthors={false} showPhotoNumbers={false} showWorkType={false} works={works} viewerItems={viewerItems} viewerGroup={`guangying-issue-${issue.slug}`}
   nextTitle={next?.title} nextHref={next?.href ?? "/guangying-chuanda#awards"} />

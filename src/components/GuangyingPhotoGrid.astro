@@ -13,7 +13,7 @@ const group = `exhibition-${exhibition.slug}-${section.id}`;
   {section.photos.map((photo, index) => (
     <figure>
       <a href={photo.originalSrc} data-viewer-open={`${group}:${index}`} aria-label={`打开看图：${photo.title}`}>
-        <GalleryImage photo={photo} alt={[photo.title, photo.author].filter(Boolean).join(" · ")} sizes="(max-width:1000px) calc((100vw - 56px) / 2), 380px" priority={priority && index === 0} />
+        <GalleryImage photo={photo} alt={[photo.title, photo.author].filter(Boolean).join(" · ")} sizes="(max-width:1220px) calc(100vw - 40px), 1180px" priority={priority && index === 0} />
       </a>
       {!photo.captionInImage && (photo.title || photo.author) && <figcaption>{photo.title && <h3>{photo.title}</h3>}{photo.author && <p>摄影 / {photo.author}</p>}</figcaption>}
     </figure>
@@ -29,11 +29,12 @@ const group = `exhibition-${exhibition.slug}-${section.id}`;
 </div>
 <style>
   .photo-grid { display:block; }
-  figure { min-width:0; margin:0 0 48px; }
+  figure { min-width:0; margin:0 0 40px; }
+  figure:last-child { margin-bottom:0; }
   a { display:block; cursor:zoom-in; }
   a :global(.gallery-responsive-picture img) { width:100%; height:auto; }
-  figcaption { padding-top:10px; }
-  h3 { margin:0; font:400 .95rem/1.5 var(--font-serif); overflow-wrap:anywhere; }
-  p { margin:3px 0 0; font-size:.72rem; color:var(--muted); }
-  @media(max-width:700px) { figure { margin-bottom:32px; } h3 { font-size:1.3rem; } }
+  figcaption { padding-top:8px; }
+  h3 { margin:0; font:400 18px/1.5 var(--font-serif); overflow-wrap:anywhere; }
+  p { margin:4px 0 0; font-size:12px; line-height:1.7; color:var(--muted); }
+  @media(max-width:700px) { figure { margin-bottom:24px; } h3 { font-size:16px; } }
 </style>

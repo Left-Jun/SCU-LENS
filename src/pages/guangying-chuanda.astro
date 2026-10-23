@@ -16,7 +16,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
       <div class="opening-main">
         <div class="opening-brand">
           <h1 class="guangying-heading"><img class="guangying-logo" src="/images/guangying-chuanda/logo.svg" alt="光影川大" width="160" height="193" fetchpriority="high" /></h1>
-          <span class="eyebrow">光影川大 × 四川大学摄影协会 · 联合征稿</span>
+          <span class="eyebrow">联合征稿</span>
         </div>
         <div class="opening-copy">
           <div class="opening-kicker"><span class="eyebrow">Current Call · 本期征集</span><span class="call-status">长期开放</span></div>
@@ -71,7 +71,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
         </div>
       </div>
       <details class="call-notes">
-        <summary>本期征集说明<span>长期开放 · 查看作品要求与展示机会 ＋</span></summary>
+        <summary>本期征集说明<span>长期开放 · 查看作品要求与展示机会 <i class="call-note-toggle" aria-hidden="true"></i></span></summary>
         <dl class="call-details">
           <div><dt>征集内容</dt><dd>与四川大学有关，能辨识出川大场景或相关符号的校园摄影作品。</dd></div>
           <div><dt>作品要求</dt><dd>内容积极、画面美观，记录真实的校园生活。</dd></div>
@@ -97,12 +97,12 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   </div>
 </BaseLayout>
 <style>
-  .guangying-opening { padding:clamp(28px,4vw,48px) 0 34px; }
+  .guangying-opening { padding:48px 0; }
   .opening-main { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr); grid-template-rows:auto 1fr; gap:30px clamp(28px,5vw,70px); align-items:start; }
   .opening-brand { display:flex; align-items:flex-end; gap:20px; grid-column:1; grid-row:1; }
   .guangying-heading { margin:0; line-height:1; }
   .guangying-logo { display:block; width:auto; height:88px; max-width:100%; }
-  .opening-brand .eyebrow { max-width:220px; padding-bottom:3px; font-size:.56rem; line-height:1.6; letter-spacing:.05em; text-wrap:balance; }
+  .opening-brand .eyebrow { max-width:220px; padding-bottom:3px; font-size:11px; line-height:1.6; letter-spacing:.05em; text-wrap:balance; }
   .opening-copy { grid-column:1; grid-row:2; align-self:end; padding-bottom:24px; }
   .opening-kicker { display:flex; align-items:center; flex-wrap:wrap; gap:14px; }
   .opening-kicker .eyebrow { font-size:.6rem; }
@@ -114,7 +114,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .current-actions .text-link { color:var(--muted); font-size:.72rem; }
   .opening-photograph { grid-column:2; grid-row:1 / span 2; margin:0; }
   .opening-photograph :global(img) { width:100%; height:auto; }
-  .opening-photograph figcaption { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:12px; font-size:.62rem; line-height:1.6; color:var(--muted); }
+  .opening-photograph figcaption { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:8px; font-size:11px; line-height:1.6; color:var(--muted); }
   .current-submissions:not(:empty) { margin-top:26px; }
   .theme-issue-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px 30px; }
   .theme-issue-link { display:block; }
@@ -122,7 +122,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .theme-issue-content { padding-top:16px; }
   .theme-issue-heading { display:flex; align-items:center; gap:12px; }
   .theme-issue-index { font-size:.65rem; color:var(--muted); letter-spacing:.08em; }
-  .theme-issue-heading h3 { margin:0; font:400 clamp(1.5rem,2.6vw,2.1rem)/1.2 var(--font-serif); }
+  .theme-issue-heading h3 { margin:0; font:400 26px/1.3 var(--font-serif); }
   .theme-open { margin-left:auto; font-size:1.2rem; transition:transform .2s ease; }
   .theme-issue-link:hover .theme-open { transform:translate(2px,-2px); }
   .theme-issue-meta { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:10px; font-size:.62rem; letter-spacing:.06em; color:var(--muted); }
@@ -132,7 +132,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .theme-feature .theme-issue-content { padding:0; }
   .theme-feature .theme-issue-heading { flex-wrap:wrap; gap:18px; }
   .theme-feature .theme-issue-index { width:100%; }
-  .theme-feature h3 { font-size:clamp(2rem,3.5vw,3.3rem); }
+  .theme-feature h3 { font-size:44px; }
   .theme-feature .theme-open { display:none; }
   .theme-feature .theme-issue-meta { justify-content:flex-start; flex-direction:column; gap:18px; margin-top:18px; }
   .theme-feature .theme-read { display:inline-block; margin-top:30px; padding-bottom:5px; border-bottom:1px solid var(--line); font-size:.75rem; }
@@ -152,15 +152,15 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .guangying-logo { height:160px; }
   }
   @media(max-width:700px) {
-    .guangying-opening { padding:24px 0 28px; }
+    .guangying-opening { padding:32px 0; }
     .opening-main { grid-template-columns:72px minmax(0,1fr); grid-template-rows:auto; gap:10px 20px; }
     .opening-brand,.opening-copy { display:contents; }
     .guangying-heading { grid-column:1; grid-row:1 / span 2; align-self:center; }
     .guangying-logo { height:88px; }
-    .opening-brand .eyebrow { grid-column:2; grid-row:1; align-self:end; max-width:none; padding:0; font-size:.55rem; letter-spacing:.1em; }
+    .opening-brand .eyebrow { grid-column:2; grid-row:1; align-self:end; max-width:none; padding:0; font-size:11px; letter-spacing:.05em; }
     .opening-copy h2 { grid-column:2; grid-row:2; margin:0; font-size:clamp(1.7rem,7.5vw,2.15rem); line-height:1.18; }
     .opening-photograph { grid-column:1 / -1; grid-row:3; margin-top:10px; }
-    .opening-photograph figcaption { margin-top:8px; font-size:.65rem; line-height:1.7; }
+    .opening-photograph figcaption { margin-top:8px; font-size:11px; line-height:1.7; }
     .opening-kicker { grid-column:1 / -1; grid-row:4; margin-top:10px; gap:12px; }
     .opening-copy > p { grid-column:1 / -1; grid-row:5; max-width:none; font-size:.82rem; line-height:1.85; margin:0; }
     .current-actions { grid-column:1 / -1; grid-row:6; gap:24px; margin-top:4px; }
@@ -170,7 +170,8 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .theme-issue-content,.theme-feature .theme-issue-content { padding-top:12px; }
     .theme-feature .theme-issue-heading { flex-wrap:nowrap; gap:12px; }
     .theme-feature .theme-issue-index { width:auto; }
-    .theme-feature h3 { font-size:1.65rem; }
+    .theme-issue-heading h3 { font-size:22px; }
+    .theme-feature h3 { font-size:26px; }
     .theme-feature .theme-open { display:inline; }
     .theme-feature .theme-issue-meta { flex-direction:row; justify-content:space-between; gap:8px; margin-top:10px; }
     .theme-feature .theme-read { display:none; }
@@ -194,5 +195,27 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .channel-contribute { padding-right:0; }
     .official-contribute { padding:24px 0 0; border-left:0; border-top:1px solid var(--line); }
 
+  }
+  .section { padding-block:48px; }
+  .section-display { font-size:clamp(32px,4vw,56px); line-height:1.2; }
+  .section-kicker-row { margin-bottom:24px; align-items:end; }
+  .theme-issue-heading { min-height:36px; }
+  .theme-issue-content { min-width:0; }
+  .contribute-grid h3,.official-contribute h3 { margin:0 0 14px; font-size:26px; line-height:1.3; }
+  .channel-recommendation { display:block; margin-bottom:12px; }
+  .contribute-grid p { margin:0 0 16px; font-size:14px; line-height:1.85; color:var(--muted); }
+  .contribute-grid a { display:inline-flex; align-items:center; min-height:44px; }
+  .official-contribute { padding-top:29px; }
+  .call-note-toggle { display:inline-block; width:1em; font-style:normal; text-align:center; }
+  .call-note-toggle::before { content:"＋"; }
+  .call-notes[open] .call-note-toggle::before { content:"−"; }
+  .call-notes summary { min-height:44px; align-items:center; }
+  @media(max-width:700px) {
+    .section { padding-block:32px; }
+    .section-display { font-size:32px; }
+    .section-kicker-row { margin-bottom:20px; gap:12px; align-items:flex-start; }
+    .contribute-grid h3,.official-contribute h3 { font-size:22px; }
+    .contribute-grid p { font-size:14px; }
+    .official-contribute { padding-top:24px; }
   }
 </style>
