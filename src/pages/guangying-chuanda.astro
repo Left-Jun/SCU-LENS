@@ -2,13 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SubmissionCodeDialog from "../components/SubmissionCodeDialog.astro";
 import GuangyingFeaturedStrip from "../components/GuangyingFeaturedStrip.astro";
-import { featuredPhotos, featuredPreview } from "../lib/guangying-featured";
+
 
 import { exhibitions, guangyingPhoto } from "../lib/guangying-exhibitions";
 const openingPhoto = guangyingPhoto("7207c5023eaf61d6bd2b");
-const openingPhotos = [openingPhoto, ...featuredPhotos.filter(photo => photo.id !== openingPhoto.id)];
+const album = exhibitions.find(exhibition => exhibition.slug === "album")!;
+const albumPhotos = album.sections.flatMap(section => section.photos);
 const calendar = exhibitions.find(exhibition => exhibition.slug === "calendar")!;
 const calendarPhotos = calendar.sections.flatMap(section => section.photos);
+const openingPhotos = [...new Map([openingPhoto, ...albumPhotos, ...calendarPhotos].map(photo => [photo.id, photo])).values()];
 const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 ---
@@ -34,11 +36,11 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
         <div><div class="eyebrow">Selected Photographs</div><h2 class="section-display" id="awards-title">往期影像</h2></div>
         <p>看看镜头里的川大，也欢迎投来你的作品。</p>
       </div>
-      <GuangyingFeaturedStrip photos={featuredPhotos} preview={featuredPreview} />
+      <GuangyingFeaturedStrip photos={albumPhotos} />
     </section>
     <section class="section calendar-section" id="calendar" aria-labelledby="calendar-title">
-      <div class="calendar-intro"><div class="eyebrow">Calendar Collection</div><h2 class="section-display" id="calendar-title">台历选图</h2><p class="calendar-statement">川大，<br />四时入历。</p><p>让校园里的光景，<br />陪伴日常的每一页。</p></div>
-      <GuangyingFeaturedStrip photos={calendarPhotos.slice(0,6)} groupId="guangying-calendar-preview" allHref="/guangying-chuanda/calendar" />
+      <div class="calendar-intro"><div class="eyebrow">Calendar Collection</div><h2 class="section-display" id="calendar-title">台历选图</h2><p>让校园里的光景，<br />陪伴日常的每一页。</p></div>
+      <GuangyingFeaturedStrip photos={calendarPhotos} groupId="guangying-calendar-preview" allHref="/guangying-chuanda/calendar" />
     </section>
     <section class="section contribute-section" id="contribute" aria-labelledby="contribute-title">
       <span id="submissions" class="submission-anchor" aria-hidden="true"></span>
@@ -48,14 +50,14 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
           <h2 class="section-display" id="contribute-title">投来你的<br class="desktop-break" />川大影像。</h2><p class="contribute-intro">长期征集 · 选择一种方式投稿即可</p>
         </div>
       </div>
-      <details class="call-notes">
-        <summary>本期征集说明<span>长期开放 · 查看作品要求与展示机会 <i class="call-note-toggle" aria-hidden="true"></i></span></summary>
+      <div class="call-notes" aria-labelledby="call-notes-title">
+        <h3 id="call-notes-title">本期征集说明</h3>
         <dl class="call-details">
           <div><dt>征集内容</dt><dd>与四川大学有关，能辨识出川大场景或相关符号的校园摄影作品。</dd></div>
           <div><dt>作品要求</dt><dd>内容积极、画面美观，记录真实的校园生活。</dd></div>
           <div><dt>展示机会</dt><dd>优秀作品有机会入选线下展览，或用于川大官方文创制作。</dd></div>
         </dl>
-      </details>
+      </div>
       <div class="contribute-grid">
         <div class="channel-contribute" aria-labelledby="channel-title">
           <span class="channel-recommendation">协会合作征集</span>
@@ -99,13 +101,11 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .contribute-section>.section-kicker-row{display:block;grid-column:1;grid-row:1/span 3;margin:0}.contribute-section .section-display{font-size:clamp(32px,3.3vw,44px);line-height:1.3}.contribute-intro{font-size:12px;line-height:1.8;color:var(--muted);margin:20px 0 0}
   .call-notes,.contribute-grid,.contribute-note{grid-column:2;min-width:0}
   .call-notes{margin:0;border-bottom:1px solid var(--line)}.call-notes summary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding:0 0 16px;cursor:pointer;list-style:none;font-size:13px}.call-notes summary::-webkit-details-marker{display:none}.call-notes summary span{font-size:11px;color:var(--muted)}
-  .call-note-toggle{font-style:normal}.call-note-toggle::before{content:"＋"}.call-notes[open] .call-note-toggle::before{content:"−"}
   .call-details{display:grid;grid-template-columns:1fr;gap:14px;margin:0 0 20px}.call-details>div{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px}.call-details dt{font-size:12px}.call-details dd{margin:0;font-size:12px;line-height:1.8;color:var(--muted)}
   .contribute-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}.contribute-grid h3{font:400 24px/1.3 var(--font-serif);margin:8px 0 16px}.channel-recommendation{display:block;font-size:11px;color:var(--muted);margin-bottom:8px}.contribute-grid p{font-size:13px;color:var(--muted);line-height:1.85;margin:0 0 16px}.contribute-grid .contribution-flow{font-size:11px;color:var(--ink)}
   .contribute-grid a{display:inline-flex;align-items:center;min-height:44px;font-size:13px}.official-contribute{border-left:1px solid var(--line);padding-left:28px}.official-contribute h3{margin-top:27px}
   .contribute-note{margin:0;padding-top:18px;border-top:1px solid var(--line);font-size:11px;line-height:1.8;color:var(--muted)}
   .submission-anchor{position:absolute;top:0;left:0}
-  summary:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
   @media(min-width:1100px){.guangying-logo{height:160px}}
   @media(min-width:701px) and (max-width:1000px){.contribute-section{grid-template-columns:1fr;gap:24px}.contribute-section>.section-kicker-row{grid-row:auto;grid-column:1}.contribute-section .section-display br{display:none}.call-notes,.contribute-grid,.contribute-note{grid-column:1}.contribute-intro{margin-top:12px}}
   @media(max-width:700px){
@@ -116,4 +116,16 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .contribute-section{grid-template-columns:1fr;gap:22px}.contribute-section>.section-kicker-row{grid-column:1;grid-row:auto}.contribute-section .section-display{font-size:32px}.desktop-break{display:none}.contribute-intro{margin-top:12px}.call-notes,.contribute-grid,.contribute-note{grid-column:1}.call-notes summary{flex-wrap:wrap}.call-details>div{gap:10px}
     .contribute-grid{grid-template-columns:1fr;gap:22px}.contribute-grid h3{font-size:24px}.official-contribute{padding:22px 0 0;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) 132px;column-gap:16px;align-content:start}.official-contribute h3{margin:0 0 12px;grid-column:1}.official-contribute>p{grid-column:1;font-size:12px;margin:0}.official-contribute :global(.submission-code){grid-column:2;grid-row:1/span 2;margin:0}.official-contribute :global(.submission-code figcaption){font-size:10px}.contribute-note{padding-top:16px}
   }
+
+  .call-notes h3{margin:0 0 18px;font-size:13px;font-weight:500}
+  @media(min-width:701px){
+    .calendar-section{display:block;background:none}.calendar-section::before{display:none}
+    .calendar-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.75fr);column-gap:24px;align-items:end;margin-bottom:28px}
+    .calendar-intro>.eyebrow{grid-column:1;grid-row:1}.calendar-intro .section-display{grid-column:1;grid-row:2;font-size:clamp(32px,4vw,54px)}
+    .calendar-intro>p:not(.calendar-statement){grid-column:2;grid-row:1/span 2;justify-self:end;font-size:13px}.calendar-intro>p br{display:none}
+    .contribute-section{display:block}.contribute-section>.section-kicker-row{display:block;margin-bottom:30px}.contribute-section .section-display{font-size:clamp(32px,4vw,54px)}.desktop-break{display:none}.contribute-intro{margin:14px 0 0}
+    .call-notes{border-block:1px solid var(--line);padding:22px 0;margin-bottom:30px}.call-details{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:0}.call-details>div{display:block}.call-details dt{margin-bottom:8px}.call-details dd{font-size:13px}
+    .contribute-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;margin-bottom:28px}.contribute-grid h3{font-size:28px}.channel-contribute{padding-right:16px}.official-contribute{display:grid;grid-template-columns:minmax(0,1fr) 156px;column-gap:24px;padding-left:36px}.official-contribute h3{grid-column:1;margin-top:27px}.official-contribute>p{grid-column:1}.official-contribute :global(.submission-code){grid-column:2;grid-row:1/span 2;margin:0;align-self:start}.contribute-grid p{font-size:14px}
+  }
+  @media(max-width:700px){.call-notes{border-block:1px solid var(--line);padding:18px 0}.calendar-intro>p br{display:none}}
 </style>

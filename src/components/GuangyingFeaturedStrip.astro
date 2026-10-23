@@ -34,7 +34,17 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
     const total=Number(root.dataset.count);
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');
     let active=0,position=0,visible=false;
+    const prepare=(index:number)=>{
+      const image=images[index];
+      image?.querySelectorAll<HTMLPictureElement>('picture[data-gallery-lazy="pending"]').forEach(picture=>{
+        picture.querySelectorAll<HTMLSourceElement>('source[data-srcset]').forEach(source=>{source.srcset=source.dataset.srcset||'';source.removeAttribute('data-srcset');});
+        const img=picture.querySelector<HTMLImageElement>('img[data-src]');
+        if(img){img.loading='eager';if(img.dataset.srcset)img.srcset=img.dataset.srcset;img.src=img.dataset.src||'';img.removeAttribute('data-src');img.removeAttribute('data-srcset');}
+        picture.dataset.galleryLazy='loaded';
+      });
+    };
     const move=(index:number,animate=true)=>{
+      prepare(index);prepare((index+1)%images.length);
       position=index;
       track.style.transition=animate&&!reduced.matches?'transform 650ms cubic-bezier(.22,.61,.36,1)':'none';
       track.style.transform=`translate3d(${-index*100}%,0,0)`;
@@ -46,7 +56,7 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
       captions.forEach((caption,i)=>caption.hidden=i!==active);
       thumbs.forEach((thumb,i)=>thumb.setAttribute('aria-pressed',String(i===active)));
       const strip=root.querySelector<HTMLElement>('.showcase-thumbs');
-      if(strip&&thumbs[active])strip.scrollTo({left:Math.max(0,thumbs[active].offsetLeft-strip.offsetLeft-(strip.clientWidth-thumbs[active].clientWidth)/2),behavior:reduced.matches?'instant':'smooth'});
+      if(strip&&thumbs[active])strip.scrollTo({left:Math.max(0,thumbs[active].offsetLeft-(strip.clientWidth-thumbs[active].clientWidth)/2),behavior:reduced.matches?'instant':'smooth'});
       if(count)count.textContent=`${String(active+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
     };
     track.addEventListener('transitionend',event=>{if(event.target===track&&position===total)move(0,false);});
@@ -54,7 +64,7 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
     const restart=()=>{clearInterval(timer);if(total>1)timer=setInterval(()=>{if(!reduced.matches&&visible&&!document.hidden&&!document.documentElement.classList.contains('viewer-open'))show(active+1,true);},7000);};
     thumbs.forEach((thumb,i)=>thumb.addEventListener('click',()=>{show(i);restart();}));
     root.querySelector('.showcase-stage')?.addEventListener('keydown',event=>{const key=(event as KeyboardEvent).key;if(!document.documentElement.classList.contains('viewer-open')&&(key==='ArrowLeft'||key==='ArrowRight')){event.preventDefault();show(active+(key==='ArrowRight'?1:-1));restart();}});
-    new IntersectionObserver(entries=>visible=entries[0].isIntersecting).observe(root);
+    new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){prepare(position);prepare((position+1)%images.length);}}).observe(root);
     reduced.addEventListener('change',()=>{move(active,false);restart();});
     restart();
   });
