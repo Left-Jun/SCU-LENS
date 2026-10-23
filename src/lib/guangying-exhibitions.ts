@@ -14,6 +14,8 @@ const resolve = (id: string) => {
   if (!photo) throw new Error(`展览引用的照片不存在：${id}`);
   return photo;
 };
+export const guangyingPhoto = resolve;
+export type GuangyingPhoto = ReturnType<typeof resolve>;
 export const exhibitions = manifest.map(exhibition => ({
   ...exhibition,
   href: `/guangying-chuanda/${exhibition.slug}`,

@@ -1,16 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SubmissionCodeDialog from "../components/SubmissionCodeDialog.astro";
-import GuangyingWorkList from "../components/GuangyingWorkList.astro";
-import { collections } from "../lib/guangying-chuanda";
+import GuangyingFeaturedStrip from "../components/GuangyingFeaturedStrip.astro";
+import { featuredPhotos, featuredPreview } from "../lib/guangying-featured";
 import GalleryImage from "../components/GalleryImage.astro";
-import { themeIssues } from "../lib/guangying-exhibitions";
-const openingPhoto = themeIssues.flatMap(issue => issue.photos).find(photo => photo.id === "7207c5023eaf61d6bd2b")!;
-const submissions = collections.find((collection) => collection.id === "submissions")!;
+import { guangyingPhoto } from "../lib/guangying-exhibitions";
+const openingPhoto = guangyingPhoto("7207c5023eaf61d6bd2b");
 const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 ---
-<BaseLayout title="光影川大 · SCU LENS" description="光影川大本期征稿、往期展览与投稿入口，记录四川大学的校园影像。" active="/guangying-chuanda">
+<BaseLayout title="光影川大 · SCU LENS" description="光影川大联合征稿与投稿入口，记录四川大学的校园影像。" active="/guangying-chuanda">
   <div class="page-shell">
     <section class="guangying-opening" aria-labelledby="current-call-title">
       <div class="opening-main">
@@ -22,55 +21,16 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
           <div class="opening-kicker"><span class="eyebrow">Current Call · 本期征集</span><span class="call-status">长期开放</span></div>
           <h2 id="current-call-title">看见川大，<br />留住此刻。</h2>
           <p>光穿过校园，也经过我们的日常。<br />持续征集校园影像，留下你眼中的川大。</p>
-          <div class="current-actions"><a class="current-submit" href="#contribute">参与本期征集 →</a><a class="text-link" href="#awards">回看往期主题 ↓</a></div>
+          <div class="current-actions"><a class="current-submit" href="#contribute">参与本期征集 →</a><a class="text-link" href="#awards">看看往期影像 ↓</a></div>
         </div>
         <figure class="opening-photograph">
           <GalleryImage photo={openingPhoto} alt="逆光下的江安校门，一位骑车人经过门前" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1280px) 60vw, 740px" priority />
           <figcaption><span>《{openingPhoto.title}》{openingPhoto.author ? ` · ${openingPhoto.author}` : ""}</span><span>选自往期画册</span></figcaption>
         </figure>
       </div>
-      <div class="current-submissions" id="submissions">
-        {submissions.photoCount > 0 ? (
-          <>
-            <p class="collection-count">本期协会投稿 · {submissions.works.length} 组作品 · {submissions.photoCount} 张照片</p>
-            <GuangyingWorkList collection={submissions} priority />
-          </>
-        ) : null}
-      </div>
-    </section>
-    <section class="section collection-section" id="awards" aria-labelledby="awards-title">
-      <div class="section-kicker-row">
-        <div>
-          <div class="eyebrow">Archive · Earlier Exhibitions</div>
-          <h2 class="section-display" id="awards-title">往期展览</h2>
-        </div>
-        <p>按主题回看川大影像，打开每一期，慢慢看。</p>
-      </div>
-      <div class="theme-issue-list">
-        {themeIssues.map((issue, index) => (
-          <article class:list={["theme-issue-card", { "theme-feature": index === 0 || index === themeIssues.length - 1, "theme-finale": index === themeIssues.length - 1, "theme-masked": index > 0 && index < themeIssues.length - 1 }]}>
-            <a class="theme-issue-link" href={issue.href}>
-              <div class="theme-issue-visual">
-                <GalleryImage photo={issue.cover} alt={issue.cover.title || issue.title} sizes={index === 0 || index === themeIssues.length - 1 ? "(max-width:700px) calc(100vw - 40px), 65vw" : "(max-width:700px) calc(100vw - 40px), 46vw"} />
-              </div>
-              {index > 0 && index < themeIssues.length - 1 ? (
-                <div class="theme-mask-copy">
-                  <div class="theme-mask-meta"><span>{String(index + 1).padStart(2, "0")}</span><span>{issue.photos.length} 张照片</span></div>
-                  <h3 class="theme-mask-title">{issue.title}</h3>
-                  <p class="theme-mask-en">{issue.en}</p>
-                  <span class="theme-mask-action">查看本期 <span class="theme-mask-arrow" aria-hidden="true">→</span></span>
-                </div>
-              ) : <div class="theme-issue-content">
-                <div class="theme-issue-heading"><span class="theme-issue-index">{String(index + 1).padStart(2, "0")}</span><h3>{issue.title}</h3><span class="theme-open" aria-hidden="true">↗</span></div>
-                <div class="theme-issue-meta"><span>{issue.en}</span><span>{issue.photos.length} 张照片</span></div>
-                <span class="theme-read">翻开这一辑 →</span>
-              </div>}
-            </a>
-          </article>
-        ))}
-      </div>
     </section>
     <section class="section contribute-section" id="contribute" aria-labelledby="contribute-title">
+      <span id="submissions" class="submission-anchor" aria-hidden="true"></span>
       <div class="section-kicker-row">
         <div>
           <div class="eyebrow">Contribute · Two Ways to Submit</div>
@@ -101,9 +61,17 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
       </div>
       <p class="contribute-note">同一作品选择一种方式提交即可，两个入口的投稿不会自动同步。</p>
     </section>
+    <section class="section featured-section" id="awards" aria-labelledby="awards-title">
+      <div class="section-kicker-row">
+        <div><div class="eyebrow">Campus Photography</div><h2 class="section-display" id="awards-title">往期影像</h2></div>
+        <p>看看镜头里的川大，也欢迎投来你的作品。</p>
+      </div>
+      <GuangyingFeaturedStrip photos={featuredPhotos} preview={featuredPreview} />
+    </section>
   </div>
 </BaseLayout>
 <style>
+  :global(body:has(.featured-section)) { min-width:0; }
   .guangying-opening { padding:48px 0; }
   .opening-main { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr); grid-template-rows:auto 1fr; gap:30px clamp(28px,5vw,70px); align-items:start; }
   .opening-brand { display:flex; align-items:flex-end; gap:20px; grid-column:1; grid-row:1; }
@@ -122,31 +90,6 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .opening-photograph { grid-column:2; grid-row:1 / span 2; margin:0; }
   .opening-photograph :global(img) { width:100%; height:auto; }
   .opening-photograph figcaption { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:8px; font-size:11px; line-height:1.6; color:var(--muted); }
-  .current-submissions:not(:empty) { margin-top:26px; }
-  .theme-issue-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px 30px; }
-  .theme-issue-link { display:block; }
-  .theme-issue-visual :global(picture),.theme-issue-visual :global(img) { display:block; width:100%; height:auto; }
-  .theme-issue-content { padding-top:16px; }
-  .theme-issue-heading { display:flex; align-items:center; gap:12px; }
-  .theme-issue-index { font-size:.65rem; color:var(--muted); letter-spacing:.08em; }
-  .theme-issue-heading h3 { margin:0; font:400 26px/1.3 var(--font-serif); }
-  .theme-open { margin-left:auto; font-size:1.2rem; transition:transform .2s ease; }
-  .theme-issue-link:hover .theme-open { transform:translate(2px,-2px); }
-  .theme-issue-meta { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:10px; font-size:.62rem; letter-spacing:.06em; color:var(--muted); }
-  .theme-read { display:none; }
-  .theme-feature { grid-column:1 / -1; }
-  .theme-feature .theme-issue-link { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); align-items:center; gap:clamp(26px,5vw,64px); }
-  .theme-feature .theme-issue-content { padding:0; }
-  .theme-feature .theme-issue-heading { flex-wrap:wrap; gap:18px; }
-  .theme-feature .theme-issue-index { width:100%; }
-  .theme-feature h3 { font-size:44px; }
-  .theme-feature .theme-open { display:none; }
-  .theme-feature .theme-issue-meta { justify-content:flex-start; flex-direction:column; gap:18px; margin-top:18px; }
-  .theme-feature .theme-read { display:inline-block; margin-top:30px; padding-bottom:5px; border-bottom:1px solid var(--line); font-size:.75rem; }
-  .theme-finale .theme-issue-link { grid-template-columns:minmax(0,1fr) minmax(0,1.6fr); }
-  .theme-finale .theme-issue-visual { grid-column:2; grid-row:1; }
-  .theme-finale .theme-issue-content { grid-column:1; grid-row:1; }
-  .theme-issue-link:focus-visible { outline:2px solid var(--ink); outline-offset:6px; }
   .call-notes { margin:0 0 28px; border-block:1px solid var(--line); }
   .call-notes summary { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding:18px 0; cursor:pointer; list-style:none; font-size:.85rem; }
   .call-notes summary::-webkit-details-marker { display:none; }
@@ -172,22 +115,9 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .opening-copy > p { grid-column:1 / -1; grid-row:5; max-width:none; font-size:.82rem; line-height:1.85; margin:0; }
     .current-actions { grid-column:1 / -1; grid-row:6; gap:24px; margin-top:4px; }
     .current-actions a { display:inline-flex; align-items:center; min-height:44px; padding-block:8px; }
-    .theme-issue-list { grid-template-columns:1fr; gap:30px; }
-    .theme-feature .theme-issue-link { display:block; }
-    .theme-issue-content,.theme-feature .theme-issue-content { padding-top:12px; }
-    .theme-feature .theme-issue-heading { flex-wrap:nowrap; gap:12px; }
-    .theme-feature .theme-issue-index { width:auto; }
-    .theme-issue-heading h3 { font-size:22px; }
-    .theme-feature h3 { font-size:26px; }
-    .theme-feature .theme-open { display:inline; }
-    .theme-feature .theme-issue-meta { flex-direction:row; justify-content:space-between; gap:8px; margin-top:10px; }
-    .theme-feature .theme-read { display:none; }
     .call-details { grid-template-columns:1fr; gap:18px; }
   }
-  @media(prefers-reduced-motion:reduce) { .theme-open { transition:none; } }
-  .current-submissions,.collection-section,.contribute-section { scroll-margin-top:110px; }
-  .collection-count { display:block; margin:8px 0 18px; color:var(--muted); font-size:.72rem; }
-  .collection-empty { margin:0; color:var(--muted); font-size:var(--font-body); }
+  .featured-section,.contribute-section,.submission-anchor { scroll-margin-top:110px; }
   .contribute-grid { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:clamp(28px,5vw,72px); align-items:start; }
   .contribute-grid h3 { margin:12px 0 18px; font:400 clamp(1.6rem,3vw,2.5rem)/1.15 var(--font-serif); }
   .channel-recommendation { color:var(--muted); font-size:.72rem; }
@@ -206,8 +136,6 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .section { padding-block:48px; }
   .section-display { font-size:clamp(32px,4vw,56px); line-height:1.2; }
   .section-kicker-row { margin-bottom:24px; align-items:end; }
-  .theme-issue-heading { min-height:36px; }
-  .theme-issue-content { min-width:0; }
   .contribute-grid h3,.official-contribute h3 { margin:0 0 14px; font-size:26px; line-height:1.3; }
   .channel-recommendation { display:block; margin-bottom:12px; }
   .contribute-grid p { margin:0 0 16px; font-size:14px; line-height:1.85; color:var(--muted); }
@@ -225,20 +153,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .contribute-grid p { font-size:14px; }
     .official-contribute { padding-top:24px; }
   }
-  .theme-masked .theme-issue-link { position:relative; color:#fff; }
-  .theme-masked .theme-issue-visual { position:relative; }
-  .theme-masked .theme-issue-visual::after { content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(13,13,11,.68) 0%,rgba(13,13,11,.52) 48%,rgba(13,13,11,0) 78%); pointer-events:none; }
-  .theme-mask-copy { position:absolute; inset:24px; z-index:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; pointer-events:none; }
-  .theme-mask-meta { display:flex; justify-content:space-between; gap:12px; width:100%; font-size:11px; line-height:1.4; letter-spacing:.06em; }
-  .theme-mask-title { margin:14px 0 6px; font:400 26px/1.3 var(--font-serif); }
-  .theme-mask-en { margin:0; font-size:11px; line-height:1.3; letter-spacing:.08em; color:rgba(255,255,255,.85); }
-  .theme-mask-action { display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-size:13px; line-height:1.5; }
-  .theme-mask-arrow { display:inline-block; transition:transform .2s ease; }
-  .theme-masked .theme-issue-link:hover .theme-mask-arrow { transform:translateX(3px); }
-  @media(max-width:700px) {
-    .theme-mask-copy { inset:16px; }
-    .theme-mask-title { margin:10px 0 4px; font-size:22px; }
-    .theme-mask-action { margin-top:10px; }
-  }
-  @media(prefers-reduced-motion:reduce) { .theme-mask-arrow { transition:none; } }
+
+  .contribute-section { position:relative; }
+  .submission-anchor { position:absolute; top:0; left:0; }
 </style>

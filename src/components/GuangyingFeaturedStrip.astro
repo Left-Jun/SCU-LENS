@@ -1,0 +1,115 @@
+---
+import GalleryImage from "./GalleryImage.astro";
+import type { GuangyingPhoto } from "../lib/guangying-exhibitions";
+interface Props { photos: GuangyingPhoto[]; preview?: boolean; }
+const { photos, preview = false }: Props = Astro.props;
+const group = "guangying-featured";
+const altFor = (photo: GuangyingPhoto) => photo.captionInImage
+  ? "光影川大往期作品，标题和署名见图内"
+  : [photo.title, photo.author].filter(Boolean).join(" · ") || "光影川大往期影像";
+---
+{photos.length === 0 ? (
+  <p class="featured-empty">往期影像陆续更新，欢迎投来你的校园作品。</p>
+) : (
+  <div class="featured-strip" data-featured-strip>
+    {preview && <p class="featured-preview-note">展示图片暂作版式预览，精选作品后续更新</p>}
+    <div class:list={["featured-track", { "is-single": photos.length === 1 }]} data-featured-track role="region" aria-label="往期影像照片，可左右滑动" tabindex={photos.length > 1 ? 0 : undefined}>
+      {photos.map((photo, index) => (
+        <figure class="featured-slide" data-featured-slide>
+          <a class="featured-photo" href={photo.originalSrc} draggable="false" data-viewer-open={`${group}:${index}`} aria-label={`放大往期照片：${altFor(photo)}`}>
+            <GalleryImage photo={photo} alt={altFor(photo)} sizes={photos.length === 1 ? "(max-width:1220px) calc(100vw - 40px), 1180px" : "(max-width:700px) calc(100vw - 84px), (max-width:1220px) calc(100vw - 128px), 1092px"} />
+          </a>
+          {!photo.captionInImage && (photo.title || photo.author) && <figcaption>{[photo.title ? `《${photo.title}》` : "", photo.author ? `摄影 / ${photo.author}` : ""].filter(Boolean).join(" · ")}</figcaption>}
+        </figure>
+      ))}
+    </div>
+    {photos.length > 1 ? (
+      <div class="featured-controls" data-featured-controls hidden>
+        <span class="featured-counter" data-featured-counter aria-live="polite" aria-atomic="true">1 / {photos.length}</span>
+        <div class="featured-buttons"><button type="button" data-featured-prev aria-label="上一张往期照片" disabled>←</button><button type="button" data-featured-next aria-label="下一张往期照片">→</button></div>
+      </div>
+    ) : <p class="featured-counter">1 / 1</p>}
+    <div class="viewer-registry" hidden>
+      {photos.map(photo => <span data-viewer-item data-viewer-group={group} data-viewer-src={photo.viewerSrc} data-original-src={photo.originalSrc}
+        data-viewer-alt={altFor(photo)} data-viewer-title={photo.title} data-viewer-author={photo.author}
+        data-viewer-kicker="往期影像" data-viewer-issue="光影川大 · 往期影像" data-viewer-issue-href="/guangying-chuanda#awards" data-viewer-original-label="查看高清图 ↗" />)}
+    </div>
+  </div>
+)}
+<script>
+  document.querySelectorAll<HTMLElement>("[data-featured-strip]").forEach(root => {
+    const track = root.querySelector<HTMLElement>("[data-featured-track]");
+    const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-featured-slide]"));
+    const controls = root.querySelector<HTMLElement>("[data-featured-controls]");
+    const counter = root.querySelector<HTMLElement>("[data-featured-counter]");
+    const prev = root.querySelector<HTMLButtonElement>("[data-featured-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-featured-next]");
+    if (!track || slides.length < 2 || !controls || !counter || !prev || !next) return;
+    controls.hidden = false;
+    let active = 0;
+    let frame = 0;
+    const offset = (index: number) => slides[index].offsetLeft - slides[0].offsetLeft;
+    const render = () => {
+      counter.textContent = `${active + 1} / ${slides.length}`;
+      prev.disabled = active === 0;
+      next.disabled = active === slides.length - 1;
+    };
+    const go = (index: number) => track.scrollTo({
+      left: offset(Math.max(0, Math.min(slides.length - 1, index))),
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
+    prev.addEventListener("click", () => go(active - 1));
+    next.addEventListener("click", () => go(active + 1));
+    track.addEventListener("scroll", () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        active = slides.reduce((best, _, index) => Math.abs(offset(index) - track.scrollLeft) < Math.abs(offset(best) - track.scrollLeft) ? index : best, 0);
+        render();
+      });
+    }, { passive: true });
+    track.addEventListener("keydown", event => {
+      if (document.documentElement.classList.contains("viewer-open")) return;
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        go(active + (event.key === "ArrowRight" ? 1 : -1));
+      }
+    });
+    let startX = 0, startY = 0, dragged = false;
+    let pointer: number | null = null;
+    track.addEventListener("pointerdown", event => { pointer = event.pointerId; startX = event.clientX; startY = event.clientY; dragged = false; }, { passive: true });
+    track.addEventListener("pointermove", event => {
+      if (event.pointerId !== pointer) return;
+      if (Math.abs(event.clientX - startX) > 8 && Math.abs(event.clientX - startX) > Math.abs(event.clientY - startY)) dragged = true;
+    }, { passive: true });
+    window.addEventListener("pointerup", () => { pointer = null; }, { passive: true });
+    window.addEventListener("pointercancel", () => { pointer = null; }, { passive: true });
+    track.addEventListener("click", event => {
+      if (dragged && event.detail > 0) { event.preventDefault(); event.stopPropagation(); }
+      dragged = false;
+    }, true);
+    new ResizeObserver(() => { track.scrollTo({ left: offset(active), behavior: "instant" }); render(); }).observe(track);
+    render();
+  });
+</script>
+<style>
+  .featured-strip { min-width:0; }
+  .featured-preview-note,.featured-empty { margin:0 0 18px; font-size:13px; line-height:1.8; color:var(--muted); }
+  .featured-track { --peek:64px; --gap:24px; display:flex; gap:var(--gap); position:relative; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:thin; scrollbar-color:var(--line) transparent; }
+  .featured-track::after { content:""; flex:0 0 var(--peek); }
+  .featured-slide { flex:0 0 calc(100% - var(--peek) - var(--gap)); min-width:0; margin:0; scroll-snap-align:start; }
+  .featured-photo { display:block; aspect-ratio:3/2; overflow:hidden; cursor:zoom-in; }
+  .featured-photo :global(picture),.featured-photo :global(img) { display:block; width:100%; height:100%; object-fit:cover; }
+  .featured-photo :global(img) { -webkit-user-drag:none; user-select:none; }
+  figcaption { padding-top:8px; font-size:12px; line-height:1.7; color:var(--muted); }
+  .featured-controls { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-top:16px; }
+  .featured-controls[hidden] { display:none; }
+  .featured-counter { font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .featured-buttons { display:flex; gap:12px; }
+  .featured-buttons button { width:44px; height:44px; padding:0; border:1px solid var(--line); background:transparent; color:var(--ink); font:inherit; cursor:pointer; }
+  .featured-buttons button:disabled { opacity:.3; cursor:default; }
+  .featured-photo:focus-visible,.featured-track:focus-visible,.featured-buttons button:focus-visible { outline:2px solid var(--ink); outline-offset:-3px; }
+  .featured-track.is-single { display:block; }
+  .featured-track.is-single::after { display:none; }
+  @media(max-width:700px) { .featured-track { --peek:32px; --gap:12px; } .featured-preview-note { margin-bottom:14px; font-size:12px; } .featured-controls { margin-top:12px; } }
+</style>
