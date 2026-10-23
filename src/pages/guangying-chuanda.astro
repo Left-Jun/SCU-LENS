@@ -67,6 +67,7 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
           <a class="text-link channel-link" href={channelUrl} target="_blank" rel="noreferrer">进入 QQ 频道 ↗</a>
         </div>
         <div class="official-contribute" aria-labelledby="official-title">
+          <span class="channel-recommendation">直接向光影川大投稿</span>
           <h3 id="official-title">官方投稿</h3>
           <p>使用微信扫描下方小程序码，直接向「光影川大」提交作品。</p>
           <SubmissionCodeDialog src={qrSrc} />
@@ -141,4 +142,30 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .contribute-grid p{font-size:13px}.contribute-note{font-size:12px}
   }
   @media(max-width:360px){.official-contribute{grid-template-columns:minmax(0,1fr) 112px;column-gap:12px}.contribute-section .section-display{font-size:28px}}
+
+  .page-shell>section{width:100%;min-width:0;box-sizing:border-box}
+  .section-kicker-row,.calendar-intro,.contribute-grid,.call-details{min-width:0}
+  .section-kicker-row>p,.calendar-intro>p:not(.calendar-statement){width:100%;max-width:none;justify-self:stretch}
+  .contribute-note{width:100%;box-sizing:border-box}
+  @media(min-width:701px){
+    .section-kicker-row,.calendar-intro{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px}
+    .section-kicker-row>p,.calendar-intro>p:not(.calendar-statement){max-width:none;justify-self:stretch}
+    .channel-contribute{padding-right:0}
+    .official-contribute{position:relative;padding-left:0;border-left:0;align-content:start}
+    .official-contribute::before{content:"";position:absolute;left:-24px;top:0;bottom:0;border-left:1px solid var(--line)}
+    .official-contribute>.channel-recommendation{grid-column:1;grid-row:1}
+    .official-contribute h3{grid-column:1;grid-row:2;margin:8px 0 16px}
+    .official-contribute>p{grid-column:1;grid-row:3}
+    .official-contribute :global(.submission-code){grid-column:2;grid-row:1/span 3;width:100%;max-width:none;margin:0}
+  }
+  @media(max-width:700px){
+    .section-kicker-row,.calendar-intro{width:100%;grid-template-columns:minmax(0,1fr)}
+    .calendar-intro .section-display{grid-column:1;grid-row:2}
+    .calendar-intro>.eyebrow,.calendar-intro>p:not(.calendar-statement){grid-column:1}
+    .official-contribute>.channel-recommendation{grid-column:1;grid-row:1}
+    .official-contribute h3{grid-column:1;grid-row:2;margin:0 0 12px}
+    .official-contribute>p{grid-column:1;grid-row:3}
+    .official-contribute :global(.submission-code){grid-column:2;grid-row:1/span 3;width:100%;max-width:none;margin:0}
+    .contribute-grid{width:100%}
+  }
 </style>

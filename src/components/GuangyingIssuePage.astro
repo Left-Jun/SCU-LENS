@@ -21,3 +21,16 @@ const viewerItems = issue.photos.map(photo => ({ src: photo.viewerSrc, original:
   summary="光影川大持续征集校园影像，欢迎用镜头记录川大的风景与日常。"
   contributeHref="/guangying-chuanda#contribute" linkAuthors={false} showPhotoNumbers={false} showWorkType={false} works={works} viewerItems={viewerItems} viewerGroup={`guangying-issue-${issue.slug}`}
   nextTitle={next?.title} nextHref={next?.href ?? "/guangying-chuanda#awards"} />
+
+<style is:global>
+  .guangying-issue .issue-statement-copy>p{max-width:none}
+  .guangying-issue .issue-detail-meta>span:last-child{margin-left:auto;text-align:right}
+  .guangying-issue .issue-work:has(.issue-photo.portrait) .issue-work-caption{max-width:min(72vw,720px);margin-inline:auto}
+  .guangying-issue .issue-next{grid-template-columns:minmax(0,1fr) auto;gap:12px 24px}
+  .guangying-issue .issue-next>.eyebrow{grid-column:1/-1}
+  @media(max-width:700px){
+    .guangying-issue .issue-work:has(.issue-photo.portrait) .issue-work-caption{max-width:100%}
+    .guangying-issue .issue-next{grid-template-columns:minmax(0,1fr)}
+    .guangying-issue .issue-next>a{justify-self:start}
+  }
+</style>
