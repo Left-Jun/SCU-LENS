@@ -8,13 +8,15 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
 {photos.length ? <div class:list={["image-showcase",{compact}]} data-showcase data-count={photos.length}>
   {preview && <p class="preview-note">展示图片暂作版式预览，精选作品后续更新</p>}
   <div class="showcase-stage" tabindex={photos.length>1?0:undefined} role="region" aria-label="影像展示，使用左右键切换">
-    {photos.map((photo,index)=><a hidden={index!==0} class="showcase-image" data-showcase-image href={photo.originalSrc} data-viewer-open={`${groupId}:${index}`} aria-label={`放大照片：${label(photo)}`}>
+    <div class="showcase-track" data-showcase-track>
+    {[...photos, ...(photos.length>1?[photos[0]]:[])].map((photo,index)=><a aria-hidden={index!==0?"true":"false"} tabindex={index!==0?-1:undefined} class="showcase-image" data-showcase-image href={photo.originalSrc} data-viewer-open={`${groupId}:${index%photos.length}`} aria-label={`放大照片：${label(photo)}`}>
       <GalleryImage photo={photo} alt={label(photo)} sizes={compact?"(max-width:700px) calc(100vw - 40px), 740px":"(max-width:1220px) calc(100vw - 40px), 1180px"} priority={compact&&index===0}/>
     </a>)}
+    </div>
   </div>
   <div class="showcase-bar">
     <div class="showcase-caption">{photos.map((photo,index)=><span data-showcase-caption hidden={index!==0}>{photo.captionInImage?"":label(photo)}</span>)}</div>
-    <div class="showcase-actions"><span data-showcase-count>01 / {String(photos.length).padStart(2,"0")}</span>{photos.length>1&&<button type="button" data-showcase-pause aria-label="暂停自动切换" aria-pressed="false">暂停</button>}</div>
+    <div class="showcase-actions"><span data-showcase-count>01 / {String(photos.length).padStart(2,"0")}</span></div>
   </div>
   {!compact&&<>
     {photos.length>1&&<div class="showcase-thumbs" aria-label="选择展示照片">{photos.map((photo,index)=><button type="button" data-showcase-thumb aria-label={`查看第 ${index+1} 张：${label(photo)}`} aria-pressed={index===0?"true":"false"}><GalleryImage photo={photo} alt="" sizes="180px"/><span>{String(index+1).padStart(2,"0")}</span></button>)}</div>}
@@ -28,32 +30,40 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
     const captions=Array.from(root.querySelectorAll<HTMLElement>('[data-showcase-caption]'));
     const thumbs=Array.from(root.querySelectorAll<HTMLButtonElement>('[data-showcase-thumb]'));
     const count=root.querySelector<HTMLElement>('[data-showcase-count]');
-    const pause=root.querySelector<HTMLButtonElement>('[data-showcase-pause]');
+    const track=root.querySelector<HTMLElement>('[data-showcase-track]')!;
+    const total=Number(root.dataset.count);
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-    let active=0,paused=reduced.matches,hover=false,visible=false;
-    const show=(index:number)=>{
-      active=(index+images.length)%images.length;
-      images.forEach((image,i)=>image.hidden=i!==active);
+    let active=0,position=0,visible=false;
+    const move=(index:number,animate=true)=>{
+      position=index;
+      track.style.transition=animate&&!reduced.matches?'transform 650ms cubic-bezier(.22,.61,.36,1)':'none';
+      track.style.transform=`translate3d(${-index*100}%,0,0)`;
+      images.forEach((image,i)=>{image.setAttribute('aria-hidden',String(i!==index));image.tabIndex=i===index?0:-1;});
+    };
+    const show=(index:number,automatic=false)=>{
+      active=(index+total)%total;
+      move(automatic&&index===total?total:active);
       captions.forEach((caption,i)=>caption.hidden=i!==active);
       thumbs.forEach((thumb,i)=>thumb.setAttribute('aria-pressed',String(i===active)));
-      if(count)count.textContent=`${String(active+1).padStart(2,'0')} / ${String(images.length).padStart(2,'0')}`;
+      const strip=root.querySelector<HTMLElement>('.showcase-thumbs');
+      if(strip&&thumbs[active])strip.scrollTo({left:Math.max(0,thumbs[active].offsetLeft-strip.offsetLeft-(strip.clientWidth-thumbs[active].clientWidth)/2),behavior:reduced.matches?'instant':'smooth'});
+      if(count)count.textContent=`${String(active+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
     };
-    const syncPause=()=>{if(pause){pause.textContent=paused?'播放':'暂停';pause.setAttribute('aria-label',paused?'播放自动切换':'暂停自动切换');pause.setAttribute('aria-pressed',String(paused));}};
+    track.addEventListener('transitionend',event=>{if(event.target===track&&position===total)move(0,false);});
     let timer:ReturnType<typeof setInterval>;
-    const restart=()=>{clearInterval(timer);if(images.length>1)timer=setInterval(()=>{if(!paused&&!hover&&visible&&!document.hidden&&!root.contains(document.activeElement)&&!document.documentElement.classList.contains('viewer-open'))show(active+1);},7000);};
+    const restart=()=>{clearInterval(timer);if(total>1)timer=setInterval(()=>{if(!reduced.matches&&visible&&!document.hidden&&!document.documentElement.classList.contains('viewer-open'))show(active+1,true);},7000);};
     thumbs.forEach((thumb,i)=>thumb.addEventListener('click',()=>{show(i);restart();}));
     root.querySelector('.showcase-stage')?.addEventListener('keydown',event=>{const key=(event as KeyboardEvent).key;if(!document.documentElement.classList.contains('viewer-open')&&(key==='ArrowLeft'||key==='ArrowRight')){event.preventDefault();show(active+(key==='ArrowRight'?1:-1));restart();}});
-    pause?.addEventListener('click',()=>{paused=!paused;syncPause();restart();});
-    root.addEventListener('mouseenter',()=>hover=true);root.addEventListener('mouseleave',()=>hover=false);
     new IntersectionObserver(entries=>visible=entries[0].isIntersecting).observe(root);
-    reduced.addEventListener('change',()=>{paused=reduced.matches;syncPause();});
-    syncPause();restart();
+    reduced.addEventListener('change',()=>{move(active,false);restart();});
+    restart();
   });
 </script>
 <style>
   .image-showcase{min-width:0}.preview-note{margin:0 0 20px;font-size:12px;color:var(--muted)}
-  .showcase-stage{position:relative;aspect-ratio:3/2;background:rgba(0,0,0,.025)}
-  .showcase-image{display:block;width:100%;height:100%;cursor:zoom-in}.showcase-image[hidden],[data-showcase-caption][hidden]{display:none}
+  .showcase-stage{position:relative;overflow:hidden;aspect-ratio:3/2;background:rgba(0,0,0,.025)}
+  .showcase-track{display:flex;width:100%;height:100%;will-change:transform}
+  .showcase-image{display:block;flex:0 0 100%;min-width:0;width:100%;height:100%;cursor:zoom-in}[data-showcase-caption][hidden]{display:none}
   .showcase-image :global(picture),.showcase-image :global(img){display:block;width:100%;height:100%;object-fit:cover}
   .showcase-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:52px;font-size:12px;color:var(--muted)}
   .showcase-actions{display:flex;align-items:center;gap:14px;white-space:nowrap;font-variant-numeric:tabular-nums}.showcase-actions button{border:0;background:none;color:inherit;font:inherit;min-height:44px;min-width:44px;cursor:pointer}
