@@ -3,9 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SubmissionCodeDialog from "../components/SubmissionCodeDialog.astro";
 import GuangyingFeaturedStrip from "../components/GuangyingFeaturedStrip.astro";
 import { featuredPhotos, featuredPreview } from "../lib/guangying-featured";
-import GalleryImage from "../components/GalleryImage.astro";
-import { guangyingPhoto } from "../lib/guangying-exhibitions";
+
+import { exhibitions, guangyingPhoto } from "../lib/guangying-exhibitions";
 const openingPhoto = guangyingPhoto("7207c5023eaf61d6bd2b");
+const openingPhotos = [openingPhoto, ...featuredPhotos.filter(photo => photo.id !== openingPhoto.id)];
+const calendar = exhibitions.find(exhibition => exhibition.slug === "calendar")!;
+const calendarPhotos = calendar.sections.flatMap(section => section.photos);
 const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 ---
@@ -23,11 +26,19 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
           <p>光穿过校园，也经过我们的日常。<br />持续征集校园影像，留下你眼中的川大。</p>
           <div class="current-actions"><a class="current-submit" href="#contribute">参与本期征集 →</a><a class="text-link" href="#awards">看看往期影像 ↓</a></div>
         </div>
-        <figure class="opening-photograph">
-          <GalleryImage photo={openingPhoto} alt="逆光下的江安校门，一位骑车人经过门前" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1280px) 60vw, 740px" priority />
-          <figcaption><span>《{openingPhoto.title}》{openingPhoto.author ? ` · ${openingPhoto.author}` : ""}</span><span>选自往期画册</span></figcaption>
-        </figure>
+        <div class="opening-photograph"><GuangyingFeaturedStrip photos={openingPhotos} compact groupId="guangying-opening" /></div>
       </div>
+    </section>
+    <section class="section featured-section" id="awards" aria-labelledby="awards-title">
+      <div class="section-kicker-row">
+        <div><div class="eyebrow">Campus Photography</div><h2 class="section-display" id="awards-title">往期影像</h2></div>
+        <p>看看镜头里的川大，也欢迎投来你的作品。</p>
+      </div>
+      <GuangyingFeaturedStrip photos={featuredPhotos} preview={featuredPreview} />
+    </section>
+    <section class="section calendar-section" aria-labelledby="calendar-title">
+      <div class="calendar-intro"><div class="eyebrow">Through the Seasons</div><h2 class="section-display" id="calendar-title">川大，四时入历。</h2><p>让校园里的光景，陪伴日常的每一页。</p><a class="text-link" href="/guangying-chuanda/calendar">翻阅全部台历选图 →</a></div>
+      <GuangyingFeaturedStrip photos={calendarPhotos.slice(0,6)} groupId="guangying-calendar-preview" allHref="/guangying-chuanda/calendar" />
     </section>
     <section class="section contribute-section" id="contribute" aria-labelledby="contribute-title">
       <span id="submissions" class="submission-anchor" aria-hidden="true"></span>
@@ -60,13 +71,6 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
         </div>
       </div>
       <p class="contribute-note">同一作品选择一种方式提交即可，两个入口的投稿不会自动同步。</p>
-    </section>
-    <section class="section featured-section" id="awards" aria-labelledby="awards-title">
-      <div class="section-kicker-row">
-        <div><div class="eyebrow">Campus Photography</div><h2 class="section-display" id="awards-title">往期影像</h2></div>
-        <p>看看镜头里的川大，也欢迎投来你的作品。</p>
-      </div>
-      <GuangyingFeaturedStrip photos={featuredPhotos} preview={featuredPreview} />
     </section>
   </div>
 </BaseLayout>
@@ -154,6 +158,10 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .official-contribute { padding-top:24px; }
   }
 
+  .calendar-section { display:grid; grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr); gap:48px; align-items:center; }
+  .calendar-intro p { color:var(--muted); font-size:14px; line-height:1.8; }
+  .calendar-intro a { display:inline-flex; align-items:center; min-height:44px; margin-top:20px; font-size:13px; }
+  @media(max-width:700px) { .calendar-section { grid-template-columns:1fr; gap:24px; } }
   .contribute-section { position:relative; }
   .submission-anchor { position:absolute; top:0; left:0; }
 </style>
