@@ -35,8 +35,9 @@ const { exhibition, issue }: Props = Astro.props;
   .exhibition-heading p { color:var(--muted); font-size:.9rem; margin:10px 0 0; }
   .exhibition-heading .exhibition-count { color:var(--muted); font-size:12px; margin:0; padding-block:16px; border-top:1px solid var(--line); }
   .collection-call { padding-block:24px; border-top:1px solid var(--line); }
-  .collection-call p { margin:0 0 8px; font-size:14px; line-height:1.85; color:var(--muted); }
-  .collection-call a { display:inline-flex; align-items:center; min-height:44px; font-size:13px; }
+  .collection-call p { margin:0 0 8px; font-size:var(--font-body); line-height:var(--line-body); color:var(--muted); }
+  .collection-call a { display:inline-block;position:relative;font-size:.86rem; }
+  .collection-call a::before {content:"";position:absolute;inset:-8px 0;min-height:44px;}
   .chapter-links { display:flex; flex-wrap:wrap; gap:4px 26px; padding:12px 0; border-block:1px solid var(--line); margin-bottom:24px; }
   .chapter-links a { display:inline-flex; align-items:center; min-height:44px; font-size:.85rem; } .chapter-links span { margin-left:8px; color:var(--muted); font-size:.68rem; }
   .exhibition-chapter { scroll-margin-top:110px; margin-bottom:48px; }

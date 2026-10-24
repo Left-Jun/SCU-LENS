@@ -34,4 +34,10 @@ const viewerItems = issue.photos.map(photo => ({ src: photo.viewerSrc, original:
     .guangying-issue .issue-next>a{justify-self:start}
     .guangying-issue .issue-detail-meta>span:last-child{margin-left:0;text-align:left}
   }
+
+  .page-shell.guangying-issue .issue-statement .issue-statement-copy>p{font-size:var(--font-body);line-height:var(--line-body)}
+  .page-shell.guangying-issue .issue-statement .issue-statement-copy>a.text-link,
+  .page-shell.guangying-issue .issue-next>a.text-link{display:inline-block;position:relative;min-height:0;padding:0 0 5px;font-size:.86rem;line-height:var(--line-body)}
+  .page-shell.guangying-issue .issue-statement .issue-statement-copy>a::before,
+  .page-shell.guangying-issue .issue-next>a::before{content:"";position:absolute;inset:-8px 0;min-height:44px}
 </style>

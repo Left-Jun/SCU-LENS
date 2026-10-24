@@ -138,4 +138,9 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
     .image-showcase .showcase-footer>a{min-height:44px;padding:0;border:0;font-size:12px;font-weight:500;line-height:1.4}
     .image-showcase .showcase-thumbs button{background:transparent;box-shadow:none}
   }
+
+  .image-showcase .showcase-bar{min-height:0;padding:6px 0}
+  .image-showcase .showcase-footer{margin-top:0;min-height:0;align-items:center}
+  .image-showcase .showcase-footer>a{display:inline-block;position:relative;min-height:0;padding:0 0 5px;border-bottom:1px solid var(--ink);font-size:.86rem;font-weight:600;line-height:var(--line-body)}
+  .image-showcase .showcase-footer>a::before{content:"";position:absolute;inset:-8px 0;min-height:44px}
 </style>
