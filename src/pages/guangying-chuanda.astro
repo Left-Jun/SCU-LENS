@@ -168,4 +168,10 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
     .official-contribute :global(.submission-code){grid-column:2;grid-row:1/span 3;width:100%;max-width:none;margin:0}
     .contribute-grid{width:100%}
   }
+  @media(max-width:700px){
+    .opening-brand,.opening-copy,.opening-kicker,.calendar-intro,.section-kicker-row,.call-notes,.contribute-grid,.contribute-note{text-align:left}
+    .calendar-intro>p:not(.calendar-statement),.section-kicker-row>p{justify-self:start;text-align:left}
+    .current-actions{justify-content:flex-start}
+    .official-contribute :global(.submission-code figcaption){text-align:left}
+  }
 </style>
