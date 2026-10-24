@@ -20,7 +20,7 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
   </div>
   {!compact&&<>
     {photos.length>1&&<div class="showcase-thumbs" aria-label="选择展示照片">{photos.map((photo,index)=><button type="button" data-showcase-thumb aria-label={`查看第 ${index+1} 张：${label(photo)}`} aria-pressed={index===0?"true":"false"}><GalleryImage photo={photo} alt="" sizes="180px"/></button>)}</div>}
-    <div class="showcase-footer"><span>点击大图，放大欣赏</span><a class="text-link" href={allHref}>查看全部 →</a></div>
+    <div class="showcase-footer"><span>点击大图，放大欣赏</span><slot name="mobile-action" /><a class="text-link" href={allHref}>查看全部 →</a></div>
   </>}
   <div hidden>{photos.map(photo=><span data-viewer-item data-viewer-group={groupId} data-viewer-src={photo.viewerSrc} data-original-src={photo.originalSrc} data-viewer-alt={label(photo)} data-viewer-title={photo.title} data-viewer-author={photo.author} data-viewer-kicker="光影川大" data-viewer-issue="返回光影川大" data-viewer-issue-href={sideThumbs?"/guangying-chuanda#calendar":"/guangying-chuanda#awards"}/>)}</div>
 </div>:<p>往期影像陆续更新。</p>}

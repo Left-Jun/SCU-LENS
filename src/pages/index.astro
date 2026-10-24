@@ -99,7 +99,9 @@ const monthlyTiles = [
           <a class="text-link" href="/guangying-chuanda#contribute">参与征集 <span>↗</span></a>
         </div>
       </div>
-      <GuangyingFeaturedStrip photos={calendarPhotos} sideThumbs groupId="home-guangying-calendar" allHref="/guangying-chuanda" />
+      <GuangyingFeaturedStrip photos={calendarPhotos} sideThumbs groupId="home-guangying-calendar" allHref="/guangying-chuanda">
+        <a slot="mobile-action" class="text-link home-guangying-mobile-submit" href="/guangying-chuanda#contribute">参与征集 <span>↗</span></a>
+      </GuangyingFeaturedStrip>
     </section>
 
     <section class="section works-channel-section">
@@ -198,8 +200,14 @@ const monthlyTiles = [
   .home-guangying-text p{max-width:44em;margin:0;font-size:var(--font-body);line-height:var(--line-body);color:var(--muted)}
   .home-guangying-text>a{position:relative;display:inline-block;white-space:nowrap}
   .home-guangying-text>a::before{content:"";position:absolute;inset:-8px 0;min-height:44px}
+  .home-guangying-mobile-submit{display:none;position:relative;white-space:nowrap}
+  .home-guangying-mobile-submit::before{content:"";position:absolute;inset:-8px 0;min-height:44px}
   @media(max-width:700px){
     .home-guangying{gap:14px}
+    .home-guangying-text>a{display:none}
+    .home-guangying-mobile-submit{display:inline-block}
+    .home-guangying :global(.image-showcase.side-thumbs .showcase-footer){justify-content:flex-end;flex-wrap:nowrap;gap:20px}
+    .home-guangying :global(.image-showcase.side-thumbs .showcase-footer>a){margin-left:0;white-space:nowrap}
     .home-guangying-copy{grid-template-columns:56px minmax(0,1fr);gap:16px}
     .home-guangying-copy img{height:68px}
   }
