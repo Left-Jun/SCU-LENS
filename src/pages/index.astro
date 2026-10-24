@@ -94,8 +94,10 @@ const monthlyTiles = [
     <section class="section home-guangying" aria-label="光影川大联合征稿">
       <div class="home-guangying-copy">
         <h2><img src="/images/guangying-chuanda/logo.svg" alt="光影川大" width="160" height="193" loading="lazy" decoding="async" /></h2>
-        <p>参与光影川大征集，入选作品有机会在线下展出，并用于川大台历等文创产品设计。</p>
-        <a class="text-link" href="/guangying-chuanda#contribute">参与征集 <span>↗</span></a>
+        <div class="home-guangying-text">
+          <p>参与光影川大征集，入选作品有机会在线下展出，并用于川大台历等文创产品设计。</p>
+          <a class="text-link" href="/guangying-chuanda#contribute">参与征集 <span>↗</span></a>
+        </div>
       </div>
       <GuangyingFeaturedStrip photos={calendarPhotos} sideThumbs groupId="home-guangying-calendar" allHref="/guangying-chuanda" />
     </section>
@@ -188,18 +190,21 @@ const monthlyTiles = [
 </BaseLayout>
 
 <style>
-  .home-guangying{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;padding-block:32px}
-  .home-guangying-copy{display:grid;grid-template-columns:116px minmax(0,1fr);align-content:center;align-items:center;gap:4px 32px;min-width:0;text-align:left}
-  .home-guangying-copy h2{grid-row:1/span 2;margin:0;line-height:1}
+  .home-guangying{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding-block:var(--space-heading-gap)}
+  .home-guangying-copy{display:grid;grid-template-columns:116px minmax(0,1fr);align-items:center;gap:24px;min-width:0;text-align:left}
+  .home-guangying-copy h2{margin:0;line-height:1}
   .home-guangying-copy img{display:block;width:auto;height:116px;max-width:100%}
-  .home-guangying-copy p{max-width:44em;margin:0;font-size:16px;line-height:1.55;color:var(--muted)}
-  .home-guangying-copy>a{display:inline-flex;align-items:center;grid-column:2;justify-self:start;gap:8px;min-height:44px;font-size:14px;white-space:nowrap}
+  .home-guangying-text{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+  .home-guangying-text p{max-width:44em;margin:0;font-size:var(--font-body);line-height:var(--line-body);color:var(--muted)}
+  .home-guangying-text>a{position:relative;display:inline-block;white-space:nowrap}
+  .home-guangying-text>a::before{content:"";position:absolute;inset:-8px 0;min-height:44px}
+  .home-guangying :global(.showcase-bar){min-height:0;padding:6px 0}
+  .home-guangying :global(.showcase-footer){margin-top:0;min-height:0;align-items:center}
+  .home-guangying :global(.showcase-footer>a){display:inline-block;position:relative;min-height:0;padding:0 0 5px;border-bottom:1px solid var(--ink);font-size:.86rem;font-weight:600;line-height:var(--line-body)}
+  .home-guangying :global(.showcase-footer>a)::before{content:"";position:absolute;inset:-8px 0;min-height:44px}
   @media(max-width:700px){
-    .home-guangying{gap:16px;padding-block:28px}
-    .home-guangying-copy{grid-template-columns:56px minmax(0,1fr);gap:4px 20px;align-items:start}
-    .home-guangying-copy h2{grid-row:1/span 2;align-self:center}.home-guangying-copy img{height:68px}
-    .home-guangying-copy p{font-size:14px;line-height:1.5}
-    .home-guangying-copy>a{grid-column:2;justify-self:start;min-height:44px;align-self:start;font-size:13px}
+    .home-guangying{gap:14px}
+    .home-guangying-copy{grid-template-columns:56px minmax(0,1fr);gap:16px}
+    .home-guangying-copy img{height:68px}
   }
-  @media(max-width:360px){.home-guangying-copy{column-gap:16px}}
 </style>
