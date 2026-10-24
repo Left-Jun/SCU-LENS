@@ -15,7 +15,7 @@ const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 ---
 <BaseLayout title="光影川大 · SCU LENS" description="光影川大联合征稿与投稿入口，记录四川大学的校园影像。" active="/guangying-chuanda">
-  <div class="page-shell">
+  <div class="page-shell guangying-home">
     <section class="guangying-opening" aria-labelledby="current-call-title">
       <div class="opening-main">
         <div class="opening-brand">
@@ -178,4 +178,15 @@ const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
   .calendar-intro>.eyebrow,.calendar-intro .section-display,.calendar-intro>p:not(.calendar-statement){text-align:left;justify-self:start}
   .calendar-intro>p:not(.calendar-statement){margin:12px 0 0;width:100%;max-width:none;line-height:1.6}
   @media(max-width:700px){.calendar-intro{margin-bottom:0}.call-details{gap:14px}}
+  @media(max-width:900px){
+    .guangying-home .section-kicker-row{display:block;width:100%;align-items:flex-start;justify-content:flex-start;margin:0 0 14px;text-align:left}
+    .guangying-home .section-kicker-row>div{display:block;width:100%;margin:0;text-align:left}
+    .guangying-home .section-kicker-row>p{width:100%;max-width:none;margin:8px 0 0;text-align:left;line-height:1.45}
+    .guangying-home .section-display,.guangying-home .calendar-intro .section-display{font-size:26px;line-height:1.2;margin:6px 0 0;text-align:left}
+    .guangying-home .eyebrow{font-size:10px;line-height:1.35;letter-spacing:.1em}
+    .guangying-home .calendar-intro{display:block;margin:0;text-align:left}
+    .guangying-home .calendar-intro>p:not(.calendar-statement){margin:8px 0 0;line-height:1.45}
+    .guangying-home .section{padding-block:22px}.guangying-home .calendar-section{gap:14px}
+    .guangying-home .contribute-intro,.guangying-home .contribute-grid p,.guangying-home .call-details dd,.guangying-home .contribute-note{line-height:1.5}
+  }
 </style>
