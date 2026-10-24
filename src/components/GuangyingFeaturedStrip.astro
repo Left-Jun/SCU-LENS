@@ -7,9 +7,9 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
 ---
 {photos.length ? <div class:list={["image-showcase",{compact, "side-thumbs":sideThumbs}]} data-showcase data-count={photos.length}>
   {preview && <p class="preview-note">展示图片暂作版式预览，精选作品后续更新</p>}
-  <div class="showcase-stage" style={`aspect-ratio:${photos[0].width} / ${photos[0].height}`} tabindex={photos.length>1?0:undefined} role="region" aria-label="影像展示，使用左右键切换">
+  <div class="showcase-stage" tabindex={photos.length>1?0:undefined} role="region" aria-label="影像展示，使用左右键切换">
     <div class="showcase-track" data-showcase-track>
-    {[...photos, ...(photos.length>1?[photos[0]]:[])].map((photo,index)=><a aria-hidden={index!==0?"true":"false"} tabindex={index!==0?-1:undefined} class="showcase-image" draggable="false" data-showcase-image data-photo-ratio={`${photo.width} / ${photo.height}`} href={photo.originalSrc} data-viewer-open={`${groupId}:${index%photos.length}`} aria-label={`放大照片：${label(photo)}`}>
+    {[...photos, ...(photos.length>1?[photos[0]]:[])].map((photo,index)=><a aria-hidden={index!==0?"true":"false"} tabindex={index!==0?-1:undefined} class="showcase-image" draggable="false" data-showcase-image href={photo.originalSrc} data-viewer-open={`${groupId}:${index%photos.length}`} aria-label={`放大照片：${label(photo)}`}>
       <GalleryImage photo={photo} alt={label(photo)} sizes={compact?"(max-width:700px) calc(100vw - 40px), 740px":"(max-width:1220px) calc(100vw - 40px), 1180px"} priority={compact&&index===0}/>
     </a>)}
     </div>
@@ -46,8 +46,6 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
     };
     const move=(index:number,animate=true)=>{
       prepare(index);prepare((index+1)%images.length);
-      const ratio=images[index]?.dataset.photoRatio;
-      if(stage&&ratio)stage.style.aspectRatio=ratio;
       position=index;
       track.style.transition=animate&&!reduced.matches?'transform 650ms cubic-bezier(.22,.61,.36,1)':'none';
       track.style.transform=`translate3d(${-index*100}%,0,0)`;
@@ -81,7 +79,6 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
       const dx=event.clientX-startX,dy=event.clientY-startY;
       if(total>1&&Math.abs(dx)>36&&Math.abs(dx)>Math.abs(dy)){swiped=true;show(active+(dx<0?1:-1));restart();}
     });
-    stage?.addEventListener('transitionend',event=>{if(event.target===stage&&event.propertyName==='aspect-ratio')revealThumb();});
     stage?.addEventListener('pointercancel',()=>{pointer=null;});
     stage?.addEventListener('click',event=>{if(swiped&&event.detail>0){event.preventDefault();event.stopPropagation();}swiped=false;},true);
     new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){prepare(position);prepare((position+1)%images.length);}}).observe(root);
@@ -91,14 +88,14 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
 </script>
 <style>
   .image-showcase{min-width:0;width:100%;max-width:100%}.preview-note{margin:0 0 20px;font-size:12px;color:var(--muted)}
-  .showcase-stage{position:relative;overflow:hidden;width:100%;min-width:0;height:auto;max-height:none;transition:aspect-ratio 650ms ease;touch-action:pan-y pinch-zoom}
+  .showcase-stage{position:relative;overflow:hidden;width:100%;min-width:0;height:auto;aspect-ratio:3/2;max-height:none;touch-action:pan-y pinch-zoom}
   .showcase-track{display:flex;width:100%;height:100%;will-change:transform}
   .showcase-image{display:block;flex:0 0 100%;min-width:0;width:100%;height:100%;cursor:zoom-in}
   .showcase-image :global(picture),.showcase-image :global(img){display:block;width:100%;height:100%;object-fit:contain;object-position:center}
   .showcase-image :global(img){user-select:none;-webkit-user-drag:none}
   [data-showcase-caption][hidden]{display:none}
   .showcase-bar{display:flex;justify-content:space-between;align-items:start;gap:16px;min-height:42px;padding:10px 0;font-size:12px;color:var(--muted)}
-  .showcase-caption{min-width:0;line-height:1.7;overflow-wrap:anywhere}.showcase-actions{flex-shrink:0;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.7}
+  .showcase-caption{min-width:0;line-height:1.5;overflow-wrap:anywhere}.showcase-actions{flex-shrink:0;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.5}
   .showcase-thumbs{position:relative;display:flex;gap:12px;overflow-x:auto;padding:3px 0 6px;scrollbar-width:thin}
   .showcase-thumbs button{position:relative;flex:1 0 calc((100% - 60px)/6);min-width:80px;min-height:44px;max-width:200px;aspect-ratio:3/2;padding:0;border:0;background:rgba(255,255,255,.3);opacity:.65;cursor:pointer}
   .showcase-thumbs button[aria-pressed="true"]{opacity:1;outline:2px solid var(--ink);outline-offset:-3px}
@@ -112,7 +109,7 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
   .side-thumbs .showcase-thumbs button{flex:0 0 auto;min-width:0;max-width:none;width:100%;aspect-ratio:3/2}
   .side-thumbs .showcase-footer{grid-column:1/-1;grid-row:3}
   @media(max-width:700px){
-    .showcase-stage{width:100%;max-height:none}.showcase-bar{gap:12px;font-size:11px}
+    .showcase-stage{width:100%;aspect-ratio:4/3;max-height:none}.showcase-bar{gap:12px;font-size:11px}
     .showcase-thumbs{gap:8px}.showcase-thumbs button{flex:0 0 25%;min-width:72px}
     .showcase-footer{font-size:11px}.showcase-footer a{font-size:12px}
     .side-thumbs{grid-template-columns:minmax(0,1fr) 52px;column-gap:8px}
@@ -129,5 +126,4 @@ const label=(p:GuangyingPhoto)=>[p.title,p.author].filter(Boolean).join(" · ")|
     .showcase-footer{justify-content:flex-start;flex-wrap:wrap;gap:8px 20px;text-align:left}
     .showcase-footer>a{margin-left:0;text-align:left}
   }
-  @media(prefers-reduced-motion:reduce){.showcase-stage{transition:none}}
 </style>
