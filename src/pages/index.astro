@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import GuangyingFeaturedStrip from "../components/GuangyingFeaturedStrip.astro";
+import { exhibitions } from "../lib/guangying-exhibitions";
+const calendarPhotos = exhibitions.find(exhibition => exhibition.slug === "calendar")!.sections.flatMap(section => section.photos);
 import { galleryPhoto, monthlyNinePhotoIds } from "../lib/monthly-nine";
 
 const lotus=galleryPhoto(monthlyNinePhotoIds.jianganGreen2026.ze);
@@ -88,6 +91,15 @@ const monthlyTiles = [
       </div>
     </section>
 
+    <section class="section home-guangying" aria-label="光影川大联合征稿">
+      <div class="home-guangying-copy">
+        <h2><img src="/images/guangying-chuanda/logo.svg" alt="光影川大" width="160" height="193" loading="lazy" decoding="async" /></h2>
+        <p>参与光影川大征集，入选作品有机会在线下展出，并用于川大台历等文创产品设计。</p>
+        <a class="text-link" href="/guangying-chuanda#contribute">参与征集 <span>↗</span></a>
+      </div>
+      <GuangyingFeaturedStrip photos={calendarPhotos} sideThumbs groupId="home-guangying-calendar" allHref="/guangying-chuanda" />
+    </section>
+
     <section class="section works-channel-section">
       <div class="section-kicker-row">
         <div>
@@ -174,3 +186,23 @@ const monthlyTiles = [
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .home-guangying{display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+  .home-guangying-copy{min-width:0;text-align:left}
+  .home-guangying-copy h2{margin:0 0 24px;line-height:1}
+  .home-guangying-copy img{display:block;width:auto;height:160px;max-width:100%}
+  .home-guangying-copy p{max-width:29em;margin:0 0 18px;font-size:15px;line-height:1.6;color:var(--muted)}
+  .home-guangying-copy>a{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:13px}
+  @media(max-width:900px){
+    .home-guangying{grid-template-columns:minmax(0,1fr);gap:20px}
+    .home-guangying-copy{display:grid;grid-template-columns:92px minmax(0,1fr);gap:8px 24px;align-items:start}
+    .home-guangying-copy h2{grid-row:1/span 2;margin:0}.home-guangying-copy img{height:112px}
+    .home-guangying-copy p{max-width:none;margin:0;font-size:14px;line-height:1.5}
+    .home-guangying-copy>a{justify-self:start;align-self:end}
+  }
+  @media(max-width:400px){
+    .home-guangying-copy{grid-template-columns:74px minmax(0,1fr);column-gap:16px}
+    .home-guangying-copy img{height:88px}.home-guangying-copy p{font-size:13px}
+  }
+</style>
