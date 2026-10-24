@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GuangyingFeaturedStrip from "../components/GuangyingFeaturedStrip.astro";
 import { exhibitions } from "../lib/guangying-exhibitions";
-const calendarPhotos = exhibitions.find(exhibition => exhibition.slug === "calendar")!.sections.flatMap(section => section.photos);
+const calendarPhotos = exhibitions.find(exhibition => exhibition.slug === "calendar")!.photos;
 import { galleryPhoto, monthlyNinePhotoIds } from "../lib/monthly-nine";
 
 const lotus=galleryPhoto(monthlyNinePhotoIds.jianganGreen2026.ze);

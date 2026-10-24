@@ -8,6 +8,8 @@ export function getStaticPaths() {
 }
 interface Props { exhibition: (typeof exhibitions)[number]; issue?: (typeof themeIssues)[number]; }
 const { exhibition, issue }: Props = Astro.props;
+const allPhotos = { id: "all", title: exhibition.title, photoIds: exhibition.photos.map(photo => photo.id), photos: exhibition.photos };
+const chapterAnchors = Object.fromEntries(exhibition.sections.map(section => [section.photos[0].id, section.id]));
 ---
 {issue ? <GuangyingIssuePage issue={issue} /> : <BaseLayout title={`${exhibition.title} · 光影川大 · SCU LENS`} description={exhibition.description} active="/guangying-chuanda">
   <div class="page-shell exhibition-page">
@@ -17,13 +19,9 @@ const { exhibition, issue }: Props = Astro.props;
       <p class="exhibition-count">{exhibition.count} 张照片 · 往期画册</p>
     </header>
     <div class="collection-call"><p>光影川大持续征集校园影像，欢迎记录川大的风景与日常。</p><a class="text-link" href="/guangying-chuanda#contribute">查看投稿方式 →</a></div>
-    {exhibition.sections.length > 1 && <nav class="chapter-links" aria-label="展览主题">{exhibition.sections.map(section => <a href={`#${section.id}`}>{section.title}<span>{section.photos.length}</span></a>)}</nav>}
-    {exhibition.sections.map((section, index) => (
-      <section class="exhibition-chapter" id={section.id} aria-labelledby={`${section.id}-title`}>
-        <div class="chapter-heading"><h2 id={`${section.id}-title`}>{section.title}</h2><span>{section.photos.length} 张</span></div>
-        <GuangyingPhotoGrid exhibition={exhibition} section={section} priority={index === 0} />
-      </section>
-    ))}
+    <section class="exhibition-chapter" aria-label="全部往期影像">
+      <GuangyingPhotoGrid exhibition={exhibition} section={allPhotos} priority anchorIds={chapterAnchors} />
+    </section>
     <a class="back-link text-link" href="/guangying-chuanda#awards">← 返回展览目录</a>
   </div>
 </BaseLayout>}

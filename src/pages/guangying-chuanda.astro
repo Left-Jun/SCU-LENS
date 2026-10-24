@@ -6,9 +6,9 @@ import GuangyingFeaturedStrip from "../components/GuangyingFeaturedStrip.astro";
 
 import { exhibitions } from "../lib/guangying-exhibitions";
 const album = exhibitions.find(exhibition => exhibition.slug === "album")!;
-const albumPhotos = album.sections.flatMap(section => section.photos);
+const albumPhotos = album.photos;
 const calendar = exhibitions.find(exhibition => exhibition.slug === "calendar")!;
-const calendarPhotos = calendar.sections.flatMap(section => section.photos);
+const calendarPhotos = calendar.photos;
 const qrSrc = "/images/guangying-chuanda/submission-code.jpg";
 const channelUrl = "https://pd.qq.com/s/g39qgegw0?b=9";
 ---

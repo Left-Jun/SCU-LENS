@@ -5,13 +5,14 @@ interface Props {
   exhibition: (typeof exhibitions)[number];
   section: (typeof exhibitions)[number]["sections"][number];
   priority?: boolean;
+  anchorIds?: Record<string,string>;
 }
-const { exhibition, section, priority = false }: Props = Astro.props;
+const { exhibition, section, priority = false, anchorIds = {} }: Props = Astro.props;
 const group = `exhibition-${exhibition.slug}-${section.id}`;
 ---
 <div class="photo-grid">
   {section.photos.map((photo, index) => (
-    <figure>
+    <figure id={anchorIds[photo.id]}>
       <a href={photo.originalSrc} data-viewer-open={`${group}:${index}`} aria-label={`打开看图：${photo.title}`}>
         <GalleryImage photo={photo} alt={[photo.title, photo.author].filter(Boolean).join(" · ")} sizes="(max-width:1220px) calc(100vw - 40px), 1180px" priority={priority && index === 0} />
       </a>
